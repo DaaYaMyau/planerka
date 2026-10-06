@@ -1,0 +1,49 @@
+<%= form_with(model: story) do |form| %>
+  <% if story.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(story.errors.count, "error") %> prohibited this story from being saved:</h2>
+
+      <ul>
+        <% story.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :article_id, style: "display: block" %>
+    <%= form.text_field :article_id %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.textarea :body %>
+  </div>
+
+  <div>
+    <%= form.label :grade, style: "display: block" %>
+    <%= form.number_field :grade %>
+  </div>
+
+  <% if current_user.is_admin? %>
+    <div>
+      <%= form.label :status, style: "display: block" %>
+      <%= form.number_field :status %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :anonymous, style: "display: block" %>
+    <%= form.checkbox :anonymous %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

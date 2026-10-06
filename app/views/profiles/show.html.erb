@@ -1,0 +1,17 @@
+<h1>Профиль</h1>
+<p><%= current_user.email %></p>
+
+<h2>Мои истории</h2>
+<% if @stories.any? %>
+  <% @stories.each do |story| %>
+    <p><%= link_to story.title, story %> — <%= story.status %></p>
+  <% end %>
+<% else %>
+  <p>Вы ещё не рассказали ни одной истории. <%= link_to "Рассказать", new_story_path %></p>
+<% end %>
+
+<h2>Сохранённое</h2>
+<p>Скоро здесь появятся сохранённые истории.</p>
+
+<h2>Настройки и анонимность</h2>
+<p><%= link_to "Сменить email или пароль", edit_user_registration_path %></p>

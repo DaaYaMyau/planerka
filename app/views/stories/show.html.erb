@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @story %>
+
+<div>
+  <% if can? :update, @story %>
+    <%= link_to "Редактировать", edit_story_path(@story) %>
+  <% end %> |
+  <%= link_to "Back to stories", stories_path %>
+
+  <% if can? :destroy, @story %>
+    <%= button_to "Удалить", @story, method: :delete %>
+  <% end %>
+</div>

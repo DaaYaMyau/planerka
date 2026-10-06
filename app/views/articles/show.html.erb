@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @article %>
+
+<div>
+<%= link_to "Назад к статьям", articles_path %>
+
+<% if can? :update, @article %>
+  | <%= link_to "Редактировать", edit_article_path(@article) %>
+<% end %>
+
+<% if can? :destroy, @article %>
+  <%= button_to "Удалить", @article, method: :delete %>
+<% end %>
+</div>

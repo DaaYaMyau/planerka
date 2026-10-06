@@ -1,0 +1,24 @@
+<section>
+  <h1>Это у меня одной такая жесть?</h1>
+  <p>Истории молодых специалистов о том, как на самом деле работается.</p>
+</section>
+
+<% @stories.each do |story| %>
+  <article>
+    <h2><%= link_to story.title, story %></h2>
+
+    <p>
+      <%= story.grade %> ·
+      <%= story.anonymous? ? "Анонимно" : story.user.email.split("@").first %> ·
+      <%= story.created_at.strftime("%d.%m.%Y") %>
+    </p>
+
+    <p><%= truncate(story.body, length: 200) %></p>
+
+    <p>
+      <% story.tags.each do |tag| %>
+        #<%= tag.name %>
+      <% end %>
+    </p>
+  </article>
+<% end %>

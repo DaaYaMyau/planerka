@@ -23,7 +23,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+<body>
+  <%= render "menubar" %>
+
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+
+  <main>
     <%= yield %>
-  </body>
+  </main>
+</body>
 </html>
