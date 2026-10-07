@@ -37,8 +37,11 @@ class StoriesController < ApplicationController
 
   # PATCH/PUT /stories/1 or /stories/1.json
   def update
+    @story.assign_attributes(story_params)
+    @story.status = "pending" unless current_user.is_admin?
+
     respond_to do |format|
-      if @story.update(story_params)
+      if @story.save
         format.html { redirect_to @story, notice: "Story was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @story }
       else

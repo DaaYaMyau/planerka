@@ -17,8 +17,8 @@
   </div>
 
   <div>
-    <%= form.label :kind, style: "display: block" %>
-    <%= form.number_field :kind %>
+    <%= form.label :kind, "Тип", style: "display: block" %>
+    <%= form.select :kind, Tag.kinds.keys %>
   </div>
 
   <div>
