@@ -29,14 +29,13 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/blob/develop/docs/define_check_abilities.md
 
-    #guest
-    can :read, Story, status: "published"
-    can :read, Article
+  can :show, Story, status: "published"
+  can :read, Article
 
-    return unless user.present?
+  return unless user.present?
 
-    can :create, Story
-    can [:read, :update, :destroy], Story, user_id: user.id
+  can :create, Story
+  can [:show, :update, :destroy], Story, user_id: user.id
 
     return unless user.is_admin?
 

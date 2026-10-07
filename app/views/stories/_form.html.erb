@@ -1,7 +1,7 @@
 <%= form_with(model: story) do |form| %>
   <% if story.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(story.errors.count, "error") %> prohibited this story from being saved:</h2>
+      <h2>Не удалось сохранить историю:</h2>
 
       <ul>
         <% story.errors.each do |error| %>
@@ -12,38 +12,48 @@
   <% end %>
 
   <div>
-    <%= form.label :article_id, style: "display: block" %>
-    <%= form.text_field :article_id %>
-  </div>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
+    <%= form.label :title, "Заголовок", style: "display: block" %>
     <%= form.text_field :title %>
   </div>
 
   <div>
-    <%= form.label :body, style: "display: block" %>
-    <%= form.textarea :body %>
+    <%= form.label :body, "Ваша история", style: "display: block" %>
+    <%= form.textarea :body, rows: 10 %>
   </div>
 
   <div>
-    <%= form.label :grade, style: "display: block" %>
-    <%= form.number_field :grade %>
+    <%= form.label :grade, "Ваш грейд", style: "display: block" %>
+    <%= form.select :grade, Story.grades.keys %>
+  </div>
+
+  <div>
+    <p>Профессия</p>
+    <%= form.collection_check_boxes :tag_ids, Tag.profession, :id, :name %>
+  </div>
+
+  <div>
+    <p>Тема</p>
+    <%= form.collection_check_boxes :tag_ids, Tag.topic, :id, :name %>
+  </div>
+
+  <div>
+    <%= form.checkbox :anonymous %>
+    <%= form.label :anonymous, "Опубликовать анонимно" %>
   </div>
 
   <% if current_user.is_admin? %>
     <div>
-      <%= form.label :status, style: "display: block" %>
-      <%= form.number_field :status %>
+      <%= form.label :status, "Статус", style: "display: block" %>
+      <%= form.select :status, Story.statuses.keys %>
+    </div>
+
+    <div>
+      <%= form.label :article_id, "Статья", style: "display: block" %>
+      <%= form.collection_select :article_id, Article.all, :id, :title, include_blank: "Без статьи" %>
     </div>
   <% end %>
 
   <div>
-    <%= form.label :anonymous, style: "display: block" %>
-    <%= form.checkbox :anonymous %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= form.submit "Сохранить" %>
   </div>
 <% end %>

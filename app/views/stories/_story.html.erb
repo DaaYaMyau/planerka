@@ -1,37 +1,25 @@
 <div id="<%= dom_id story %>">
-  <div>
-    <strong>User:</strong>
-    <%= story.user_id %>
-  </div>
+  <h2><%= story.title %></h2>
 
-  <div>
-    <strong>Article:</strong>
-    <%= story.article_id %>
-  </div>
+  <p>
+    <%= story.grade %> ·
+    <%= story.anonymous? ? "Анонимно" : story.user.email.split("@").first %> ·
+    <%= story.created_at.strftime("%d.%m.%Y") %>
+  </p>
 
-  <div>
-    <strong>Title:</strong>
-    <%= story.title %>
-  </div>
+  <p><%= story.body %></p>
 
-  <div>
-    <strong>Body:</strong>
-    <%= story.body %>
-  </div>
+  <p>
+    <% story.tags.each do |tag| %>
+      #<%= tag.name %>
+    <% end %>
+  </p>
 
-  <div>
-    <strong>Grade:</strong>
-    <%= story.grade %>
-  </div>
+  <% if story.article %>
+    <p>Что говорит закон: <%= link_to story.article.title, story.article %></p>
+  <% end %>
 
-  <div>
-    <strong>Status:</strong>
-    <%= story.status %>
-  </div>
-
-  <div>
-    <strong>Anonymous:</strong>
-    <%= story.anonymous %>
-  </div>
-
+  <% if can? :update, story %>
+    <p>Статус: <%= story.status %></p>
+  <% end %>
 </div>

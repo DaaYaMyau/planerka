@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
-  load_and_authorize_resource
-  before_action :set_article, only: %i[ show edit update destroy ]
+  load_and_authorize_resource find_by: :slug
 
   # GET /articles or /articles.json
   def index
@@ -9,6 +8,7 @@ class ArticlesController < ApplicationController
 
   # GET /articles/1 or /articles/1.json
   def show
+    @stories = @article.stories.published.order(created_at: :desc)
   end
 
   # GET /articles/new
@@ -59,11 +59,6 @@ class ArticlesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_article
-      @article = Article.find(params.expect(:id))
-    end
-
     # Only allow a list of trusted parameters through.
     def article_params
       params.expect(article: [ :title, :slug, :summary, :body ])

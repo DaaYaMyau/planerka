@@ -1,17 +1,13 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Юридические вопросы" %>
 
-<% content_for :title, "Articles" %>
+<h1>Юридические вопросы</h1>
 
-<h1>Articles</h1>
-
-<div id="articles">
-  <% @articles.each do |article| %>
-    <%= render article %>
-    <p>
-      <%= link_to "Show this article", article %>
-    </p>
-  <% end %>
-</div>
+<% @articles.each do |article| %>
+  <article>
+    <h2><%= link_to article.title, article %></h2>
+    <p><%= article.summary %></p>
+  </article>
+<% end %>
 
 <% if can? :create, Article %>
   <%= link_to "Новая статья", new_article_path %>

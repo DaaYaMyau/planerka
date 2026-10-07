@@ -2,6 +2,13 @@
 
 <%= render @article %>
 
+<% if @stories.any? %>
+  <h2>Похожие истории</h2>
+  <% @stories.each do |story| %>
+    <p><%= link_to story.title, story %></p>
+  <% end %>
+<% end %>
+
 <div>
 <%= link_to "Назад к статьям", articles_path %>
 

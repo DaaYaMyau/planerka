@@ -20,5 +20,8 @@
         #<%= tag.name %>
       <% end %>
     </p>
+    <% if story.article %>
+      <p>Что говорит закон: <%= link_to story.article.title, story.article %></p>
+    <% end %>
   </article>
 <% end %>

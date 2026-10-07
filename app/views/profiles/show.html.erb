@@ -1,17 +1,38 @@
 <h1>Профиль</h1>
 <p><%= current_user.email %></p>
 
-<h2>Мои истории</h2>
-<% if @stories.any? %>
-  <% @stories.each do |story| %>
-    <p><%= link_to story.title, story %> — <%= story.status %></p>
+<% if current_user.is_admin? %>
+  <h2>На модерации</h2>
+  <% if @pending_stories.any? %>
+    <% @pending_stories.each do |story| %>
+      <p>
+        <%= link_to story.title, story %> —
+        <%= link_to "проверить", edit_story_path(story) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Новых историй на проверке нет.</p>
   <% end %>
+
+  <h2>Управление</h2>
+  <p>
+    <%= link_to "Все истории", stories_path %> ·
+    <%= link_to "Статьи", articles_path %> ·
+    <%= link_to "Теги", tags_path %>
+  </p>
 <% else %>
-  <p>Вы ещё не рассказали ни одной истории. <%= link_to "Рассказать", new_story_path %></p>
+  <h2>Мои истории</h2>
+  <% if @stories.any? %>
+    <% @stories.each do |story| %>
+      <p><%= link_to story.title, story %> — <%= story.status %></p>
+    <% end %>
+  <% else %>
+    <p>Вы ещё не рассказали ни одной истории. <%= link_to "Рассказать", new_story_path %></p>
+  <% end %>
+
+  <h2>Сохранённое</h2>
+  <p>Скоро здесь появятся сохранённые истории.</p>
 <% end %>
 
-<h2>Сохранённое</h2>
-<p>Скоро здесь появятся сохранённые истории.</p>
-
-<h2>Настройки и анонимность</h2>
+<h2>Настройки</h2>
 <p><%= link_to "Сменить email или пароль", edit_user_registration_path %></p>
