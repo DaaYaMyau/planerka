@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :stories
   resources :tags
   resources :articles
@@ -19,5 +18,4 @@ Rails.application.routes.draw do
   root "home#index"
   get "about", to: "pages#about"
   get "profile", to: "profiles#show"
-
 end

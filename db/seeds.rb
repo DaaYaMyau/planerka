@@ -25,8 +25,8 @@
 ]
 
 @tags = {
-  profession: ["дизайн", "IT", "маркетинг", "аналитика", "продажи"],
-  topic: ["переработки", "собеседование", "тестовое", "зарплата", "увольнение", "испытательный срок"]
+  profession: [ "дизайн", "IT", "маркетинг", "аналитика", "продажи" ],
+  topic: [ "переработки", "собеседование", "тестовое", "зарплата", "увольнение", "испытательный срок" ]
 }
 
 @articles = [
@@ -120,9 +120,9 @@ def create_stories(quantity)
       title: @story_titles.sample,
       body: create_paragraph,
       grade: Story.grades.keys.sample,
-      status: ["published", "published", "published", "pending", "draft"].sample,
-      anonymous: [true, false].sample,
-      article: [Article.all.sample, nil].sample
+      status: [ "published", "published", "published", "pending", "draft" ].sample,
+      anonymous: [ true, false ].sample,
+      article: [ Article.all.sample, nil ].sample
     )
 
     story.tags << Tag.all.sample(rand(1..3))

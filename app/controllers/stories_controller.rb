@@ -64,7 +64,7 @@ class StoriesController < ApplicationController
       @story = Story.find(params.expect(:id))
     end
 
-    # Only allow a list of trusted parameters through.
+  # Only allow a list of trusted parameters through.
   def story_params
     if current_user.is_admin?
       params.expect(story: [ :article_id, :title, :body, :grade, :status, :anonymous, tag_ids: [] ])
