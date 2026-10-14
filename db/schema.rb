@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_05_204817) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_13_071133) do
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.string "slug"
@@ -63,8 +63,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_05_204817) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "story_id", null: false
+    t.integer "verdict"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["story_id"], name: "index_votes_on_story_id"
+    t.index ["user_id", "story_id"], name: "index_votes_on_user_id_and_story_id", unique: true
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "stories", "articles"
   add_foreign_key "stories", "users"
   add_foreign_key "story_tags", "stories"
   add_foreign_key "story_tags", "tags"
+  add_foreign_key "votes", "stories"
+  add_foreign_key "votes", "users"
 end

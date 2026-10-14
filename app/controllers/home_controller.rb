@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @stories = Story.published.order(created_at: :desc)
+    @stories = Story.published.includes(:votes).order(created_at: :desc)
   end
 end

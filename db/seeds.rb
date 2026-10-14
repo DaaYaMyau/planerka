@@ -45,6 +45,7 @@ def seed
   create_tags
   create_articles
   create_stories(40)
+  create_votes
 end
 
 
@@ -129,6 +130,16 @@ def create_stories(quantity)
 
     puts "Story with id #{story.id} just created with #{story.tags.count} tags"
   end
+end
+
+def create_votes
+  Story.published.each do |story|
+    User.all.sample(rand(3..8)).each do |user|
+      story.votes.create!(user: user, verdict: Vote.verdicts.keys.sample)
+    end
+  end
+
+  puts "Votes created: #{Vote.count}"
 end
 
 seed

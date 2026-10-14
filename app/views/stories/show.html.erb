@@ -1,6 +1,6 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @story %>
+
+<%= render "votes/voting", story: @story %>
 
 <div>
   <% if can? :update, @story %>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :stories
+  resources :stories do
+    resources :votes, only: :create
+  end
   resources :tags
   resources :articles
   devise_for :users
