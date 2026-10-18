@@ -1,0 +1,82 @@
+<% content_for :title, @company.name %>
+
+<h1><%= @company.name %></h1>
+
+<% if @company.verified? %>
+  <p><strong>Компания на Планёрке ✓</strong></p>
+<% end %>
+
+<% if @company.pending? %>
+  <p><strong>Компания на проверке у модератора.</strong> Пока её видите только вы и модератор.</p>
+<% end %>
+
+<p>
+  <%= @company.industry.presence || "Сфера не указана" %>
+  <% if @company.website.present? %>
+    · <%= link_to @company.website, @company.website, target: "_blank", rel: "noopener" %>
+  <% end %>
+</p>
+
+<% if @company.description.present? %>
+  <%= simple_format @company.description %>
+<% end %>
+
+<% if can? :update, @company %>
+  <p><%= link_to "Редактировать компанию", edit_company_path(@company) %></p>
+<% end %>
+
+<% if can? :destroy, @company %>
+  <%= button_to "Удалить компанию", @company, method: :delete,
+                form: { data: { turbo_confirm: "Удалить компанию вместе со всеми отзывами?" } } %>
+<% end %>
+
+<% if can? :create, CompanyRepresentative %>
+  <% if @my_request&.approved? %>
+    <p>Вы представитель этой компании.</p>
+  <% elsif @my_request&.pending? %>
+    <p>Ваша заявка представителя на рассмотрении у модератора.</p>
+  <% else %>
+    <p><%= link_to "Я представляю эту компанию", new_company_company_representative_path(@company) %></p>
+  <% end %>
+<% end %>
+
+<section id="reviews">
+  <h2>Отзывы (<%= @reviews.size %>)</h2>
+
+  <% if @reviews.empty? %>
+    <p>Пока никто не оставил отзыв. Будьте первым!</p>
+  <% else %>
+    <%= render partial: "reviews/review", collection: @reviews %>
+  <% end %>
+</section>
+
+<section id="stories">
+  <h2>Истории, связанные с компанией</h2>
+
+  <% if @stories.any? %>
+    <% @stories.each do |story| %>
+      <p><%= link_to story.title, story %> · <%= story.created_at.strftime("%d.%m.%Y") %></p>
+    <% end %>
+  <% else %>
+    <p>Пока нет историй об этой компании.</p>
+  <% end %>
+</section>
+
+<% if can?(:create, Review) || !user_signed_in? %>
+  <section id="new_review">
+    <h2>Оставить отзыв</h2>
+
+    <% if @my_review %>
+      <p>
+        Вы уже оставили отзыв об этой компании (<%= Story::STATUS_LABELS[@my_review.status].downcase %>).
+        <%= link_to "Редактировать мой отзыв", edit_company_review_path(@company, @my_review) %>
+      </p>
+    <% elsif can? :create, Review %>
+      <%= render "reviews/form", company: @company, review: @review %>
+    <% else %>
+      <p><%= link_to "Войдите, чтобы оставить отзыв", new_user_session_path %></p>
+    <% end %>
+  </section>
+<% end %>
+
+<p><%= link_to "← Все компании", companies_path %></p>

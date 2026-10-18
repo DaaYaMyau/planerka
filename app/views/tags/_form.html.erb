@@ -1,27 +1,27 @@
 <%= form_with(model: tag) do |form| %>
   <% if tag.errors.any? %>
     <div style="color: red">
-      <h2><%= pluralize(tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+      <h2>Не удалось сохранить тег:</h2>
 
       <ul>
         <% tag.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li><%= error.message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
+    <%= form.label :name, "Название", style: "display: block" %>
     <%= form.text_field :name %>
   </div>
 
   <div>
     <%= form.label :kind, "Тип", style: "display: block" %>
-    <%= form.select :kind, Tag.kinds.keys %>
+    <%= form.select :kind, Tag::KIND_LABELS.invert %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Сохранить" %>
   </div>
 <% end %>

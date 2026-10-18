@@ -1,0 +1,49 @@
+<h1>Редактирование профиля</h1>
+
+<%= form_with model: @profile, url: profile_path, method: :patch do |form| %>
+  <% if @profile.errors.any? %>
+    <div style="color: red">
+      <% @profile.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nickname, "Ник", style: "display: block" %>
+    <%= form.text_field :nickname, maxlength: 30 %>
+    <p>Его видят другие вместо вашего email. Сохраняется маленькими буквами. Анонимные истории всё равно подписаны «Анонимно».</p>
+  </div>
+
+  <div>
+    <p>Аватар</p>
+    <p><%= avatar_for(current_user, size: 96) %></p>
+    <%= form.file_field :avatar, accept: Profile::AVATAR_TYPES.join(",") %>
+    <p>PNG, JPG, WEBP или GIF, не больше 2 МБ.</p>
+    <% if @profile.avatar.attached? && @profile.avatar.blob.persisted? %>
+      <%= form.checkbox :remove_avatar %>
+      <%= form.label :remove_avatar, "Удалить аватар" %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :bio, "О себе", style: "display: block" %>
+    <%= form.textarea :bio, rows: 4 %>
+  </div>
+
+  <div>
+    <%= form.label :grade, "Грейд", style: "display: block" %>
+    <%= form.select :grade, Story::GRADE_LABELS.invert, include_blank: "Не указан" %>
+  </div>
+
+  <div>
+    <%= form.label :profession_id, "Профессия", style: "display: block" %>
+    <%= form.collection_select :profession_id, Tag.profession.order(:name), :id, :name, include_blank: "Не указана" %>
+  </div>
+
+  <div>
+    <%= form.submit "Сохранить" %>
+  </div>
+<% end %>
+
+<p><%= link_to "← В профиль", profile_path %></p>

@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  story: one
-  tag: one
+published_salary:
+  story: published
+  tag: salary
 
-two:
-  story: two
-  tag: two
+published_design:
+  story: published
+  tag: design
+
+anonymous_trial:
+  story: anonymous
+  tag: trial

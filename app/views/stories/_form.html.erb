@@ -5,7 +5,7 @@
 
       <ul>
         <% story.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+          <li><%= error.message %></li>
         <% end %>
       </ul>
     </div>
@@ -23,7 +23,7 @@
 
   <div>
     <%= form.label :grade, "Ваш грейд", style: "display: block" %>
-    <%= form.select :grade, Story.grades.keys %>
+    <%= form.select :grade, Story::GRADE_LABELS.invert, include_blank: "Не указывать" %>
   </div>
 
   <div>
@@ -37,6 +37,16 @@
   </div>
 
   <div>
+    <p>Этап</p>
+    <%= form.collection_check_boxes :tag_ids, Tag.stage, :id, :name %>
+  </div>
+
+  <div>
+    <%= form.label :company_id, "Компания", style: "display: block" %>
+    <%= form.collection_select :company_id, Company.published.order(:name), :id, :name, include_blank: "Без компании" %>
+  </div>
+
+  <div>
     <%= form.checkbox :anonymous %>
     <%= form.label :anonymous, "Опубликовать анонимно" %>
   </div>
@@ -44,7 +54,7 @@
   <% if current_user.is_admin? %>
     <div>
       <%= form.label :status, "Статус", style: "display: block" %>
-      <%= form.select :status, Story.statuses.keys %>
+      <%= form.select :status, Story::STATUS_LABELS.invert %>
     </div>
 
     <div>

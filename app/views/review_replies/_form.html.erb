@@ -1,0 +1,29 @@
+<h2>Отзыв</h2>
+<% Review::QUESTIONS.each do |field, question| %>
+  <% if review[field].present? %>
+    <p><strong><%= question %></strong></p>
+    <%= simple_format review[field] %>
+  <% end %>
+<% end %>
+
+<%= form_with model: reply, url: company_review_reply_path(company, review), method: reply.persisted? ? :patch : :post do |form| %>
+  <% if reply.errors.any? %>
+    <div style="color: red">
+      <% reply.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :body, "Ответ от имени компании", style: "display: block" %>
+    <%= form.textarea :body, rows: 6, maxlength: 2000 %>
+    <p>Ответ увидят все, с плашкой «Официальный ответ компании».</p>
+  </div>
+
+  <div>
+    <%= form.submit "Опубликовать ответ" %>
+  </div>
+<% end %>
+
+<p><%= link_to "← К компании", company %></p>

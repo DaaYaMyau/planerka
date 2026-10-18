@@ -1,0 +1,9 @@
+<h1>Отзыв о компании «<%= @company.name %>»</h1>
+
+<% unless current_user.is_admin? %>
+  <p>После сохранения отзыв снова уйдёт на проверку модератору.</p>
+<% end %>
+
+<%= render "form", company: @company, review: @review %>
+
+<p><%= link_to "← К компании", @company %></p>

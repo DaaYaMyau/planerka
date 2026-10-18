@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  slug: MyString
-  summary: MyText
-  body: MyText
+overtime:
+  title: Переработки
+  slug: pererabotki
+  summary: Когда за переработки обязаны платить
+  body: Текст статьи про переработки.
 
-two:
-  title: MyString
-  slug: MyString
-  summary: MyText
-  body: MyText
+trial:
+  title: Испытательный срок
+  slug: ispytatelnyy-srok
+  summary: Права на испытательном сроке
+  body: Текст статьи про испытательный срок.

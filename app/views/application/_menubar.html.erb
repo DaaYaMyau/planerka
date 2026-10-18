@@ -1,9 +1,12 @@
 <nav class="menuBar">
   <div>
-    <%= link_to "Планерка", root_path %>
+    <%= link_to "Планёрка", root_path %>
     <%= link_to "О нас", about_path %>
-    <%= link_to "Юр. вопросы", articles_path %>
-    <%= link_to "Рассказать", new_story_path %>
+    <%= link_to "Разобраться", articles_path %>
+    <%= link_to "Отзывы", companies_path %>
+    <% unless current_user&.is_admin? %>
+      <%= link_to "Рассказать", new_story_path %>
+    <% end %>
   </div>
   <div>
     <% if user_signed_in? %>

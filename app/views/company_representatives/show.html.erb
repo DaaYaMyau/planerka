@@ -1,0 +1,57 @@
+<% content_for :title, "Заявка представителя" %>
+
+<h1>Заявка представителя</h1>
+
+<p>Статус: <%= CompanyRepresentative::STATUS_LABELS[@representative.status] %></p>
+
+<p>
+  Компания: <%= link_to @representative.company.name, @representative.company %><br>
+  Пользователь: <%= @representative.user.display_name %> (<%= @representative.user.email %>)<br>
+  Должность: <%= @representative.position %><br>
+  Рабочая почта: <%= @representative.work_email %><br>
+  ИНН из заявки: <%= @representative.inn.presence || "не указан" %>
+</p>
+
+<% if @representative.proof.present? %>
+  <p><strong>Пояснение:</strong></p>
+  <%= simple_format @representative.proof %>
+<% end %>
+
+<h2>Подсказки</h2>
+<p>
+  Домен почты и сайт:
+  <% case @representative.email_matches_website? %>
+  <% when true %>
+    ✓ совпадают (<%= @representative.email_domain %>)
+  <% when false %>
+    ✗ не совпадают: почта на <%= @representative.email_domain %>, сайт — <%= @representative.website_domain %>
+  <% else %>
+    у компании не указан сайт
+  <% end %>
+</p>
+<p>
+  ИНН:
+  <% case @representative.inn_matches_company? %>
+  <% when true %>
+    ✓ совпадает с ИНН компании
+  <% when false %>
+    ✗ не совпадает: у компании <%= @representative.company.inn %>
+  <% else %>
+    <% if @representative.inn.blank? %>
+      в заявке не указан
+    <% elsif (other = Company.where.not(id: @representative.company_id).find_by(inn: @representative.inn)) %>
+      ✗ этот ИНН уже указан у компании «<%= other.name %>»
+    <% else %>
+      у компании ИНН ещё не указан — при одобрении запишем ИНН из заявки
+    <% end %>
+  <% end %>
+</p>
+
+<% if @representative.pending? %>
+  <p>
+    <%= button_to "Одобрить", company_representative_path(@representative), method: :patch, params: { status: "approved" } %>
+    <%= button_to "Отклонить", company_representative_path(@representative), method: :patch, params: { status: "rejected" } %>
+  </p>
+<% end %>
+
+<p><%= link_to "← В профиль", profile_path %></p>

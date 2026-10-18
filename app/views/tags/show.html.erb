@@ -1,10 +1,11 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Тег «#{@tag.name}»" %>
 
-<%= render @tag %>
+<h1>Тег «<%= @tag.name %>»</h1>
+<p>Тип: <%= Tag::KIND_LABELS[@tag.kind] %></p>
 
-<div>
-  <%= link_to "Edit this tag", edit_tag_path(@tag) %> |
-  <%= link_to "Back to tags", tags_path %>
+<p>
+  <%= link_to "Редактировать", edit_tag_path(@tag) %> ·
+  <%= link_to "← Все теги", tags_path %>
+</p>
 
-  <%= button_to "Destroy this tag", @tag, method: :delete %>
-</div>
+<%= button_to "Удалить тег", @tag, method: :delete, form: { data: { turbo_confirm: "Удалить тег?" } } %>

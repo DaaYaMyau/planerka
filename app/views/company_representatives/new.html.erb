@@ -1,0 +1,45 @@
+<% content_for :title, "Я представляю компанию" %>
+
+<h1>Я представляю компанию «<%= @company.name %>»</h1>
+<p>
+  Представитель может дополнять описание компании и отвечать на отзывы от её имени.
+  Удалять или скрывать отзывы представитель не может.
+</p>
+
+<%= form_with model: [ @company, @representative ], url: company_company_representatives_path(@company) do |form| %>
+  <% if @representative.errors.any? %>
+    <div style="color: red">
+      <% @representative.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :position, "Ваша должность", style: "display: block" %>
+    <%= form.text_field :position %>
+  </div>
+
+  <div>
+    <%= form.label :work_email, "Рабочая почта", style: "display: block" %>
+    <%= form.email_field :work_email %>
+    <p>Лучше на домене компании — так модератору проще проверить.</p>
+  </div>
+
+  <div>
+    <%= form.label :inn, "ИНН компании (необязательно)", style: "display: block" %>
+    <%= form.text_field :inn %>
+  </div>
+
+  <div>
+    <%= form.label :proof, "Пояснение для модератора", style: "display: block" %>
+    <%= form.textarea :proof, rows: 4 %>
+    <p>Например, ссылка на страницу команды на сайте или на ваш профиль в соцсетях.</p>
+  </div>
+
+  <div>
+    <%= form.submit "Отправить заявку" %>
+  </div>
+<% end %>
+
+<p><%= link_to "← К компании", @company %></p>

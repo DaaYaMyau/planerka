@@ -1,0 +1,22 @@
+<% if can? :create, Comment %>
+  <%= form_with model: [ story, comment ] do |form| %>
+    <% if comment.errors.any? %>
+      <div style="color: red">
+        <% comment.errors.each do |error| %>
+          <p><%= error.message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :body, "Написать комментарий", style: "display: block" %>
+      <%= form.textarea :body, rows: 4, maxlength: 2000 %>
+    </div>
+
+    <div>
+      <%= form.submit "Отправить" %>
+    </div>
+  <% end %>
+<% elsif !user_signed_in? %>
+  <p><%= link_to "Войдите, чтобы прокомментировать", new_user_session_path %></p>
+<% end %>

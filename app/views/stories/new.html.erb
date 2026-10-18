@@ -1,11 +1,7 @@
-<% content_for :title, "New story" %>
+<% content_for :title, "Рассказать историю" %>
 
-<h1>New story</h1>
+<h1>Рассказать историю</h1>
 
 <%= render "form", story: @story %>
 
-<br>
-
-<div>
-  <%= link_to "Back to stories", stories_path %>
-</div>
+<p><%= link_to "← На главную", root_path %></p>

@@ -3,7 +3,9 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.all
+    @articles = Article.search(params[:q]).order(:title)
+    @topic_counts = Tag.published_story_counts
+    @popular_topics = Tag.topic.select { |tag| @topic_counts[tag.id] }.sort_by { |tag| -@topic_counts[tag.id] }
   end
 
   # GET /articles/1 or /articles/1.json
@@ -26,7 +28,7 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       if @article.save
-        format.html { redirect_to @article, notice: "Article was successfully created." }
+        format.html { redirect_to @article, notice: "Статья создана" }
         format.json { render :show, status: :created, location: @article }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -39,7 +41,7 @@ class ArticlesController < ApplicationController
   def update
     respond_to do |format|
       if @article.update(article_params)
-        format.html { redirect_to @article, notice: "Article was successfully updated.", status: :see_other }
+        format.html { redirect_to @article, notice: "Статья сохранена", status: :see_other }
         format.json { render :show, status: :ok, location: @article }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -53,7 +55,7 @@ class ArticlesController < ApplicationController
     @article.destroy!
 
     respond_to do |format|
-      format.html { redirect_to articles_path, notice: "Article was successfully destroyed.", status: :see_other }
+      format.html { redirect_to articles_path, notice: "Статья удалена", status: :see_other }
       format.json { head :no_content }
     end
   end

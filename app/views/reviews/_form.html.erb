@@ -1,0 +1,37 @@
+<%= form_with model: [ company, review ] do |form| %>
+  <% if review.errors.any? %>
+    <div style="color: red">
+      <% review.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% Review::QUESTIONS.each do |field, question| %>
+    <div>
+      <%= form.label field, question, style: "display: block" %>
+      <%= form.textarea field, rows: 4, maxlength: 2000 %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :grade, "Ваш грейд в этой компании", style: "display: block" %>
+    <%= form.select :grade, Story::GRADE_LABELS.invert, include_blank: "Не указывать" %>
+  </div>
+
+  <div>
+    <%= form.checkbox :anonymous %>
+    <%= form.label :anonymous, "Опубликовать анонимно" %>
+  </div>
+
+  <% if current_user.is_admin? && review.persisted? %>
+    <div>
+      <%= form.label :status, "Статус", style: "display: block" %>
+      <%= form.select :status, Story::STATUS_LABELS.invert %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.submit "Отправить" %>
+  </div>
+<% end %>

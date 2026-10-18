@@ -1,10 +1,21 @@
 Rails.application.routes.draw do
   resources :stories do
     resources :votes, only: :create
+    resources :comments, only: %i[ create destroy ]
+    resource :bookmark, only: %i[ create destroy ]
   end
+  resources :companies do
+    get :similar, on: :collection
+    resources :reviews, only: %i[ create edit update destroy ] do
+      resource :reply, only: %i[ new create edit update destroy ], controller: "review_replies"
+    end
+    resources :company_representatives, only: %i[ new create ], path: "representatives"
+  end
+  resources :company_representatives, only: %i[ show update ]
   resources :tags
   resources :articles
   devise_for :users
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -19,5 +30,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "home#index"
   get "about", to: "pages#about"
-  get "profile", to: "profiles#show"
+  resource :profile, only: %i[ show edit update ]
 end

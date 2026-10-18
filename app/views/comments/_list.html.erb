@@ -1,0 +1,20 @@
+<% if comments.empty? %>
+  <p>Пока никто не прокомментировал</p>
+<% else %>
+  <% comments.each do |comment| %>
+    <div id="<%= dom_id comment %>">
+      <p>
+        <%= avatar_for(comment.user, size: 24) %>
+        <strong><%= comment.user.display_name %></strong> ·
+        <%= comment.created_at.strftime("%d.%m.%Y %H:%M") %>
+      </p>
+
+      <%= simple_format comment.body %>
+
+      <% if can? :destroy, comment %>
+        <%= button_to "Удалить", story_comment_path(comment.story_id, comment), method: :delete,
+                      form: { data: { turbo_confirm: "Удалить комментарий?" } } %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

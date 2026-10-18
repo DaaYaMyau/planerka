@@ -1,0 +1,43 @@
+<article id="<%= dom_id review %>">
+  <p>
+    <% if review.anonymous? %>
+      Анонимно
+    <% else %>
+      <%= avatar_for(review.user, size: 24) %> <%= review.user.display_name %>
+    <% end %>
+    <% if review.grade %> · <%= Story::GRADE_LABELS[review.grade] %><% end %>
+    · <%= review.created_at.strftime("%d.%m.%Y") %>
+    <% if review.edited_after_reply? %> · <em>изменён после ответа компании</em><% end %>
+  </p>
+
+  <% Review::QUESTIONS.each do |field, question| %>
+    <% if review[field].present? %>
+      <p><strong><%= question %></strong></p>
+      <%= simple_format review[field] %>
+    <% end %>
+  <% end %>
+
+  <% if review.reply %>
+    <div style="border-left: 3px solid #888; padding-left: 12px;">
+      <p><strong>Официальный ответ компании</strong> · <%= review.reply.created_at.strftime("%d.%m.%Y") %></p>
+      <%= simple_format review.reply.body %>
+      <% if can? :update, review.reply %>
+        <p><%= link_to "Редактировать ответ", edit_company_review_reply_path(review.company, review) %></p>
+      <% end %>
+      <% if can? :destroy, review.reply %>
+        <%= button_to "Удалить ответ", company_review_reply_path(review.company, review), method: :delete,
+                      form: { data: { turbo_confirm: "Удалить ответ компании?" } } %>
+      <% end %>
+    </div>
+  <% elsif can? :create, ReviewReply.new(review: review) %>
+    <p><%= link_to "Ответить от имени компании", new_company_review_reply_path(review.company, review) %></p>
+  <% end %>
+
+  <% if can? :update, review %>
+    <p>
+      <%= link_to "Редактировать", edit_company_review_path(review.company, review) %>
+      <%= button_to "Удалить", company_review_path(review.company, review), method: :delete,
+                    form: { data: { turbo_confirm: "Удалить отзыв?" } } %>
+    </p>
+  <% end %>
+</article>

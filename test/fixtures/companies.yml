@@ -1,0 +1,24 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+cloud:
+  name: Облачные решения
+  slug: oblachnye-resheniya
+  industry: IT
+  website: https://cloud.example
+  inn: "7700000001"
+  description: Облачные сервисы для бизнеса.
+  status: published
+
+pixel:
+  name: Студия «Пиксель»
+  slug: pixel-studio
+  industry: Дизайн
+  website: https://pixel.example
+  status: published
+
+coffee:
+  name: Кофейня «Зерно»
+  slug: kofeynya-zerno
+  industry: Общепит
+  status: pending
+  created_by: boris

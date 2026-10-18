@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "similar_companies" do %>
+  <% if @similar.any? %>
+    <p>Возможно, вы имели в виду:</p>
+    <ul>
+      <% @similar.each do |company| %>
+        <li><%= link_to company.name, company, data: { turbo_frame: "_top" } %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

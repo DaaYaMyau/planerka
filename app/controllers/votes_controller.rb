@@ -1,14 +1,13 @@
 class VotesController < ApplicationController
   before_action :authenticate_user!
 
-  # POST /stories/:story_id/votes
   def create
     story = Story.find(params.expect(:story_id))
     authorize! :show, story
+    authorize! :create, Vote
 
     vote = story.votes.find_or_initialize_by(user: current_user)
 
-    # Повторное нажатие на уже выбранный вариант отменяет голос
     if vote.persisted? && vote.verdict == params[:verdict]
       vote.destroy
       return redirect_back_or_to story, notice: "Голос отменён"

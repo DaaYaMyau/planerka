@@ -1,11 +1,7 @@
-<% content_for :title, "New article" %>
+<% content_for :title, "Новая статья" %>
 
-<h1>New article</h1>
+<h1>Новая статья</h1>
 
 <%= render "form", article: @article %>
 
-<br>
-
-<div>
-  <%= link_to "Back to articles", articles_path %>
-</div>
+<p><%= link_to "← Все статьи", articles_path %></p>

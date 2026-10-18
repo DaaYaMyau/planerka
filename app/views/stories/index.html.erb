@@ -1,16 +1,12 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "Все истории" %>
 
-<% content_for :title, "Stories" %>
-
-<h1>Stories</h1>
+<h1>Все истории</h1>
 
 <div id="stories">
   <% @stories.each do |story| %>
     <%= render story %>
-    <p>
-      <%= link_to "Show this story", story %>
-    </p>
+    <p><%= link_to "Открыть историю", story %></p>
   <% end %>
 </div>
 
-<%= link_to "New story", new_story_path %>
+<p><%= link_to "Рассказать историю", new_story_path %></p>

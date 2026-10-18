@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  kind: 1
+design:
+  name: дизайн
+  kind: profession
 
-two:
-  name: MyString
-  kind: 1
+salary:
+  name: зарплата
+  kind: topic
+
+trial:
+  name: испытательный срок
+  kind: stage

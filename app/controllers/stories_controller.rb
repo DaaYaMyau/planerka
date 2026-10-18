@@ -8,6 +8,8 @@ class StoriesController < ApplicationController
 
   # GET /stories/1 or /stories/1.json
   def show
+    @comments = @story.comments.includes(user: { profile: { avatar_attachment: :blob } }).order(:created_at, :id)
+    @comment = Comment.new
   end
 
   # GET /stories/new
@@ -26,7 +28,7 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
-        format.html { redirect_to @story, notice: "Story was successfully created." }
+        format.html { redirect_to @story, notice: story_saved_notice }
         format.json { render :show, status: :created, location: @story }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -42,7 +44,7 @@ class StoriesController < ApplicationController
 
     respond_to do |format|
       if @story.save
-        format.html { redirect_to @story, notice: "Story was successfully updated.", status: :see_other }
+        format.html { redirect_to @story, notice: story_saved_notice, status: :see_other }
         format.json { render :show, status: :ok, location: @story }
       else
         format.html { render :edit, status: :unprocessable_content }
@@ -56,7 +58,7 @@ class StoriesController < ApplicationController
     @story.destroy!
 
     respond_to do |format|
-      format.html { redirect_to stories_path, notice: "Story was successfully destroyed.", status: :see_other }
+      format.html { redirect_to current_user.is_admin? ? stories_path : profile_path, notice: "История удалена", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -67,12 +69,16 @@ class StoriesController < ApplicationController
       @story = Story.find(params.expect(:id))
     end
 
+  def story_saved_notice
+    @story.published? ? "История опубликована" : "Спасибо! История появится после проверки модератором"
+  end
+
   # Only allow a list of trusted parameters through.
   def story_params
     if current_user.is_admin?
-      params.expect(story: [ :article_id, :title, :body, :grade, :status, :anonymous, tag_ids: [] ])
+      params.expect(story: [ :article_id, :company_id, :title, :body, :grade, :status, :anonymous, tag_ids: [] ])
     else
-      params.expect(story: [ :title, :body, :grade, :anonymous, tag_ids: [] ])
+      params.expect(story: [ :company_id, :title, :body, :grade, :anonymous, tag_ids: [] ])
     end
   end
 end

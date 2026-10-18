@@ -1,0 +1,33 @@
+<% content_for :title, "Отзывы о компаниях" %>
+
+<h1>Отзывы о компаниях</h1>
+<p>Не «насколько хороша компания», а что сотрудники поняли о работе здесь из собственного опыта.</p>
+<p>Хотите оставить отзыв? Найдите компанию по названию и откройте её страницу.</p>
+
+<%= form_with url: companies_path, method: :get do |form| %>
+  <%= form.search_field :q, value: params[:q], placeholder: "Название компании" %>
+  <%= form.select :industry, Company.industries, { include_blank: "Все сферы", selected: params[:industry] } %>
+  <%= form.submit "Найти", name: nil %>
+  <% if params[:q].present? || params[:industry].present? %>
+    <%= link_to "Сбросить", companies_path %>
+  <% end %>
+<% end %>
+
+<% if @companies.empty? %>
+  <p>Ничего не нашлось.</p>
+  <% if params[:q].present? %>
+    <p>Нет нужной компании? <%= link_to "Добавить компанию «#{params[:q]}»", new_company_path(name: params[:q]) %></p>
+  <% end %>
+<% else %>
+  <% @companies.each do |company| %>
+    <article>
+      <h2><%= link_to company.name, company %></h2>
+      <p>
+        <%= company.industry.presence || "Сфера не указана" %> ·
+        Отзывов: <%= @published_counts.fetch(company.id, 0) %>
+      </p>
+    </article>
+  <% end %>
+<% end %>
+
+<p>Не нашли свою компанию? <%= link_to "Добавить компанию", new_company_path %></p>

@@ -2,47 +2,59 @@ require "test_helper"
 
 class TagsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @tag = tags(:one)
+    @tag = tags(:salary)
   end
 
-  test "should get index" do
+  test "гостя не пускают к управлению тегами" do
+    get tags_url
+    assert_redirected_to new_user_session_url
+  end
+
+  test "обычного пользователя не пускают к управлению тегами" do
+    sign_in users(:anna)
+
+    get tags_url
+    assert_redirected_to root_url
+  end
+
+  test "админ видит теги" do
+    sign_in users(:admin)
+
     get tags_url
     assert_response :success
   end
 
-  test "should get new" do
-    get new_tag_url
-    assert_response :success
+  test "на странице тега есть главный заголовок" do
+    sign_in users(:admin)
+
+    get tag_url(@tag)
+    assert_includes response.body, "<h1>Тег «зарплата»</h1>"
   end
 
-  test "should create tag" do
-    assert_difference("Tag.count") do
-      post tags_url, params: { tag: { kind: @tag.kind, name: @tag.name } }
-    end
+  test "админ создаёт тег" do
+    sign_in users(:admin)
 
+    assert_difference("Tag.count") do
+      post tags_url, params: { tag: { name: "увольнение", kind: "topic" } }
+    end
     assert_redirected_to tag_url(Tag.last)
   end
 
-  test "should show tag" do
-    get tag_url(@tag)
-    assert_response :success
-  end
+  test "админ редактирует тег" do
+    sign_in users(:admin)
 
-  test "should get edit" do
-    get edit_tag_url(@tag)
-    assert_response :success
-  end
+    patch tag_url(@tag), params: { tag: { name: "оплата труда" } }
 
-  test "should update tag" do
-    patch tag_url(@tag), params: { tag: { kind: @tag.kind, name: @tag.name } }
     assert_redirected_to tag_url(@tag)
+    assert_equal "оплата труда", @tag.reload.name
   end
 
-  test "should destroy tag" do
+  test "админ удаляет тег" do
+    sign_in users(:admin)
+
     assert_difference("Tag.count", -1) do
       delete tag_url(@tag)
     end
-
     assert_redirected_to tags_url
   end
 end

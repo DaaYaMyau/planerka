@@ -1,0 +1,18 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+vera_cloud:
+  user: vera
+  company: cloud
+  position: HR-менеджер
+  work_email: vera@cloud.example
+  inn: "7700000001"
+  status: approved
+
+boris_pixel:
+  user: boris
+  company: pixel
+  position: Дизайнер
+  work_email: boris@pixel.example
+  inn: "7700000002"
+  proof: Я есть на странице команды.
+  status: pending

@@ -1,7 +1,7 @@
 <%= turbo_frame_tag dom_id(story, :voting) do %>
   <h3>Это норм?</h3>
 
-  <% if user_signed_in? %>
+  <% if can? :create, Vote %>
     <% my_vote = story.votes.find { |vote| vote.user_id == current_user.id } %>
 
     <div style="display: flex; gap: 8px;">
@@ -23,7 +23,23 @@
         <% end %>
       </ul>
       <p>Всего голосов: <%= story.votes.size %></p>
+
+      <% grade_votes = story.votes_from_grade(current_user) %>
+      <% if grade_votes.any? %>
+        <% grade_stats = story.vote_stats(grade_votes) %>
+        <p>
+          Люди вашего грейда ответили так:
+          <%= Vote::LABELS.map { |verdict, label| "#{label} — #{grade_stats[verdict]}%" }.join(", ") %>
+          (голосов: <%= grade_votes.size %>)
+        </p>
+      <% end %>
     <% end %>
+  <% elsif user_signed_in? %>
+    <% stats = story.vote_stats %>
+    <p>
+      <%= Vote::LABELS.map { |verdict, label| "#{label} — #{stats[verdict]}%" }.join(", ") %>
+      (голосов: <%= story.votes.size %>)
+    </p>
   <% else %>
     <p><%= link_to "Войдите, чтобы проголосовать", new_user_session_path, data: { turbo_frame: "_top" } %></p>
   <% end %>

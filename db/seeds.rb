@@ -26,8 +26,57 @@
 
 @tags = {
   profession: [ "дизайн", "IT", "маркетинг", "аналитика", "продажи" ],
-  topic: [ "переработки", "собеседование", "тестовое", "зарплата", "увольнение", "испытательный срок" ]
+  topic: [ "переработки", "собеседование", "тестовое", "зарплата", "переписки ночью", "отпуск" ],
+  stage: [ "поиск работы", "стажировка", "испытательный срок", "работа", "увольнение" ]
 }
+
+@nick_words = [ "тихий_джун", "кофейный_стажёр", "ночной_дизайнер", "уставший_аналитик", "смелый_маркетолог", "новичок", "выпускник", "практикант", "мидл_в_пути", "сонный_тестировщик" ]
+
+@companies = [
+  { name: "Облачные решения", slug: "oblachnye-resheniya", industry: "IT", website: "https://cloud.example",
+    inn: "7700000001", description: "Разрабатывают облачные сервисы для бизнеса." },
+  { name: "Студия «Пиксель»", slug: "pixel-studio", industry: "Дизайн", website: "https://pixel.example",
+    description: "Небольшая студия: сайты, приложения, айдентика." },
+  { name: "Агентство «Громко»", slug: "gromko", industry: "Маркетинг", website: "https://gromko.example",
+    description: "Рекламное агентство полного цикла." },
+  { name: "Банк «Надёжный»", slug: "bank-nadezhny", industry: "Финансы", inn: "7700000004",
+    description: "Розничный банк с офисами в десяти городах." },
+  { name: "Сеть магазинов «Корзинка»", slug: "korzinka", industry: "Ритейл",
+    description: "Магазины у дома и доставка продуктов." },
+  { name: "Лаборатория данных", slug: "data-lab", industry: "IT", website: "https://datalab.example",
+    description: "Аналитика и машинное обучение для ритейла." },
+  { name: "Маркетплейс «Полка»", slug: "polka", industry: "Ритейл", website: "https://polka.example",
+    description: "Онлайн-площадка для небольших продавцов." }
+]
+
+@review_answers = {
+  wish_i_knew: [
+    "Что испытательный срок длится три месяца и всё это время зарплата ниже.",
+    "Что задачи ставят в последний момент, а сроки не двигают.",
+    "Что наставника не будет — разбираться придётся самой.",
+    "Что переработки здесь норма, хотя на собеседовании говорили обратное.",
+    "Что отпуск в первый год согласуют с трудом.",
+    "Что премия зависит от результатов всего отдела, а не от твоих."
+  ],
+  suits: [
+    "Тем, кто хочет быстро расти и готов много учиться сам.",
+    "Тем, кому важна стабильность и понятные процессы.",
+    "Тем, кто любит большие проекты и сильную команду.",
+    "Студентам, которым нужен первый опыт."
+  ],
+  not_suits: [
+    "Тем, кому нужен чёткий график без переработок.",
+    "Тем, кто ждёт подробного онбординга.",
+    "Тем, кто не любит много созвонов.",
+    "Тем, кому важна удалёнка."
+  ]
+}
+
+@reply_texts = [
+  "Спасибо, что поделились. Мы пересмотрели онбординг: теперь у каждого новичка есть наставник.",
+  "Спасибо за отзыв! Испытательный срок у нас действительно три месяца, это прописано в вакансии.",
+  "Благодарим за честность. Переработки оплачиваются по ТК, напишите в HR — разберёмся."
+]
 
 @articles = [
   { title: "Переработки: когда за них обязаны платить", slug: "pererabotki", summary: "Что считается сверхурочной работой и как её оплачивают." },
@@ -43,9 +92,16 @@ def seed
   reset_db
   create_users
   create_tags
+  update_profiles
   create_articles
+  create_companies
   create_stories(40)
   create_votes
+  create_comments
+  create_bookmarks
+  create_reviews
+  create_representatives
+  create_replies
 end
 
 
@@ -55,6 +111,9 @@ def remove_schema_file
 end
 
 def reset_db
+  if ActiveStorage::Blob.table_exists?
+    ActiveStorage::Blob.find_each { |blob| blob.service.delete(blob.key) }
+  end
   Rake::Task['db:drop'].invoke
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
@@ -92,6 +151,29 @@ def create_users
   end
 end
 
+def update_profiles
+  User.find_by!(is_admin: true).profile.update!(nickname: "модератор")
+
+  User.where(is_admin: false).find_each do |user|
+    nickname = "#{@nick_words.sample}_#{rand(10..99)}"
+    nickname = "#{@nick_words.sample}_#{rand(10..99)}" while Profile.exists?(nickname: nickname)
+
+    user.profile.update!(
+      nickname: nickname,
+      bio: create_sentence,
+      grade: Profile.grades.keys.sample,
+      profession: Tag.profession.sample
+    )
+
+    if rand < 0.5
+      path = Dir[Rails.root.join("db/seeds/avatars/*.png")].sample
+      user.profile.avatar.attach(io: File.open(path), filename: File.basename(path), content_type: "image/png")
+    end
+
+    puts "Profile '#{nickname}' updated for user #{user.id}"
+  end
+end
+
 def create_tags
   @tags.each do |kind, names|
     names.each do |name|
@@ -115,18 +197,19 @@ end
 
 def create_stories(quantity)
   quantity.times do
-    user = User.all.sample
+    user = User.where(is_admin: false).sample
 
     story = user.stories.create!(
       title: @story_titles.sample,
       body: create_paragraph,
-      grade: Story.grades.keys.sample,
+      grade: [ *Story.grades.keys, nil ].sample,
       status: [ "published", "published", "published", "pending", "draft" ].sample,
       anonymous: [ true, false ].sample,
-      article: [ Article.all.sample, nil ].sample
+      article: [ Article.all.sample, nil ].sample,
+      company: [ Company.published.sample, nil, nil ].sample
     )
 
-    story.tags << Tag.all.sample(rand(1..3))
+    story.tags << Tag.profession.sample(1) + Tag.topic.sample(rand(1..2)) + Tag.stage.sample(rand(0..1))
 
     puts "Story with id #{story.id} just created with #{story.tags.count} tags"
   end
@@ -134,12 +217,91 @@ end
 
 def create_votes
   Story.published.each do |story|
-    User.all.sample(rand(3..8)).each do |user|
+    User.where(is_admin: false).sample(rand(3..8)).each do |user|
       story.votes.create!(user: user, verdict: Vote.verdicts.keys.sample)
     end
   end
 
   puts "Votes created: #{Vote.count}"
+end
+
+def create_comments
+  Story.published.each do |story|
+    rand(0..5).times do
+      story.comments.create!(user: User.where(is_admin: false).sample, body: create_sentence)
+    end
+  end
+
+  puts "Comments created: #{Comment.count}"
+end
+
+def create_companies
+  @companies.each do |data|
+    company = Company.create!(data.merge(status: "published"))
+    puts "Company '#{company.name}' just created"
+  end
+
+  Company.create!(name: "Кофейня «Зерно»", industry: "Общепит", created_by: User.where(is_admin: false).first)
+  puts "Pending company created"
+end
+
+def create_reviews
+  Company.published.find_each do |company|
+    User.where(is_admin: false).sample(rand(1..4)).each_with_index do |user, i|
+      company.reviews.create!(
+        user: user,
+        wish_i_knew: @review_answers[:wish_i_knew].sample,
+        suits: [ @review_answers[:suits].sample, nil ].sample,
+        not_suits: [ @review_answers[:not_suits].sample, nil ].sample,
+        grade: [ *Review.grades.keys, nil ].sample,
+        anonymous: [ true, false, false ].sample,
+        status: i.zero? ? "published" : [ "published", "published", "published", "pending" ].sample
+      )
+    end
+  end
+
+  puts "Reviews created: #{Review.count} (published: #{Review.published.count})"
+end
+
+def create_representatives
+  users = User.where(is_admin: false).order(:id).last(4)
+
+  [
+    [ users[0], "oblachnye-resheniya", "HR-менеджер", "hr@cloud.example", "7700000001", "approved" ],
+    [ users[1], "data-lab", "Руководитель отдела", "lead@datalab.example", "7700000006", "approved" ],
+    [ users[2], "gromko", "Маркетолог", "gromko.marketing@gmail.com", nil, "pending" ],
+    [ users[3], "pixel-studio", "Дизайнер", "designer@pixel.example", "7700000099", "rejected" ]
+  ].each do |user, slug, position, work_email, inn, status|
+    representative = Company.find_by!(slug: slug).company_representatives.create!(
+      user: user, position: position, work_email: work_email, inn: inn,
+      proof: "Ссылка на страницу команды на сайте компании."
+    )
+    representative.approve! if status == "approved"
+    representative.rejected! if status == "rejected"
+  end
+
+  puts "Representatives created: #{CompanyRepresentative.count} (approved: #{CompanyRepresentative.approved.count})"
+end
+
+def create_replies
+  CompanyRepresentative.approved.each do |representative|
+    representative.company.reviews.published.first(2).each do |review|
+      review.create_reply!(user: representative.user, body: @reply_texts.sample)
+    end
+  end
+
+  review = Review.joins(:reply).first
+  review.update!(wish_i_knew: "#{review.wish_i_knew} Дополню: после разговора с HR стало понятнее.", edited_after_reply: true)
+
+  puts "Replies created: #{ReviewReply.count}"
+end
+
+def create_bookmarks
+  User.where(is_admin: false).find_each do |user|
+    user.bookmarked_stories << Story.published.sample(rand(0..4))
+  end
+
+  puts "Bookmarks created: #{Bookmark.count}"
 end
 
 seed

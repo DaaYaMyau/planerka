@@ -1,12 +1,5 @@
 <div id="<%= dom_id tag %>">
-  <div>
-    <strong>Name:</strong>
-    <%= tag.name %>
-  </div>
-
-  <div>
-    <strong>Kind:</strong>
-    <%= tag.kind %>
-  </div>
-
+  <p>
+    <strong><%= tag.name %></strong> · <%= Tag::KIND_LABELS[tag.kind] %>
+  </p>
 </div>

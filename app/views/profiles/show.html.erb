@@ -1,8 +1,10 @@
 <h1>Профиль</h1>
-<p><%= current_user.email %></p>
+<p><%= avatar_for(current_user, size: 64) %> <strong><%= current_user.display_name %></strong> · <%= current_user.email %></p>
 
 <% if current_user.is_admin? %>
   <h2>На модерации</h2>
+
+  <h3>Истории</h3>
   <% if @pending_stories.any? %>
     <% @pending_stories.each do |story| %>
       <p>
@@ -14,25 +16,118 @@
     <p>Новых историй на проверке нет.</p>
   <% end %>
 
+  <h3>Отзывы</h3>
+  <% if @pending_reviews.any? %>
+    <% @pending_reviews.each do |review| %>
+      <p>
+        <%= review.company.name %>: «<%= truncate(review.wish_i_knew, length: 60) %>» —
+        <%= link_to "проверить", edit_company_review_path(review.company, review) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Новых отзывов на проверке нет.</p>
+  <% end %>
+
+  <h3>Новые компании</h3>
+  <% if @pending_companies.any? %>
+    <% @pending_companies.each do |company| %>
+      <p>
+        <%= link_to company.name, company %>
+        <% if company.created_by %>(добавил(а) <%= company.created_by.display_name %>)<% end %> —
+        <%= link_to "проверить", edit_company_path(company) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Новых компаний на проверке нет.</p>
+  <% end %>
+
+  <h3>Заявки представителей</h3>
+  <% if @pending_representatives.any? %>
+    <% @pending_representatives.each do |representative| %>
+      <p>
+        <%= representative.user.display_name %> — <%= representative.company.name %>, <%= representative.position %> —
+        <%= link_to "проверить", company_representative_path(representative) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Новых заявок нет.</p>
+  <% end %>
+
   <h2>Управление</h2>
   <p>
     <%= link_to "Все истории", stories_path %> ·
     <%= link_to "Статьи", articles_path %> ·
-    <%= link_to "Теги", tags_path %>
+    <%= link_to "Теги", tags_path %> ·
+    <%= link_to "Компании", companies_path %>
   </p>
 <% else %>
   <h2>Мои истории</h2>
   <% if @stories.any? %>
     <% @stories.each do |story| %>
-      <p><%= link_to story.title, story %> — <%= story.status %></p>
+      <p><%= link_to story.title, story %> — <%= Story::STATUS_LABELS[story.status] %></p>
     <% end %>
   <% else %>
     <p>Вы ещё не рассказали ни одной истории. <%= link_to "Рассказать", new_story_path %></p>
   <% end %>
 
+  <h2>Мои отзывы</h2>
+  <% if @reviews.any? %>
+    <% @reviews.each do |review| %>
+      <p>
+        <%= link_to review.company.name, review.company %> —
+        <%= Story::STATUS_LABELS[review.status] %> ·
+        <%= link_to "редактировать", edit_company_review_path(review.company, review) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Вы ещё не оставили ни одного отзыва. <%= link_to "Выбрать компанию", companies_path %></p>
+  <% end %>
+
+  <h2>Мои заявки представителя</h2>
+  <% if @representatives.any? %>
+    <% @representatives.each do |representative| %>
+      <p>
+        <%= link_to representative.company.name, representative.company %> —
+        <%= CompanyRepresentative::STATUS_LABELS[representative.status] %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Вы не подавали заявок. Если вы представляете компанию, нажмите «Я представляю эту компанию» на её странице.</p>
+  <% end %>
+
+  <h2>Моя активность</h2>
+
+  <h3>Я голосовал(а)</h3>
+  <% if @my_votes.any? %>
+    <% @my_votes.each do |vote| %>
+      <p><%= link_to vote.story.title, vote.story %> — <%= Vote::LABELS[vote.verdict] %></p>
+    <% end %>
+  <% else %>
+    <p>Вы пока не голосовали.</p>
+  <% end %>
+
+  <h3>Мои комментарии</h3>
+  <% if @my_comments.any? %>
+    <% @my_comments.each do |comment| %>
+      <p>
+        «<%= truncate(comment.body, length: 80) %>» —
+        <%= link_to comment.story.title, story_path(comment.story, anchor: dom_id(comment)) %>
+      </p>
+    <% end %>
+  <% else %>
+    <p>Вы пока не комментировали.</p>
+  <% end %>
+
   <h2>Сохранённое</h2>
-  <p>Скоро здесь появятся сохранённые истории.</p>
+  <% if @bookmarked_stories.any? %>
+    <% @bookmarked_stories.each do |story| %>
+      <p><%= link_to story.title, story %></p>
+    <% end %>
+  <% else %>
+    <p>Вы пока ничего не сохранили. Нажмите «Сохранить» на странице истории, чтобы вернуться к ней позже.</p>
+  <% end %>
 <% end %>
 
-<h2>Настройки</h2>
+<h2>Настройки и анонимность</h2>
+<p><%= link_to "Редактировать профиль", edit_profile_path %></p>
 <p><%= link_to "Сменить email или пароль", edit_user_registration_path %></p>

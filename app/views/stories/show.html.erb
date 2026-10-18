@@ -1,14 +1,25 @@
-<%= render @story %>
+<% content_for :title, @story.title %>
+
+<%= render @story, heading: :h1 %>
+
+<%= render "bookmarks/button", story: @story %>
 
 <%= render "votes/voting", story: @story %>
 
-<div>
-  <% if can? :update, @story %>
-    <%= link_to "Редактировать", edit_story_path(@story) %>
-  <% end %> |
+<section id="comments">
+  <h3>Комментарии (<%= @comments.size %>)</h3>
+
+  <%= render "comments/list", comments: @comments %>
+  <%= render "comments/form", story: @story, comment: @comment %>
+</section>
+
+<p>
   <%= link_to "← На главную", root_path %>
-  
-  <% if can? :destroy, @story %>
-    <%= button_to "Удалить", @story, method: :delete %>
+  <% if can? :update, @story %>
+    · <%= link_to "Редактировать", edit_story_path(@story) %>
   <% end %>
-</div>
+</p>
+
+<% if can? :destroy, @story %>
+  <%= button_to "Удалить", @story, method: :delete, form: { data: { turbo_confirm: "Удалить историю?" } } %>
+<% end %>
