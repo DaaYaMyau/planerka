@@ -1,0 +1,26 @@
+<div id="subscription_form">
+  <%= form_with model: subscription do |form| %>
+    <% if subscription.errors.any? %>
+      <div style="color: red">
+        <% subscription.errors.each do |error| %>
+          <p><%= error.message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :email, "Почта", style: "display: block" %>
+      <%= form.email_field :email, placeholder: "you@example.ru", required: true %>
+    </div>
+
+    <div>
+      <%= form.checkbox :consent %>
+      <%= form.label :consent, "Согласен(на) на обработку персональных данных" %>
+      (<%= link_to "политика конфиденциальности", privacy_path, data: { turbo_frame: "_top" } %>)
+    </div>
+
+    <div>
+      <%= form.submit "Подписаться" %>
+    </div>
+  <% end %>
+</div>

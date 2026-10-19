@@ -1,18 +1,29 @@
 <nav class="menuBar">
   <div>
     <%= link_to "Планёрка", root_path %>
-    <%= link_to "О нас", about_path %>
-    <%= link_to "Разобраться", articles_path %>
-    <%= link_to "Отзывы", companies_path %>
-    <% unless current_user&.is_admin? %>
-      <%= link_to "Рассказать", new_story_path %>
+    <%= link_to "О проекте", about_path %>
+    <% if current_user&.is_admin? %>
+      <%= link_to "Лента", admin_stories_path %>
+      <%= link_to "Новая история", new_story_path %>
+    <% end %>
+    <% if !Rails.configuration.x.teaser || current_user&.is_admin? %>
+      <%= link_to "Разобраться", articles_path %>
+      <%= link_to "Отзывы", companies_path %>
+      <% unless current_user&.is_admin? %>
+        <%= link_to "Рассказать", new_story_path %>
+      <% end %>
     <% end %>
   </div>
   <div>
-    <% if user_signed_in? %>
+    <% if current_user&.is_admin? %>
       <%= link_to "Профиль", profile_path %>
       <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete } %>
-    <% else %>
+    <% elsif user_signed_in? %>
+      <% unless Rails.configuration.x.teaser %>
+        <%= link_to "Профиль", profile_path %>
+      <% end %>
+      <%= link_to "Выйти", destroy_user_session_path, data: { "turbo-method": :delete } %>
+    <% elsif !Rails.configuration.x.teaser %>
       <%= link_to "Войти", new_user_session_path %>
       <%= link_to "Регистрация", new_user_registration_path %>
     <% end %>

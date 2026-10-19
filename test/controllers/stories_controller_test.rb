@@ -132,11 +132,14 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "История удалена"
   end
 
-  test "после удаления админа отправляют к списку всех историй" do
+  test "после удаления админа отправляют в ленту админки" do
     sign_in users(:admin)
 
     delete story_url(@published)
-    assert_redirected_to stories_url
+    assert_redirected_to admin_stories_url
+
+    follow_redirect!
+    assert_includes response.body, "История удалена"
   end
 
   test "чужой пользователь не может удалить историю" do

@@ -1,0 +1,27 @@
+<% content_for :title, "Подписчики" %>
+
+<h1>Подписчики</h1>
+<p>Всего: <%= @subscriptions.size %></p>
+
+<% if @subscriptions.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Почта</th>
+        <th>Подписка</th>
+        <th>Согласие</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @subscriptions.each do |subscription| %>
+        <tr>
+          <td><%= subscription.email %></td>
+          <td><%= subscription.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+          <td><%= subscription.consented_at.strftime("%d.%m.%Y %H:%M") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>Пока никто не подписался.</p>
+<% end %>

@@ -1,0 +1,51 @@
+<%= form_with url: feed_path, method: :get do |form| %>
+  <%= form.search_field :q, value: params[:q], placeholder: "Поиск по историям" %>
+  <%= form.select :profession, Tag.profession.order(:name).pluck(:name, :id), { include_blank: "Любая профессия", selected: params[:profession] } %>
+  <%= form.select :topic, Tag.topic.order(:name).pluck(:name, :id), { include_blank: "Любая тема", selected: params[:topic] } %>
+  <%= form.select :stage, Tag.stage.order(:name).pluck(:name, :id), { include_blank: "Любой этап", selected: params[:stage] } %>
+  <%= form.select :grade, Story::GRADE_LABELS.invert, { include_blank: "Любой грейд", selected: params[:grade] } %>
+  <%= form.submit "Найти", name: nil %>
+  <% if filtered %>
+    <%= link_to "Сбросить", feed_path %>
+  <% end %>
+<% end %>
+
+<% if stories.empty? %>
+  <% if filtered %>
+    <p>По вашему запросу историй не нашлось. Попробуйте убрать часть фильтров или изменить слова поиска.</p>
+    <p><%= link_to "Сбросить фильтры", feed_path %></p>
+  <% else %>
+    <p>Пока здесь нет историй.</p>
+  <% end %>
+<% end %>
+
+<% stories.each do |story| %>
+  <article>
+    <h2><%= link_to story.title, story %></h2>
+
+    <p>
+      <% if story.anonymous? %>
+        Анонимно
+      <% else %>
+        <%= avatar_for(story.user, size: 24) %> <%= story.user.display_name %>
+      <% end %>
+      <% if story.grade %> · <%= Story::GRADE_LABELS[story.grade] %><% end %>
+      · <%= story.created_at.strftime("%d.%m.%Y") %>
+    </p>
+
+    <p><%= truncate(story.body, length: 200) %></p>
+
+    <p>
+      <% story.tags.each do |tag| %>
+        #<%= tag.name %>
+      <% end %>
+    </p>
+    <% if story.article %>
+      <p>Что говорит закон: <%= link_to story.article.title, story.article %></p>
+    <% end %>
+
+    <%= render "votes/voting", story: story %>
+
+    <p><%= link_to "Комментарии: #{story.comments.size}", story_path(story, anchor: "comments") %></p>
+  </article>
+<% end %>

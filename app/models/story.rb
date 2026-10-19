@@ -24,6 +24,16 @@ class Story < ApplicationRecord
     where(id: ids)
   }
 
+  FILTERS = %i[ q profession topic stage grade ].freeze
+
+  def self.filtered(filters)
+    published.with_tag(filters[:profession]).with_tag(filters[:topic]).with_tag(filters[:stage])
+             .with_grade(filters[:grade])
+             .search(filters[:q])
+             .includes(:comments, user: { profile: { avatar_attachment: :blob } }, votes: { user: :profile })
+             .order(created_at: :desc)
+  end
+
   GRADE_LABELS = { "student" => "Студент", "intern" => "Стажёр", "junior" => "Джун", "middle" => "Мидл", "senior" => "Сеньор" }.freeze
   STATUS_LABELS = { "draft" => "Черновик", "pending" => "На модерации", "published" => "Опубликовано" }.freeze
 

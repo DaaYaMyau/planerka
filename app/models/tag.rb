@@ -8,8 +8,4 @@ class Tag < ApplicationRecord
 
   validates :name, presence: { message: "Укажите название тега" },
                    uniqueness: { scope: :kind, message: "Такой тег уже есть" }
-
-  def self.published_story_counts
-    StoryTag.joins(:story).merge(Story.published).group(:tag_id).count
-  end
 end

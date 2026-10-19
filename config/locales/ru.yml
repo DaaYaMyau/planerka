@@ -13,6 +13,7 @@ ru:
       review: Отзыв
       company_representative: Заявка представителя
       review_reply: Ответ компании
+      subscription: Подписка
     attributes:
       user:
         email: Эл. почта
@@ -84,3 +85,7 @@ ru:
         user: Автор
         review: Отзыв
         body: Текст ответа
+      subscription:
+        email: Почта
+        consent: Согласие
+        consented_at: Дата согласия

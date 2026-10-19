@@ -102,6 +102,8 @@ def seed
   create_reviews
   create_representatives
   create_replies
+  create_subscriptions(15)
+  print_summary
 end
 
 
@@ -294,6 +296,27 @@ def create_replies
   review.update!(wish_i_knew: "#{review.wish_i_knew} Дополню: после разговора с HR стало понятнее.", edited_after_reply: true)
 
   puts "Replies created: #{ReviewReply.count}"
+end
+
+def create_subscriptions(quantity)
+  quantity.times do |i|
+    subscribed_at = rand(1..30).days.ago
+    Subscription.create!(email: "subscriber_#{i + 1}@example.ru", consent: "1",
+                         created_at: subscribed_at, consented_at: subscribed_at)
+  end
+
+  puts "Subscriptions created: #{Subscription.count}"
+end
+
+def print_summary
+  puts
+  puts "=== Готово ==="
+  puts "Админ: admin@planerka.ru / testtest"
+  puts "Пользователи: #{User.count} (обычные user_0..user_9@email.com, пароль testtest)"
+  puts "Истории: #{Story.count} (опубликовано #{Story.published.count}, на модерации #{Story.pending.count})"
+  puts "Голоса: #{Vote.count}, комментарии: #{Comment.count}, закладки: #{Bookmark.count}"
+  puts "Компании: #{Company.count}, отзывы: #{Review.count}, представители: #{CompanyRepresentative.count}, ответы: #{ReviewReply.count}"
+  puts "Подписчики: #{Subscription.count}"
 end
 
 def create_bookmarks

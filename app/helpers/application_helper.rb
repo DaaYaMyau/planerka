@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def feed_path(filters = {})
+    Rails.configuration.x.teaser ? admin_stories_path(filters) : root_path(filters)
+  end
+
   def avatar_for(user, size: 32)
     style = "width: #{size}px; height: #{size}px; border-radius: 50%; vertical-align: middle;"
     avatar = user.profile&.avatar

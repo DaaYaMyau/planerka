@@ -1,0 +1,5 @@
+<% if @subscription.persisted? %>
+  <%= turbo_stream.replace "subscription_form", partial: "subscriptions/done" %>
+<% else %>
+  <%= turbo_stream.replace "subscription_form", partial: "subscriptions/form", locals: { subscription: @subscription } %>
+<% end %>

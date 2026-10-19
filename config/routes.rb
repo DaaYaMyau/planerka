@@ -12,9 +12,14 @@ Rails.application.routes.draw do
     resources :company_representatives, only: %i[ new create ], path: "representatives"
   end
   resources :company_representatives, only: %i[ show update ]
+  resources :subscriptions, only: :create
   resources :tags
   resources :articles
-  devise_for :users
+  devise_for :users, skip: (Rails.configuration.x.teaser ? [ :registrations ] : [])
+  namespace :admin do
+    resources :stories, only: :index
+    resources :subscriptions, only: :index
+  end
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -30,5 +35,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "home#index"
   get "about", to: "pages#about"
+  get "rules", to: "pages#rules"
+  get "privacy", to: "pages#privacy"
   resource :profile, only: %i[ show edit update ]
 end

@@ -37,7 +37,8 @@ class Ability
     return unless user.is_admin?
 
     can :manage, :all
-    cannot :create, [ Story, Vote, Bookmark, Comment, Review, CompanyRepresentative, ReviewReply ]
+    can :access, :admin
+    cannot :create, [ Vote, Bookmark, Comment, Review, CompanyRepresentative, ReviewReply ]
     cannot :update, ReviewReply
   end
 end

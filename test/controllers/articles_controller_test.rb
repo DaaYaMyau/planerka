@@ -24,15 +24,9 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "Сбросить поиск"
   end
 
-  test "популярные ситуации — темы по числу опубликованных историй, ссылка на главную с фильтром" do
-    stories(:anonymous).tags << tags(:salary)
-    Tag.create!(name: "отпуск", kind: "topic")
-
+  test "на странице «Разобраться» нет «Популярных ситуаций»" do
     get articles_url
-
-    assert_includes response.body, "Популярные ситуации"
-    assert_includes response.body, %(href="#{root_path(topic: tags(:salary).id)}">зарплата (2)</a>)
-    assert_not_includes response.body, "отпуск (", "темы без опубликованных историй не показываем"
+    assert_not_includes response.body, "Популярные ситуации"
   end
 
   test "в меню «Разобраться» вместо «Юр. вопросы»" do

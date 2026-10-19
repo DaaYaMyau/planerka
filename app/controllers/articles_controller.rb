@@ -4,8 +4,6 @@ class ArticlesController < ApplicationController
   # GET /articles or /articles.json
   def index
     @articles = Article.search(params[:q]).order(:title)
-    @topic_counts = Tag.published_story_counts
-    @popular_topics = Tag.topic.select { |tag| @topic_counts[tag.id] }.sort_by { |tag| -@topic_counts[tag.id] }
   end
 
   # GET /articles/1 or /articles/1.json

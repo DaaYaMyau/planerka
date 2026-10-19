@@ -4,6 +4,9 @@ class ProfilesController < ApplicationController
 
   def show
     if current_user.is_admin?
+      @stories_count = Story.count
+      @published_count = Story.published.count
+      @subscriptions_count = Subscription.count
       @pending_stories = Story.pending.order(:created_at)
       @pending_reviews = Review.pending.includes(:company).order(:created_at)
       @pending_companies = Company.pending.includes(:created_by).order(:created_at)

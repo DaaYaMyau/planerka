@@ -23,8 +23,8 @@ class StoriesController < ApplicationController
 
   # POST /stories or /stories.json
   def create
-  @story = current_user.stories.new(story_params)
-  @story.status = "pending" unless current_user.is_admin?
+    @story = current_user.stories.new(story_params)
+    @story.status = "pending" unless current_user.is_admin?
 
     respond_to do |format|
       if @story.save
@@ -58,7 +58,7 @@ class StoriesController < ApplicationController
     @story.destroy!
 
     respond_to do |format|
-      format.html { redirect_to current_user.is_admin? ? stories_path : profile_path, notice: "История удалена", status: :see_other }
+      format.html { redirect_to current_user.is_admin? ? admin_stories_path : profile_path, notice: "История удалена", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -70,7 +70,10 @@ class StoriesController < ApplicationController
     end
 
   def story_saved_notice
-    @story.published? ? "История опубликована" : "Спасибо! История появится после проверки модератором"
+    return "История опубликована" if @story.published?
+    return "История сохранена: #{Story::STATUS_LABELS[@story.status].downcase}" if current_user.is_admin?
+
+    "Спасибо! История появится после проверки модератором"
   end
 
   # Only allow a list of trusted parameters through.

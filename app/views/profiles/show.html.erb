@@ -2,9 +2,15 @@
 <p><%= avatar_for(current_user, size: 64) %> <strong><%= current_user.display_name %></strong> · <%= current_user.email %></p>
 
 <% if current_user.is_admin? %>
+  <h2>Сводка</h2>
+  <ul>
+    <li>Историй всего: <%= @stories_count %>, опубликовано: <%= @published_count %>, на модерации: <%= @pending_stories.size %></li>
+    <li>Подписчиков: <%= @subscriptions_count %> · <%= link_to "список", admin_subscriptions_path %></li>
+  </ul>
+
   <h2>На модерации</h2>
 
-  <h3>Истории</h3>
+  <h3>Истории (<%= @pending_stories.size %>)</h3>
   <% if @pending_stories.any? %>
     <% @pending_stories.each do |story| %>
       <p>
@@ -16,7 +22,7 @@
     <p>Новых историй на проверке нет.</p>
   <% end %>
 
-  <h3>Отзывы</h3>
+  <h3>Отзывы (<%= @pending_reviews.size %>)</h3>
   <% if @pending_reviews.any? %>
     <% @pending_reviews.each do |review| %>
       <p>
@@ -28,7 +34,7 @@
     <p>Новых отзывов на проверке нет.</p>
   <% end %>
 
-  <h3>Новые компании</h3>
+  <h3>Новые компании (<%= @pending_companies.size %>)</h3>
   <% if @pending_companies.any? %>
     <% @pending_companies.each do |company| %>
       <p>
@@ -41,7 +47,7 @@
     <p>Новых компаний на проверке нет.</p>
   <% end %>
 
-  <h3>Заявки представителей</h3>
+  <h3>Заявки представителей (<%= @pending_representatives.size %>)</h3>
   <% if @pending_representatives.any? %>
     <% @pending_representatives.each do |representative| %>
       <p>
@@ -52,14 +58,6 @@
   <% else %>
     <p>Новых заявок нет.</p>
   <% end %>
-
-  <h2>Управление</h2>
-  <p>
-    <%= link_to "Все истории", stories_path %> ·
-    <%= link_to "Статьи", articles_path %> ·
-    <%= link_to "Теги", tags_path %> ·
-    <%= link_to "Компании", companies_path %>
-  </p>
 <% else %>
   <h2>Мои истории</h2>
   <% if @stories.any? %>
@@ -130,4 +128,6 @@
 
 <h2>Настройки и анонимность</h2>
 <p><%= link_to "Редактировать профиль", edit_profile_path %></p>
-<p><%= link_to "Сменить email или пароль", edit_user_registration_path %></p>
+<% unless Rails.configuration.x.teaser %>
+  <p><%= link_to "Сменить email или пароль", edit_user_registration_path %></p>
+<% end %>

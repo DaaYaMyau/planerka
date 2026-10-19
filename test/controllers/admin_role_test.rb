@@ -7,9 +7,26 @@ class AdminRoleTest < ActionDispatch::IntegrationTest
     @company = companies(:cloud)
   end
 
-  test "админ не пишет истории, не голосует, не комментирует и не сохраняет" do
-    assert_no_difference([ "Story.count", "Vote.count", "Comment.count", "Bookmark.count" ]) do
-      post stories_url, params: { story: { title: "Заголовок", body: "Текст" } }
+  test "админ пишет истории и статьи" do
+    assert_difference("Story.count") do
+      post stories_url, params: { story: { title: "История от редакции", body: "Текст", status: "published" } }
+    end
+    assert Story.last.published?
+
+    assert_difference("Article.count") do
+      post articles_url, params: { article: { title: "Новая статья", slug: "novaya-statya", summary: "Кратко", body: "Текст" } }
+    end
+  end
+
+  test "черновик админа — без сообщения про модератора" do
+    post stories_url, params: { story: { title: "Черновик", body: "Текст", status: "draft" } }
+    follow_redirect!
+
+    assert_includes response.body, "История сохранена: черновик"
+  end
+
+  test "админ не голосует, не комментирует и не сохраняет" do
+    assert_no_difference([ "Vote.count", "Comment.count", "Bookmark.count" ]) do
       post story_votes_url(@story), params: { verdict: "normal" }
       post story_comments_url(@story), params: { comment: { body: "Текст" } }
       post story_bookmark_url(@story)
@@ -24,6 +41,15 @@ class AdminRoleTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, ">Норм</button>"
     assert_includes response.body, "Не норм — 100%"
     assert_not_includes response.body, "Войдите, чтобы"
+  end
+
+  test "в профиле админа — сводка с переходом к подписчикам, без блока «Управление»" do
+    get profile_url
+
+    assert_includes response.body, "Историй всего: #{Story.count}"
+    assert_includes response.body, "Подписчиков: #{Subscription.count}"
+    assert_includes response.body, %(href="#{admin_subscriptions_path}")
+    assert_not_includes response.body, "Управление"
   end
 
   test "в меню у админа нет «Рассказать»" do
