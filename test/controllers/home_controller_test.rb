@@ -38,6 +38,13 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, "Сбросить"
   end
 
+  test "сортировка запоминается и сама по себе не считается фильтром" do
+    get root_url, params: { sort: "popular" }
+
+    assert_select "select[name=sort] option[selected][value=popular]"
+    assert_not_includes response.body, "Сбросить"
+  end
+
   test "автор анонимной истории скрыт" do
     get root_url
 

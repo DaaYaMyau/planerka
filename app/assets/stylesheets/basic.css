@@ -1,0 +1,64 @@
+:root {
+  --Blue: #2667ff;
+  --Violet: #7b2ff7;
+  --Pink: #ff85e0;
+  --Yellow: #f5c542;
+  --Green: #4fdc8a;
+  --Orange: #f27f4e;
+  --White: #ffffff;
+}
+
+/* html {
+  font-size: calc(100vw / 1440);  
+}
+
+@media (min-width: 1440px) {
+  html { font-size: 1px; }        
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  background: var(--Blue);
+  color: var(--White);
+} */
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: black;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.tag--plain {
+  border-color: currentColor;
+  color: inherit;
+}
+
+.tag--pink {
+  background: var(--Pink);
+}
+
+.tag--yellow {
+  background: var(--Yellow);
+}
+
+.tag--green {
+  background: var(--Green);
+}
+
+.tag--orange {
+  background: var(--Orange);
+}
+
+.tag--blue {
+  background: var(--Blue);
+  color: var(--White);
+}
+
+.tag--violet {
+  background: var(--Violet);
+  color: var(--White);
+}

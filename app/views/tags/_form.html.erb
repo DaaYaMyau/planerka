@@ -22,6 +22,11 @@
   </div>
 
   <div>
+    <%= form.label :color, "Цвет", style: "display: block" %>
+    <%= form.select :color, Tag::COLOR_LABELS.invert, include_blank: "Без цвета" %>
+  </div>
+
+  <div>
     <%= form.submit "Сохранить" %>
   </div>
 <% end %>

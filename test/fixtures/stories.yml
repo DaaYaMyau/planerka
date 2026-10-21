@@ -9,6 +9,7 @@ published:
   grade: junior
   status: published
   anonymous: false
+  votes_count: 1
 
 pending:
   user: anna

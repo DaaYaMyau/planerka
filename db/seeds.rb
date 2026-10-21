@@ -96,6 +96,7 @@ def seed
   create_articles
   create_companies
   create_stories(40)
+  attach_story_images
   create_votes
   create_comments
   create_bookmarks
@@ -178,9 +179,9 @@ end
 
 def create_tags
   @tags.each do |kind, names|
-    names.each do |name|
-      tag = Tag.create!(name: name, kind: kind)
-      puts "Tag '#{tag.name}' (#{tag.kind}) just created"
+    names.each_with_index do |name, i|
+      tag = Tag.create!(name: name, kind: kind, color: kind == :profession ? Tag::COLORS[i] : nil)
+      puts "Tag '#{tag.name}' (#{tag.kind}, #{tag.color || "no color"}) just created"
     end
   end
 end
@@ -208,13 +209,26 @@ def create_stories(quantity)
       status: [ "published", "published", "published", "pending", "draft" ].sample,
       anonymous: [ true, false ].sample,
       article: [ Article.all.sample, nil ].sample,
-      company: [ Company.published.sample, nil, nil ].sample
+      company: [ Company.published.sample, nil, nil ].sample,
+      created_at: rand(1..60).days.ago - rand(0..23).hours
     )
 
     story.tags << Tag.profession.sample(1) + Tag.topic.sample(rand(1..2)) + Tag.stage.sample(rand(0..1))
 
     puts "Story with id #{story.id} just created with #{story.tags.count} tags"
   end
+end
+
+def attach_story_images
+  paths = Dir[Rails.root.join("db/seeds/images/*")]
+
+  Story.published.sample(6).each do |story|
+    paths.sample(rand(1..2)).each do |path|
+      story.images.attach(io: File.open(path), filename: File.basename(path))
+    end
+  end
+
+  puts "Images attached to #{Story.joins(:images_attachments).distinct.count} stories"
 end
 
 def create_votes

@@ -4,9 +4,10 @@
   <%= form.select :topic, Tag.topic.order(:name).pluck(:name, :id), { include_blank: "Любая тема", selected: params[:topic] } %>
   <%= form.select :stage, Tag.stage.order(:name).pluck(:name, :id), { include_blank: "Любой этап", selected: params[:stage] } %>
   <%= form.select :grade, Story::GRADE_LABELS.invert, { include_blank: "Любой грейд", selected: params[:grade] } %>
+  <%= form.select :sort, Story::SORT_LABELS.invert, { selected: params[:sort] } %>
   <%= form.submit "Найти", name: nil %>
   <% if filtered %>
-    <%= link_to "Сбросить", feed_path %>
+    <%= link_to "Сбросить", feed_path(sort: params[:sort].presence) %>
   <% end %>
 <% end %>
 
@@ -33,11 +34,15 @@
       · <%= story.created_at.strftime("%d.%m.%Y") %>
     </p>
 
+    <% if story.images.any? %>
+      <p><%= image_tag story.images.first.variant(resize_to_limit: [ 600, 400 ], saver: { strip: true }), alt: "" %></p>
+    <% end %>
+
     <p><%= truncate(story.body, length: 200) %></p>
 
     <p>
       <% story.tags.each do |tag| %>
-        #<%= tag.name %>
+        <%= render "tags/chip", tag: tag %>
       <% end %>
     </p>
     <% if story.article %>

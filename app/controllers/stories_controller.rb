@@ -79,9 +79,11 @@ class StoriesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def story_params
     if current_user.is_admin?
-      params.expect(story: [ :article_id, :company_id, :title, :body, :grade, :status, :anonymous, tag_ids: [] ])
+      params.expect(story: [ :article_id, :company_id, :title, :body, :grade, :status, :anonymous,
+                             tag_ids: [], images: [], remove_image_ids: [] ])
     else
-      params.expect(story: [ :company_id, :title, :body, :grade, :anonymous, tag_ids: [] ])
+      params.expect(story: [ :company_id, :title, :body, :grade, :anonymous,
+                             tag_ids: [], images: [], remove_image_ids: [] ])
     end
   end
 end

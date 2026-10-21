@@ -22,6 +22,24 @@
   </div>
 
   <div>
+    <%= form.label :images, "Картинки (необязательно, до #{Story::MAX_IMAGES} штук, PNG, JPG или WEBP до 5 МБ)", style: "display: block" %>
+    <p>Проверьте, что на картинке нет имён, лиц и названий компаний</p>
+
+    <% story.images.select(&:persisted?).each do |image| %>
+      <div>
+        <%= form.hidden_field :images, multiple: true, value: image.signed_id %>
+        <%= image_tag image.variant(resize_to_limit: [ 150, 150 ], saver: { strip: true }) %>
+        <label>
+          <%= check_box_tag "story[remove_image_ids][]", image.id, image.id.to_s.in?(story.remove_image_ids), id: nil %>
+          удалить
+        </label>
+      </div>
+    <% end %>
+
+    <%= form.file_field :images, multiple: true, accept: Story::IMAGE_TYPES.join(",") %>
+  </div>
+
+  <div>
     <%= form.label :grade, "Ваш грейд", style: "display: block" %>
     <%= form.select :grade, Story::GRADE_LABELS.invert, include_blank: "Не указывать" %>
   </div>

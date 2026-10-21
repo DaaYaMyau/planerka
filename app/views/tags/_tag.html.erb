@@ -1,5 +1,6 @@
 <div id="<%= dom_id tag %>">
   <p>
-    <strong><%= tag.name %></strong> · <%= Tag::KIND_LABELS[tag.kind] %>
+    <%= render "tags/chip", tag: tag %> · <%= Tag::KIND_LABELS[tag.kind] %>
+    · <%= Tag::COLOR_LABELS.fetch(tag.color.to_s, "Без цвета") %>
   </p>
 </div>

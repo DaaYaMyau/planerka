@@ -7,12 +7,20 @@ class Story < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
+  has_many_attached :images
   enum :grade, { student: 0, intern: 1, junior: 2, middle: 3, senior: 4 }
   enum :status, { draft: 0, pending: 1, published: 2 }
+
+  IMAGE_TYPES = %w[image/png image/jpeg image/webp].freeze
+  MAX_IMAGES = 4
+
+  attribute :remove_image_ids, default: -> { [] }
+  after_save :purge_removed_images
 
   validates :title, presence: { message: "Напишите заголовок" },
                     length: { maximum: 150, message: "Заголовок не может быть длиннее 150 символов" }
   validates :body, presence: { message: "Расскажите свою историю" }
+  validate :images_must_be_small_pictures
 
   scope :with_tag, ->(tag_id) { where(id: StoryTag.where(tag_id: tag_id).select(:story_id)) if tag_id.present? }
   scope :with_grade, ->(grade) { where(grade: grade) if grades.key?(grade) }
@@ -30,8 +38,19 @@ class Story < ApplicationRecord
     published.with_tag(filters[:profession]).with_tag(filters[:topic]).with_tag(filters[:stage])
              .with_grade(filters[:grade])
              .search(filters[:q])
+             .with_attached_images
              .includes(:comments, user: { profile: { avatar_attachment: :blob } }, votes: { user: :profile })
-             .order(created_at: :desc)
+             .sorted(filters[:sort])
+  end
+
+  SORT_LABELS = { "new" => "Сначала новые", "old" => "Сначала старые", "popular" => "Популярные" }.freeze
+
+  def self.sorted(sort)
+    case sort
+    when "old" then order(created_at: :asc)
+    when "popular" then order(votes_count: :desc, created_at: :desc)
+    else order(created_at: :desc)
+    end
   end
 
   GRADE_LABELS = { "student" => "Студент", "intern" => "Стажёр", "junior" => "Джун", "middle" => "Мидл", "senior" => "Сеньор" }.freeze
@@ -51,5 +70,35 @@ class Story < ApplicationRecord
     return [] if grade.nil?
 
     votes.select { |vote| vote.user_id != user.id && vote.user.profile&.grade == grade }
+  end
+
+  def kept_images
+    images.reject { |image| image.id.to_s.in?(remove_image_ids) }
+  end
+
+  private
+
+  def images_must_be_small_pictures
+    errors.add(:images, "Можно прикрепить не больше #{MAX_IMAGES} картинок") if kept_images.size > MAX_IMAGES
+
+    looks_like_pictures = images.all? { |image| image.content_type.in?(IMAGE_TYPES) }
+    really_pictures = real_image_types.all? { |type| type.in?(IMAGE_TYPES) }
+    unless looks_like_pictures && really_pictures
+      errors.add(:images, "Картинки должны быть в формате PNG, JPG или WEBP")
+    end
+
+    if images.any? { |image| image.byte_size > 5.megabytes }
+      errors.add(:images, "Каждая картинка должна быть не больше 5 МБ")
+    end
+  end
+
+  def real_image_types
+    files = Array(attachment_changes["images"]&.attachables)
+    files = files.map { |file| file.is_a?(Hash) ? file[:io] : file }
+    files.select { |file| file.respond_to?(:read) }.map { |file| Marcel::MimeType.for(file) }
+  end
+
+  def purge_removed_images
+    images_attachments.where(id: remove_image_ids).each(&:purge_later)
   end
 end
