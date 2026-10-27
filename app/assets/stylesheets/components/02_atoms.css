@@ -572,3 +572,148 @@
   background: var(--Blue);
   color: var(--White);
 }
+
+.A_ErrorDigit {
+  position: absolute;
+  font-family: var(--FontHeading);
+  font-size: 380rem;
+  font-weight: 700;
+  line-height: 1.354;
+  color: var(--White);
+  text-box: trim-both cap alphabetic;
+}
+
+.A_ErrorDigitLeft {
+  left: 227.8rem;
+  top: 152.3rem;
+}
+
+.A_ErrorDigitRight {
+  left: 981rem;
+  top: 156rem;
+}
+
+.A_ErrorLead {
+  font-size: 25rem;
+}
+
+.A_MobileTab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  height: 50rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--Violet);
+  cursor: pointer;
+}
+
+.A_MobileLogo {
+  display: block;
+  width: 28rem;
+  height: 22rem;
+}
+
+.A_MenuIcon {
+  display: block;
+  width: 22.5rem;
+  height: 15.5rem;
+}
+
+@media (max-width: 767px) {
+  .A_EmailInput {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .A_SubscribeButton {
+    flex: none;
+    width: 50rem;
+    padding: 0;
+    background-image: url("/mobile/arrow.svg");
+    background-position: center;
+    background-size: 50rem 50rem;
+    font-size: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .A_SplashTitle {
+    left: 30rem;
+    top: 297rem;
+    font-size: 37rem;
+    line-height: normal;
+  }
+}
+
+.A_ArrowButton {
+  display: block;
+  width: 50rem;
+  height: 50rem;
+}
+
+.A_ArrowButtonBack {
+  rotate: 180deg;
+}
+
+@media (max-width: 767px) {
+  .A_HeroTitle {
+    font-size: 60rem;
+    line-height: 1.354;
+  }
+}
+
+@media (max-width: 767px) {
+  .A_SearchInput {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .A_StoryTitle {
+    font-size: 25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .A_PageTitle {
+    font-size: 30rem;
+    line-height: normal;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  .A_Heading {
+    font-size: 25rem;
+  }
+
+  .A_ErrorDigit {
+    font-size: 150rem;
+  }
+
+  .A_ErrorDigitLeft {
+    left: 40rem;
+    top: 190rem;
+  }
+
+  .A_ErrorDigitRight {
+    left: 272rem;
+    top: 190rem;
+  }
+
+  .A_ModerationTitle,
+  .A_ModerationSubtitle {
+    white-space: normal;
+  }
+
+  .A_ErrorLead {
+    font-size: 20rem;
+  }
+
+  .A_ErrorLead br {
+    display: none;
+  }
+}

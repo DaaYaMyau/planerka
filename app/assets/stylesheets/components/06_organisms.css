@@ -112,7 +112,7 @@
 }
 
 .O_Footer .A_SubscribeButton {
-  background: var(--Violet);
+  background-color: var(--Violet);
 }
 
 .O_HeroSection {
@@ -196,4 +196,172 @@
   display: flex;
   flex-direction: column;
   gap: 20rem;
+}
+
+.O_NotFound {
+  position: absolute;
+  inset: 0;
+  color: var(--White);
+}
+
+.O_NotFound > .M_LoadMoreButton {
+  position: absolute;
+  left: 50%;
+  top: 717rem;
+  translate: -50% 0;
+}
+
+.O_MobileNavigation {
+  display: none;
+}
+
+.O_MobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.O_MobileMenu[hidden] {
+  display: none;
+}
+
+.O_MobileMenu .M_SocialIcons {
+  position: absolute;
+  bottom: 45rem;
+}
+
+.O_MobileNavigation[data-open] .A_MobileTab {
+  background: var(--Blue);
+}
+
+@media (max-width: 767px) {
+  .O_HeaderNavigation,
+  .O_MenuBar {
+    display: none;
+  }
+
+  .O_MobileNavigation {
+    display: block;
+  }
+
+  .O_Footer {
+    flex-direction: column;
+    gap: 70rem;
+    padding: 40rem 30rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_SplashFooter {
+    top: 749rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15rem;
+    padding: 0 30rem;
+  }
+
+  .O_SplashFooter .M_Brand,
+  .O_SplashFooter .M_SocialIcons {
+    display: none;
+  }
+
+  .O_SplashFooter:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) .M_SocialLinks {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_AboutHero {
+    height: 726rem;
+    padding: 231rem 26rem 0;
+    border-radius: 0;
+  }
+
+  .O_ProjectMission .W_Section,
+  .O_HowItWorks .W_Section,
+  .O_ProjectPrinciples .W_Section,
+  .O_SafetyAndPrivacy .W_Section,
+  .O_ProjectTeam .W_Section {
+    padding: 180rem 30rem;
+  }
+
+  .O_ProjectRules .W_Section {
+    gap: 100rem;
+    padding: 180rem 30rem;
+  }
+
+  .O_ProjectMission .W_TaggedBlock {
+    width: 100%;
+  }
+
+  .O_ProjectMission .A_Text br {
+    display: none;
+  }
+
+  .O_ModerationTab {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    width: 100%;
+  }
+
+  .O_ModerationTab .C_NavigationTabs {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_HeroSection {
+    gap: 50rem;
+    padding: 200rem 30rem 120rem;
+    border-radius: 0;
+  }
+
+  .O_HeroSection .A_HeroTitle {
+    font-size: 37rem;
+    line-height: normal;
+  }
+
+  .O_StoriesFeed .W_Section {
+    gap: 30rem;
+    padding: 110rem 30rem;
+  }
+
+  .O_StoriesFilters {
+    flex-wrap: wrap;
+    gap: 10rem;
+    width: 100%;
+  }
+
+  .O_StoriesFilters > .A_Link {
+    margin: 0;
+  }
+
+  .O_StoryCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_ProfileHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30rem;
+    width: 100%;
+  }
+
+  .O_ProfileSection {
+    width: 100%;
+  }
+
+  .O_NotFound > .M_LoadMoreButton {
+    top: 650rem;
+  }
 }

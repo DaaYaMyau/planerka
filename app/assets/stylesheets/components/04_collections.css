@@ -343,3 +343,225 @@
   background: var(--Blue);
   color: var(--White);
 }
+
+.C_NotFoundDecor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.C_NotFoundDecor > .M_Tag {
+  position: absolute;
+  translate: -50% -50%;
+}
+
+.C_NotFoundDecor > :nth-child(1) {
+  left: 796.3rem;
+  top: 321rem;
+  rotate: 6.23deg;
+}
+
+.C_NotFoundDecor > :nth-child(2) {
+  left: 890rem;
+  top: 126rem;
+  scale: 1.4;
+}
+
+.C_NotFoundDecor > :nth-child(3) {
+  left: 1300.7rem;
+  top: 273.7rem;
+  rotate: 21.78deg;
+  scale: 1.5415;
+}
+
+.C_NotFoundDecor > :nth-child(4) {
+  left: 131.5rem;
+  top: 288.5rem;
+  rotate: -9.9deg;
+  scale: 1.3463;
+}
+
+.C_NotFoundDecor > :nth-child(5) {
+  left: 220.7rem;
+  top: 673.7rem;
+  rotate: -8.78deg;
+  scale: 1.1942;
+}
+
+@media (max-width: 767px) {
+  .C_FooterLinks {
+    gap: 20rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .C_HeroFolders > :nth-child(1),
+  .C_HeroFolders > :nth-child(2),
+  .C_HeroFolders > :nth-child(6) {
+    display: none;
+  }
+
+  .C_HeroFolders > :nth-child(4) {
+    left: -9rem;
+    top: 587rem;
+    z-index: 1;
+    scale: 0.72;
+    rotate: -9.52deg;
+  }
+
+  .C_HeroFolders > :nth-child(3) {
+    left: 102rem;
+    top: 560rem;
+    z-index: 2;
+    scale: 0.72;
+    rotate: -2.81deg;
+  }
+
+  .C_HeroFolders > :nth-child(5) {
+    left: 200rem;
+    top: 602rem;
+    z-index: 3;
+    scale: 0.72;
+    rotate: 6.19deg;
+  }
+
+  .C_MissionTags > :nth-child(1) {
+    left: 256rem;
+    top: 433rem;
+    rotate: -8.06deg;
+  }
+
+  .C_MissionTags > :nth-child(2) {
+    left: 71rem;
+    top: -61rem;
+    rotate: 9.32deg;
+  }
+
+  .C_MissionTags > :nth-child(3) {
+    display: none;
+  }
+
+  .C_MissionTags > :nth-child(4) {
+    left: 296rem;
+    top: -37rem;
+    rotate: -13.46deg;
+  }
+
+  .C_MissionTags > :nth-child(5) {
+    left: 60rem;
+    top: 478rem;
+    rotate: 15.33deg;
+  }
+
+  .C_MissionTags > .M_TagIcon {
+    width: 60rem;
+    height: 60rem;
+  }
+
+  .C_CommunicationTags {
+    display: none;
+  }
+
+  .C_StepCards {
+    width: 342rem;
+    height: 500rem;
+  }
+
+  .C_StepCards > [data-slot="0"] {
+    width: 252rem;
+  }
+
+  .C_StepCards > [data-slot="1"] {
+    width: 282rem;
+  }
+
+  .C_StepCards > [data-slot="2"] {
+    width: 312rem;
+  }
+
+  .C_StepCards > [data-slot="3"] {
+    width: 342rem;
+    height: auto;
+    padding-bottom: 40rem;
+  }
+
+  .C_FoldersGrid {
+    grid-template-columns: 1fr;
+    gap: 69rem;
+  }
+
+  .C_PublicationCards {
+    flex-direction: column;
+    gap: 15rem;
+    width: 100%;
+  }
+
+  .C_TeamGrid {
+    flex-direction: column;
+    gap: 15rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .C_HeroTags > :nth-child(2),
+  .C_HeroTags > :nth-child(3),
+  .C_HeroTags > :nth-child(5),
+  .C_HeroTags > :nth-child(6) {
+    display: none;
+  }
+
+  .C_HeroTags > :nth-child(1) {
+    left: 70rem;
+    top: -55rem;
+  }
+
+  .C_HeroTags > :nth-child(4) {
+    left: 300rem;
+    top: -60rem;
+  }
+
+  .C_StoryList {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .C_CardGrid,
+  .C_CardGridTwo {
+    grid-template-columns: 1fr;
+  }
+
+  .C_ModerationList {
+    width: 100%;
+  }
+
+  .C_Table {
+    min-width: 600rem;
+    white-space: nowrap;
+  }
+
+  .C_NotFoundDecor > :nth-child(4),
+  .C_NotFoundDecor > :nth-child(5) {
+    display: none;
+  }
+
+  .C_NotFoundDecor > :nth-child(1) {
+    left: 300rem;
+    top: 395rem;
+    scale: 0.7;
+  }
+
+  .C_NotFoundDecor > :nth-child(2) {
+    left: 70rem;
+    top: 120rem;
+    scale: 0.8;
+  }
+
+  .C_NotFoundDecor > :nth-child(3) {
+    left: 345rem;
+    top: 130rem;
+    scale: 0.8;
+  }
+}

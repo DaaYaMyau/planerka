@@ -73,3 +73,65 @@
   background: var(--White);
   color: var(--Blue);
 }
+
+.W_ErrorFolder {
+  position: absolute;
+  left: 533.85rem;
+  top: 179.3rem;
+  rotate: -9.42deg;
+  scale: 1.2218;
+}
+
+.W_ErrorFolder .M_FolderContent > * {
+  visibility: hidden;
+}
+
+@media (max-width: 767px) {
+  .W_SubscriptionForm {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .W_RulesBlock {
+    gap: 30rem;
+    width: 100%;
+  }
+
+  .W_RulesBlockNarrow,
+  .W_RulesBlockNarrow > .A_Text {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .W_PageBody {
+    padding: 110rem 30rem 100rem;
+    border-radius: 0;
+  }
+
+  .W_PageContent,
+  .W_PageContentNarrow,
+  .W_PageContentMedium {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .W_PageContent {
+    gap: 30rem;
+  }
+
+  .W_Card {
+    padding: 20rem;
+  }
+
+  .W_Card:has(> .C_Table) {
+    overflow-x: auto;
+  }
+
+  .W_ErrorFolder {
+    left: 22rem;
+    top: 180rem;
+    scale: 0.4;
+  }
+}

@@ -1,0 +1,38 @@
+<% content_for :title, "Страница не найдена" %>
+<% content_for :hide_footer, "true" %>
+
+<div class="S_NotFound">
+  <%= render "components/quarks/splash_background" %>
+
+  <div class="O_NotFound">
+    <p class="A_ErrorDigit A_ErrorDigitLeft" aria-hidden="true">4</p>
+    <div class="W_ErrorFolder" aria-hidden="true">
+      <%= render "components/molecules/category_folder", size: "large", color: "pink",
+                 title: "Реальный опыт", text: "Настоящие истории, вопросы\nи трудности специалистов на разных этапах карьеры" %>
+    </div>
+    <p class="A_ErrorDigit A_ErrorDigitRight" aria-hidden="true">4</p>
+
+    <div class="C_NotFoundDecor" aria-hidden="true">
+      <%= render "components/molecules/tag", text: "вне офиса", modifier: "M_TagLarge M_TagViolet M_TagWide" %>
+      <%= render "components/molecules/tag", icon: "not_found/tag_cross.svg", modifier: "M_TagIcon M_TagViolet" %>
+      <%= render "components/molecules/tag", icon: "not_found/tag_question.svg", modifier: "M_TagIcon M_TagGreen" %>
+      <%= render "components/molecules/tag", icon: "not_found/tag_document.svg", modifier: "M_TagIcon M_TagYellow" %>
+      <%= render "components/molecules/tag", icon: "not_found/tag_clock.svg", modifier: "M_TagIcon M_TagOrange" %>
+    </div>
+
+    <div class="M_ErrorText">
+      <h1 class="A_PageTitle">Эта страница уволилась</h1>
+      <p class="A_ErrorLead">
+        Не знаем, что стало последней каплей.<br>
+        Но по этому адресу ее больше нет.
+      </p>
+    </div>
+
+    <%= link_to root_path, class: "M_LoadMoreButton M_LoadMoreButtonAuto" do %>
+      <span class="A_Text">На главную</span>
+      <%= image_tag "feed/arrow_button.svg", alt: "", class: "A_ButtonIcon" %>
+    <% end %>
+  </div>
+
+  <%= render "components/organisms/splash_footer", subscription: false %>
+</div>

@@ -1,6 +1,16 @@
 <div class="O_SplashFooter">
-  <h2 class="Q_VisuallyHidden">Узнать о запуске</h2>
+  <% if local_assigns.fetch(:subscription, true) %>
+    <h2 class="Q_VisuallyHidden">Узнать о запуске</h2>
+  <% end %>
   <%= render "components/molecules/brand" %>
-  <%= render "subscriptions/form", subscription: Subscription.new %>
+  <% if local_assigns.fetch(:subscription, true) %>
+    <%= render "subscriptions/form", subscription: Subscription.new %>
+  <% else %>
+    <div></div>
+  <% end %>
   <%= render "components/molecules/social_icons" %>
+  <div class="M_SocialLinks">
+    <%= link_to "Тг-канал", "#", class: "A_Link" %>
+    <%= link_to "Почта", "#", class: "A_Link" %>
+  </div>
 </div>

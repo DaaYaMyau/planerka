@@ -199,3 +199,69 @@
   border-radius: var(--RadiusM);
   object-fit: cover;
 }
+
+.Q_NoScroll {
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .Q_SplashBackground {
+    border-radius: 0;
+  }
+
+  .Q_Decor {
+    display: none;
+    transform-origin: 50% 50%;
+  }
+
+  .Q_DecorTagDisputed,
+  .Q_DecorTagAbnormal,
+  .Q_DecorFilterIntern,
+  .Q_DecorFilterHybrid,
+  .Q_DecorFolderRights,
+  .Q_DecorFolderWork {
+    display: block;
+  }
+
+  .Q_DecorTagDisputed {
+    left: 34rem;
+    top: 234rem;
+  }
+
+  .Q_DecorTagAbnormal {
+    left: 253rem;
+    top: 488rem;
+  }
+
+  .Q_DecorFilterIntern {
+    left: 206rem;
+    top: 171rem;
+    width: 140rem;
+  }
+
+  .Q_DecorFilterHybrid {
+    left: 233rem;
+    top: 120rem;
+    width: 138rem;
+  }
+
+  .Q_DecorFolderRights {
+    left: 34rem;
+    top: 536rem;
+    width: 160rem;
+    transform-origin: 50% 50%;
+  }
+
+  .Q_DecorFolderWork {
+    left: 111rem;
+    top: 585rem;
+    width: 160rem;
+    transform-origin: 50% 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .Q_PhotoBackground {
+    width: 100%;
+  }
+}

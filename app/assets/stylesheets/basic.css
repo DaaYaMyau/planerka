@@ -24,6 +24,12 @@ html {
   font-size: calc(100vw / 1440);
 }
 
+@media (max-width: 767px) {
+  html {
+    font-size: calc(100vw / 402);
+  }
+}
+
 body {
   background: var(--Violet);
   font-family: "Gramatika", sans-serif;

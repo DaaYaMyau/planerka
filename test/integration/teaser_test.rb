@@ -46,6 +46,20 @@ class TeaserTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, "Разделы:"
   end
 
+  test "в мобильном меню гостя только «о проекте», у вошедшего остальные разделы — «Скоро»" do
+    get about_url
+    menu = response.body[/<nav class="O_MobileMenu".*?<\/nav>/m]
+
+    assert_includes menu, %(href="#{about_path}")
+    assert_not_includes menu, "разобраться"
+
+    sign_in users(:boris)
+    get about_url
+    menu = response.body[/<nav class="O_MobileMenu".*?<\/nav>/m]
+
+    assert_equal 4, menu.scan('title="Скоро"').size
+  end
+
   test "у вошедшего пользователя в шапке остальные вкладки — «Скоро», в подвале есть «Разделы»" do
     sign_in users(:boris)
     get about_url

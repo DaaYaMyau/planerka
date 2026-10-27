@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   # root "posts#index"
   root "home#index"
   get "about", to: "pages#about"
+  match "/404", to: "errors#not_found", via: :all
   get "rules", to: "pages#rules"
   get "privacy", to: "pages#privacy"
   resource :profile, only: %i[ show edit update ]

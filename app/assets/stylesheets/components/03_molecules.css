@@ -857,3 +857,282 @@ button.M_Tag {
 .M_ProfileActions {
   width: 1114rem;
 }
+
+.M_TagWide {
+  justify-content: center;
+  width: 184rem;
+  height: 70rem;
+  font-size: 27rem;
+}
+
+.M_LoadMoreButtonAuto {
+  width: auto;
+  gap: 10rem;
+  text-decoration: none;
+}
+
+.M_ErrorText {
+  position: absolute;
+  left: 50%;
+  top: 512rem;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rem;
+  width: 836rem;
+  text-align: center;
+}
+
+.M_MobileHeader {
+  position: absolute;
+  top: 20rem;
+  left: 30rem;
+  right: 30rem;
+  z-index: 11;
+  display: flex;
+  justify-content: space-between;
+}
+
+.M_MobileMenuLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rem;
+  font-size: 23rem;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .M_SubscriptionForm {
+    width: 100%;
+  }
+
+  .M_Consent {
+    white-space: normal;
+  }
+
+  .M_FooterContent {
+    gap: 30rem;
+    width: 100%;
+  }
+
+  .M_BrandLarge {
+    width: 100%;
+  }
+
+  .M_FooterNavigation {
+    gap: 7rem;
+    width: 161rem;
+  }
+
+  .M_FooterNavigation .A_TextSmall {
+    font-size: 20rem;
+  }
+
+  .M_FooterContacts {
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .M_FooterCredits {
+    display: none;
+  }
+}
+
+.M_SocialLinks {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .M_SocialLinks {
+    display: flex;
+    justify-content: center;
+    gap: 15rem;
+    font-size: 20rem;
+  }
+}
+
+.M_CarouselNavigation {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .M_NavigationTabLarge .Q_TabBackground {
+    height: 63rem;
+  }
+
+  .M_NavigationTabLarge .A_TabText {
+    top: 5rem;
+    font-family: var(--FontText);
+    font-size: 22rem;
+  }
+
+  .M_SectionHeader {
+    height: 42rem;
+    margin-top: -42rem;
+    padding: 0;
+  }
+
+  .M_CategoryFolderLarge {
+    width: 342rem;
+    height: 159rem;
+  }
+
+  .M_CategoryFolderWide {
+    width: 342rem;
+    height: 130rem;
+  }
+
+  .M_StepContent .A_Text,
+  .M_ModerationTabCard .A_Text {
+    width: 100%;
+  }
+
+  .M_StepCard .A_Heading,
+  .M_ModerationTabCard .A_Heading {
+    font-family: var(--FontText);
+    font-size: 25rem;
+  }
+
+  .M_StepCard .C_Tags,
+  .M_ModerationTabCard .C_Tags {
+    gap: 5rem;
+  }
+
+  .M_RulesHeading {
+    white-space: normal;
+  }
+
+  .M_RulesHeading .A_Heading {
+    font-size: 25rem;
+  }
+
+  .M_PrincipleCard {
+    flex: none;
+    width: 100%;
+    height: 220rem;
+  }
+
+  .M_ModerationTabCard {
+    margin-top: 0;
+  }
+
+  .M_TeamCard {
+    width: 100%;
+  }
+
+  .M_CarouselNavigation {
+    display: flex;
+    justify-content: center;
+    gap: 15rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .M_HeroText,
+  .M_HeroText > .A_Text {
+    width: 100%;
+  }
+
+  .M_HeroText > .A_Text br {
+    display: none;
+  }
+
+  .M_SearchField {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .M_FilterGroup {
+    flex-wrap: wrap;
+    border-radius: var(--RadiusL);
+  }
+
+  .M_StoryCardMediaImage {
+    height: 180rem;
+  }
+
+  .M_StoryCardMedia {
+    flex-wrap: wrap;
+    gap: 10rem;
+  }
+
+  .M_StoryCardActions {
+    height: auto;
+    padding: 0 10rem;
+  }
+
+  .M_StoryCardActions > .A_Button {
+    display: none;
+  }
+
+  .M_VotingOptions {
+    gap: 4rem;
+  }
+
+  .M_VotingOption {
+    gap: 3rem;
+    height: 40rem;
+    padding: 4rem 9rem;
+    font-size: 16rem;
+  }
+
+  .M_VotingOption .A_VerdictIcon {
+    width: 24rem;
+    height: 24rem;
+  }
+
+  .M_FeedEmpty {
+    width: 100%;
+  }
+
+  .M_Flash {
+    box-sizing: border-box;
+    max-width: 342rem;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .M_ProfileInfo,
+  .M_ModerationSummary,
+  .M_ProfileActions {
+    width: 100%;
+  }
+
+  .M_ModerationCard {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    padding: 15rem;
+  }
+
+  .M_ModerationInfo {
+    width: 100%;
+  }
+
+  .M_UserIdentity {
+    flex-wrap: wrap;
+  }
+
+  .M_LoadMoreButtonAuto {
+    white-space: nowrap;
+  }
+
+  .M_ModerationActions {
+    flex-wrap: wrap;
+    gap: 10rem;
+  }
+
+  .M_ListRow {
+    flex-wrap: wrap;
+    gap: 5rem 15rem;
+  }
+
+  .M_ErrorText {
+    top: 470rem;
+    width: 342rem;
+  }
+}

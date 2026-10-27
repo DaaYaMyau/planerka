@@ -1,4 +1,5 @@
-.S_Splash {
+.S_Splash,
+.S_NotFound {
   position: relative;
   z-index: 0;
   height: 968rem;
@@ -27,4 +28,20 @@
 
 .S_Splash:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) .Q_SplashBackground {
   bottom: -40rem;
+}
+
+@media (max-width: 767px) {
+  .S_Splash,
+  .S_NotFound {
+    height: 874rem;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 767px) {
+  .S_ProfilePage {
+    gap: 60rem;
+    padding: 110rem 30rem 100rem;
+    border-radius: 0;
+  }
 }

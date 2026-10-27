@@ -27,6 +27,13 @@ module Planerka
     config.i18n.available_locales = [ :ru, :en ]
 
     config.x.teaser = true
+    config.exceptions_app = lambda do |env|
+      if env["PATH_INFO"] == "/404"
+        Rails.application.routes.call(env)
+      else
+        ActionDispatch::PublicExceptions.new(Rails.public_path).call(env)
+      end
+    end
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
