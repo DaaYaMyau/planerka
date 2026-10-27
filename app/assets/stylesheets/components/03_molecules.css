@@ -30,7 +30,7 @@
   gap: 5rem;
   width: 472rem;
   padding: 5rem;
-  border-radius: 49rem;
+  border-radius: var(--RadiusPill);
   background: var(--Violet);
 }
 
@@ -57,7 +57,7 @@
   display: flex;
   align-items: center;
   gap: 10rem;
-  font-size: 20rem;
+  font-size: var(--FontSizeBodyMedium);
   cursor: pointer;
 }
 
@@ -81,8 +81,8 @@
 .M_NavigationTabLarge .A_TabText {
   top: 15rem;
   font-family: var(--FontHeading);
-  font-size: 30rem;
-  font-weight: 700;
+  font-size: var(--FontSizeH4);
+  font-weight: var(--FontWeightBold);
 }
 
 .M_SectionHeader {
@@ -109,7 +109,7 @@
 
 .M_BrandLarge .A_BrandTitle {
   font-family: var(--FontHeading);
-  font-size: 30rem;
+  font-size: var(--FontSizeH4);
 }
 
 .M_Tag {
@@ -120,13 +120,13 @@
   padding: 0 20rem 6rem;
   border-radius: var(--RadiusPill);
   background: var(--White);
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
   white-space: nowrap;
 }
 
 .M_TagLarge {
   height: 50rem;
-  font-size: 20rem;
+  font-size: var(--FontSizeBodyMedium);
 }
 
 .M_TagIcon {
@@ -134,7 +134,7 @@
   width: 70rem;
   height: 70rem;
   padding: 5rem;
-  border-radius: 50%;
+  border-radius: var(--RadiusRound);
 }
 
 .M_TagBlue {
@@ -404,7 +404,7 @@
   padding: 2rem 10rem 8rem;
   border-radius: var(--RadiusPill);
   background: var(--Violet);
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
   white-space: nowrap;
 }
 
@@ -548,7 +548,7 @@
   padding: 0 10rem;
   border-radius: var(--RadiusPill);
   background: var(--Blue);
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
   color: var(--White);
 }
 
@@ -577,7 +577,7 @@
   display: flex;
   align-items: center;
   gap: 7rem;
-  font-size: 16rem;
+  font-size: var(--FontSizeUISmall);
 }
 
 .M_StoryCardActions {
@@ -610,7 +610,7 @@
   border-radius: var(--RadiusPill);
   background: var(--Blue);
   font: inherit;
-  font-size: 20rem;
+  font-size: var(--FontSizeBodyMedium);
   color: var(--White);
   text-decoration: none;
   cursor: pointer;
@@ -641,7 +641,7 @@ span.M_VotingOption {
   width: 320rem;
   padding: 5rem 5rem 5rem 30rem;
   border: 0;
-  border-radius: 72rem;
+  border-radius: var(--RadiusInput);
   background: var(--White);
   font: inherit;
   color: var(--Blue);
@@ -677,7 +677,7 @@ span.M_VotingOption {
 button.M_Tag {
   border: 2rem solid var(--White);
   font: inherit;
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
   cursor: pointer;
 }
 
@@ -804,7 +804,7 @@ button.M_Tag {
   display: flex;
   flex-direction: column;
   gap: 5rem;
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
   color: var(--Yellow);
 }
 
@@ -812,7 +812,7 @@ button.M_Tag {
   display: flex;
   flex-direction: column;
   gap: 10rem;
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
 }
 
 .M_Flash {
@@ -824,7 +824,7 @@ button.M_Tag {
   padding: 8rem 25rem 12rem;
   border-radius: var(--RadiusPill);
   background: var(--White);
-  font-size: 18rem;
+  font-size: var(--FontSizeBodyRegular);
   color: var(--Blue);
   white-space: nowrap;
 }

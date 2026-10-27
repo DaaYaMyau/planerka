@@ -3,7 +3,7 @@
 <% content = capture do %>
   <%= image_tag light ? image.sub(".svg", "_light.svg") : image, alt: local_assigns[:alt].to_s, class: "Q_TabBackground" %>
   <% if local_assigns[:text] %>
-    <span class="A_TabText"><%= text %></span>
+    <span class="A_TabText"><span class="A_NavigationLabel"><%= text %></span></span>
   <% end %>
 <% end %>
 

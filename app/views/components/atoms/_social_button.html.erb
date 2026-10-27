@@ -1,3 +1,12 @@
-<%= link_to href, class: "A_SocialButton", "aria-label": label, target: local_assigns[:target], rel: ("noopener" if local_assigns[:target]) do %>
-  <%= image_tag image, alt: "" %>
+<% icon = label == "Telegram" ? "telegram" : "email" %>
+<% footer = image.start_with?("footer/") %>
+<%= link_to href, class: class_names("A_SocialButton", "A_SocialButtonFooter" => footer), "aria-label": label,
+                  target: local_assigns[:target], rel: ("noopener" if local_assigns[:target]) do %>
+  <% if footer %>
+    <%= image_tag "social_#{icon}_icon.png", alt: "", class: "A_FooterSocialGlyph A_FooterSocialGlyph_#{icon}" %>
+  <% else %>
+    <% %w[normal hover active].each do |state| %>
+      <%= image_tag "social_#{icon}_#{state}.png", alt: "", class: "A_SocialState A_SocialState_#{state}" %>
+    <% end %>
+  <% end %>
 <% end %>

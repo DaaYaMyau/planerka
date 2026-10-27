@@ -1,5 +1,5 @@
 <% avatar = user.profile&.avatar %>
-<div class="O_ProfileHeader">
+<div class="O_ProfileHeader" data-controller="anchor-scroll" data-action="click->anchor-scroll#navigate">
   <div class="M_ProfileInfo">
     <h1 class="A_PageTitle">Профиль</h1>
     <div class="M_UserIdentity">
@@ -24,7 +24,7 @@
         [ "review", "Yellow", "#moderation_reviews", count_with_word(counts[:reviews], "отзыв", "отзыва", "отзывов") ],
         [ "representative", "SkyBlue", "#moderation_representatives", count_with_word(counts[:representatives], "заявка", "заявки", "заявок") ]
       ].each do |kind, color, anchor, text| %>
-        <%= link_to anchor, class: "M_ModerationStat A_Link" do %>
+        <%= link_to anchor, class: "M_ModerationStat A_Link", data: { turbo: false } do %>
           <%= render "components/molecules/tag", icon: "moderation/stat_#{kind}.svg", modifier: "M_TagIcon M_TagIconSmall M_Tag#{color}" %>
           <span class="A_TextSmall"><%= text %></span>
         <% end %>
