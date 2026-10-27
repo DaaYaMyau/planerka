@@ -115,6 +115,23 @@
   background-color: var(--Violet);
 }
 
+.O_FooterBlue {
+  background: var(--Blue);
+}
+
+.O_FooterBlue .M_SubscriptionForm {
+  background: var(--Violet);
+}
+
+.O_FooterBlue .A_EmailInput,
+.O_FooterBlue .A_EmailInput::placeholder {
+  color: var(--Blue);
+}
+
+.O_FooterBlue .A_SubscribeButton {
+  background-color: var(--Blue);
+}
+
 .O_HeroSection {
   display: flex;
   flex-direction: column;
@@ -289,12 +306,20 @@
   .O_ProjectPrinciples .W_Section,
   .O_SafetyAndPrivacy .W_Section,
   .O_ProjectTeam .W_Section {
-    padding: 180rem 30rem;
+    padding: 70rem 30rem 180rem;
+  }
+
+  .O_ProjectMission .W_Section {
+    padding-top: 120rem;
   }
 
   .O_ProjectRules .W_Section {
     gap: 100rem;
-    padding: 180rem 30rem;
+    padding: 70rem 30rem 180rem;
+  }
+
+  .O_SafetyAndPrivacy .M_SectionHeader .Q_TabBackground {
+    width: 380rem;
   }
 
   .O_ProjectMission .W_TaggedBlock {

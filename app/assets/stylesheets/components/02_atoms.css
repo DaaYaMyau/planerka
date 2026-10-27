@@ -205,7 +205,7 @@
 .A_SearchInput input {
   flex: 1;
   min-width: 0;
-  padding: 0;
+  padding: 0 0 6rem;
   border: 0;
   outline: none;
   background: none;
@@ -245,7 +245,7 @@
 
 .A_FilterSelect {
   field-sizing: content;
-  padding: 0 39rem 0 0;
+  padding: 0 39rem 6rem 0;
   border: 0;
   outline: none;
   background: none;
@@ -392,7 +392,7 @@
   box-sizing: border-box;
   width: 100%;
   height: 50rem;
-  padding: 0 20rem;
+  padding: 0 20rem 7rem;
   border: 0;
   border-radius: var(--RadiusPill);
   background: var(--White);
@@ -408,6 +408,8 @@
 }
 
 .A_Select {
+  display: flex;
+  align-items: center;
   padding-right: 50rem;
   background: var(--White) url("/feed/chevron.svg") no-repeat right 20rem center / 15.5rem 7.5rem;
   appearance: none;
@@ -430,7 +432,7 @@
 
 .A_FileInput::file-selector-button {
   margin-right: 15rem;
-  padding: 10rem 20rem;
+  padding: 7rem 20rem 13rem;
   border: 0;
   border-radius: var(--RadiusPill);
   background: var(--White);

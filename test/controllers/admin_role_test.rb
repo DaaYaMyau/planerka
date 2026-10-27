@@ -25,21 +25,20 @@ class AdminRoleTest < ActionDispatch::IntegrationTest
     assert_includes response.body, "История сохранена: черновик"
   end
 
-  test "админ не голосует, не комментирует и не сохраняет" do
-    assert_no_difference([ "Vote.count", "Comment.count", "Bookmark.count" ]) do
+  test "админ голосует, комментирует и сохраняет" do
+    assert_difference([ "Vote.count", "Comment.count", "Bookmark.count" ]) do
       post story_votes_url(@story), params: { verdict: "normal" }
       post story_comments_url(@story), params: { comment: { body: "Текст" } }
       post story_bookmark_url(@story)
     end
   end
 
-  test "на странице истории у админа нет кнопок участника, но видны итоги голосования" do
+  test "на странице истории у админа есть кнопки участника" do
     get story_url(@story)
 
-    assert_not_includes response.body, "Написать комментарий"
-    assert_not_includes response.body, ">Сохранить<"
-    assert_select "button.M_VotingOption", 0
-    assert_select ".M_VotingOption", /не норм\s*100%/
+    assert_includes response.body, "Написать комментарий"
+    assert_includes response.body, ">Сохранить<"
+    assert_select "button.M_VotingOption", 3
     assert_not_includes response.body, "Войдите, чтобы"
   end
 
@@ -59,24 +58,36 @@ class AdminRoleTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, ">Рассказать</a>"
   end
 
-  test "админ не действует от имени компании" do
-    assert_no_difference([ "Review.count", "CompanyRepresentative.count", "ReviewReply.count" ]) do
-      post company_reviews_url(@company), params: { review: { wish_i_knew: "Текст" } }
+  test "админ оставляет отзыв и подаёт заявку представителя" do
+    assert_difference([ "Review.count", "CompanyRepresentative.count" ]) do
+      post company_reviews_url(companies(:pixel)), params: { review: { wish_i_knew: "Текст" } }
       post company_company_representatives_url(@company), params: { company_representative: { position: "HR", work_email: "a@cloud.example" } }
+    end
+  end
+
+  test "от имени компании админ отвечает, только если он её представитель" do
+    assert_no_difference("ReviewReply.count") do
       post company_review_reply_url(@company, reviews(:boris_anonymous)), params: { review_reply: { body: "Ответ" } }
     end
 
     patch company_review_reply_url(@company, reviews(:anna_published)), params: { review_reply: { body: "Взлом" } }
     assert_not_equal "Взлом", review_replies(:vera_on_anna).reload.body
+
+    CompanyRepresentative.create!(user: users(:admin), company: @company, position: "HR",
+                                  work_email: "admin@cloud.example", status: "approved")
+
+    assert_difference("ReviewReply.count") do
+      post company_review_reply_url(@company, reviews(:boris_anonymous)), params: { review_reply: { body: "Ответ" } }
+    end
   end
 
-  test "на странице компании у админа нет кнопок «от имени компании» и формы отзыва" do
+  test "на странице компании у админа есть заявка и форма отзыва, но нет ответа от имени компании" do
     get company_url(@company)
 
     assert_not_includes response.body, "Ответить от имени компании"
     assert_not_includes response.body, "Редактировать ответ"
-    assert_not_includes response.body, "Я представляю эту компанию"
-    assert_not_includes response.body, "Оставить отзыв"
+    assert_includes response.body, "Я представляю эту компанию"
+    assert_includes response.body, "Оставить отзыв"
     assert_includes response.body, "Удалить ответ"
   end
 

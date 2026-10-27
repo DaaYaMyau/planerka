@@ -1,4 +1,4 @@
 <div class="M_FooterContacts">
   <p class="A_Text">Связаться с нами:</p>
-  <%= render "components/molecules/social_icons", folder: "footer" %>
+  <%= render "components/molecules/social_icons", folder: local_assigns.fetch(:folder, "footer") %>
 </div>

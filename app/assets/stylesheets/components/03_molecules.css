@@ -624,6 +624,10 @@ span.M_VotingOption {
   background: var(--Pink);
 }
 
+.M_VotingOption > span {
+  padding-bottom: 7rem;
+}
+
 .M_VoteCount {
   padding-left: 10rem;
   color: var(--Blue);
@@ -771,6 +775,10 @@ button.M_Tag {
   flex-shrink: 0;
 }
 
+.M_LoadMoreButton > .A_Text {
+  padding-bottom: 7rem;
+}
+
 .M_LoadMoreButton[aria-expanded="false"] .A_ButtonIcon {
   rotate: 90deg;
 }
@@ -819,6 +827,10 @@ button.M_Tag {
   font-size: 18rem;
   color: var(--Blue);
   white-space: nowrap;
+}
+
+.M_FlashHidden {
+  opacity: 0;
 }
 
 .M_FlashAlert {
@@ -969,8 +981,8 @@ button.M_Tag {
   }
 
   .M_SectionHeader {
-    height: 42rem;
-    margin-top: -42rem;
+    height: 32.4rem;
+    margin-top: -32.4rem;
     padding: 0;
   }
 
@@ -1012,6 +1024,7 @@ button.M_Tag {
     flex: none;
     width: 100%;
     height: 220rem;
+    mask-image: url("/about/card_mask_wide.svg");
   }
 
   .M_ModerationTabCard {

@@ -66,4 +66,14 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select ".M_StoryCardMediaImage", 0
     assert_select ".Q_StoryImage", 0
   end
+
+  test "под лентой синий подвал, на других страницах — обычный" do
+    get root_url
+    assert_select "footer.O_FooterBlue"
+    assert_select "button.M_LoadMoreButton[hidden]"
+
+    get about_url
+    assert_select "footer.O_Footer"
+    assert_select "footer.O_FooterBlue", 0
+  end
 end

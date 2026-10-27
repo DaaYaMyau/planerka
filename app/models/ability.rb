@@ -38,7 +38,8 @@ class Ability
 
     can :manage, :all
     can :access, :admin
-    cannot :create, [ Vote, Bookmark, Comment, Review, CompanyRepresentative, ReviewReply ]
-    cannot :update, ReviewReply
+    cannot [ :create, :update ], ReviewReply
+    can :create, ReviewReply, review: representative.merge(status: "published")
+    can :update, ReviewReply, user_id: user.id, review: representative
   end
 end

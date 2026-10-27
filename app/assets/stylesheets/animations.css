@@ -187,6 +187,10 @@
   }
 }
 
+.M_Flash {
+  transition: opacity 0.4s ease;
+}
+
 .C_StepCards > .M_StepCard {
   transition: top 0.5s ease, width 0.5s ease, height 0.5s ease;
 }
@@ -200,6 +204,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .M_Flash,
   .C_StepCards > .M_StepCard,
   .C_StepCards .M_StepBody,
   .C_StepCards .A_IconUp {

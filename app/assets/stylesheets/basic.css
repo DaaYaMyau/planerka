@@ -24,6 +24,10 @@ html {
   font-size: calc(100vw / 1440);
 }
 
+html:has(.O_FooterBlue, .S_Splash, .S_NotFound) {
+  background: var(--Blue);
+}
+
 @media (max-width: 767px) {
   html {
     font-size: calc(100vw / 402);

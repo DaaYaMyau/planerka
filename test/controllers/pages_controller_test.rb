@@ -3,7 +3,7 @@ require "test_helper"
 class PagesControllerTest < ActionDispatch::IntegrationTest
   test "в подвале ссылки на разделы и политику конфиденциальности" do
     get root_url
-    footer = response.body[/<footer class="O_Footer">.*?<\/footer>/m]
+    footer = response.body[/<footer class="O_Footer[^"]*">.*?<\/footer>/m]
 
     assert_includes footer, %(href="#{about_path}")
     assert_includes footer, %(href="#{privacy_path}")
