@@ -10,7 +10,7 @@
 .Q_SplashBackground {
   position: absolute;
   inset: 0;
-  border-radius: 10rem 10rem 0 0;
+  border-radius: var(--RadiusXS) var(--RadiusXS) 0 0;
   background: var(--Blue);
 }
 

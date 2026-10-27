@@ -18,6 +18,30 @@
   --RadiusPill: 49rem;
   --RadiusCheckbox: 5rem;
   --RadiusCheckboxMark: 3rem;
+
+  /* Typography: sizes use the existing fluid rem scale. */
+  --FontSizeH1: 75rem;
+  --FontSizeH2: 60rem;
+  --FontSizeH3: 35rem;
+  --FontSizeH4: 30rem;
+  --FontSizeH5: 22rem;
+  --FontSizeH1Mobile: 37rem;
+  --FontSizeH2Mobile: 25rem;
+  --FontSizeBodyLarge: 25rem;
+  --FontSizeBodyMedium: 20rem;
+  --FontSizeBodyRegular: 18rem;
+  --FontSizeUISmall: 16rem;
+  --FontSizeUICaption: 14rem;
+  --FontSizeTag: 0.9em;
+  --FontWeightRegular: 400;
+  --FontWeightBold: 700;
+  --LineHeightNormal: normal;
+  --LineHeightH2: 1.354;
+
+  --Black: #000000;
+  --RadiusRound: 50%;
+  --RadiusTag: 999px;
+  --RadiusInput: 72rem;
 }
 
 html {
@@ -26,18 +50,18 @@ html {
 
 body {
   background: var(--Violet);
-  font-family: "Gramatika", sans-serif;
-  font-size: 18rem;
-  line-height: normal;
+  font-family: var(--FontText);
+  font-size: var(--FontSizeBodyRegular);
+  line-height: var(--LineHeightNormal);
 }
 
 .tag {
   display: inline-block;
   padding: 2px 10px;
   border: 1px solid transparent;
-  border-radius: 999px;
-  color: black;
-  font-size: 0.9em;
+  border-radius: var(--RadiusTag);
+  color: var(--Black);
+  font-size: var(--FontSizeTag);
   white-space: nowrap;
 }
 

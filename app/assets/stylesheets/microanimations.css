@@ -1,0 +1,131 @@
+/* Shared interaction feedback; loaded after the existing decorative animations. */
+:root {
+  --MotionFast: 120ms;
+  --MotionState: 200ms;
+  --MotionArrival: 280ms;
+  --MotionEase: cubic-bezier(0.16, 1, 0.3, 1);
+  --MotionPressScale: 0.97;
+}
+
+/* Physical feedback is limited to actual controls, including link buttons. */
+:where(button, input[type="submit"], input[type="button"],
+  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton) {
+  transition:
+    scale var(--MotionFast) var(--MotionEase),
+    background-color var(--MotionState) var(--MotionEase),
+    color var(--MotionState) var(--MotionEase),
+    border-color var(--MotionState) var(--MotionEase);
+}
+
+:where(button, input[type="submit"], input[type="button"],
+  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton)
+  :where(svg, .A_Icon, .A_TagIcon) {
+  transition: scale var(--MotionState) var(--MotionEase);
+}
+
+:where(button, input[type="submit"], input[type="button"],
+  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton)
+  :is(svg, .A_Icon, .A_TagIcon) {
+  transform-origin: center;
+}
+
+:where(button, input[type="submit"], input[type="button"],
+  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton)
+:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+  scale: var(--MotionPressScale);
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+:where(a.A_TextLink, a.A_Link, a.A_ConsentLink, button.A_LinkButton) {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.06em;
+  transition: text-underline-offset var(--MotionFast) var(--MotionEase),
+    text-decoration-color var(--MotionFast) var(--MotionEase);
+}
+
+:where(.A_Input, .A_Select, .A_Textarea, .A_EmailInput, .A_FilterSelect) {
+  caret-color: var(--Blue);
+  transition: outline-offset var(--MotionFast) var(--MotionEase),
+    border-color var(--MotionState) var(--MotionEase);
+}
+
+:where(.A_Input, .A_Select, .A_Textarea, .A_EmailInput, .A_FilterSelect):focus-visible {
+  outline-offset: 4px;
+}
+
+.A_Checkbox {
+  transition: background-color var(--MotionFast) var(--MotionEase),
+    border-color var(--MotionFast) var(--MotionEase);
+}
+
+.A_Checkbox:checked::before {
+  animation: ControlConfirm var(--MotionState) var(--MotionEase);
+}
+
+/* A notification appears once, at the moment Rails inserts it. */
+.M_Flash,
+#error_explanation,
+.A_FormErrors:not(:empty) {
+  animation: NoticeArrive var(--MotionArrival) var(--MotionEase);
+}
+
+@keyframes ControlConfirm {
+  from { scale: 0.75; }
+  to { scale: 1; }
+}
+
+@keyframes NoticeArrive {
+  from { opacity: 0.65; translate: 0 -3px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :where(button, input[type="submit"], input[type="button"],
+    a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton):hover
+    :where(svg, .A_Icon, .A_TagIcon) {
+    scale: 1.06;
+  }
+
+  :where(a.A_TextLink, a.A_Link, a.A_ConsentLink, button.A_LinkButton):hover {
+    text-decoration-line: underline;
+    text-underline-offset: 0.28em;
+  }
+}
+
+/* Busy/disabled controls never suggest that another action is available. */
+:where(button, input[type="submit"], input[type="button"], a)
+:is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+  scale: none;
+  cursor: default;
+}
+
+:where(button, input[type="submit"], input[type="button"], a)
+:is(:disabled, [aria-disabled="true"], [aria-busy="true"]) :where(svg, .A_Icon, .A_TagIcon) {
+  scale: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --MotionFast: 0ms;
+    --MotionState: 0ms;
+    --MotionArrival: 0ms;
+    --MotionPressScale: 1;
+  }
+
+  .A_Checkbox:checked::before,
+  .M_Flash,
+  #error_explanation,
+  .A_FormErrors:not(:empty) {
+    animation: none;
+  }
+
+  :where(button, input[type="submit"], input[type="button"],
+    a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton):hover
+    :where(svg, .A_Icon, .A_TagIcon) {
+    scale: none;
+  }
+}
