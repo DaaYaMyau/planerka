@@ -1,0 +1,8 @@
+<div class="C_SplashDecor" aria-hidden="true">
+  <% %w[
+    folder_interviews tag_disputed tag_abnormal circle_check filter_design folder_rights
+    folder_work circle_cross folder_first_job filter_intern filter_hybrid circle_question
+  ].each do |name| %>
+    <%= render "components/quarks/decor", name: name %>
+  <% end %>
+</div>

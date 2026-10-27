@@ -1,0 +1,38 @@
+<article class="W_Card" id="<%= dom_id story %>">
+  <% meta = [ story.anonymous? ? "Анонимно" : story.user.display_name ] %>
+  <% meta << Story::GRADE_LABELS[story.grade] if story.grade %>
+  <% meta << story.created_at.strftime("%d.%m.%Y") %>
+  <%= render "components/molecules/story_author", user: (story.user unless story.anonymous?), text: meta.join(" · ") %>
+
+  <%= content_tag local_assigns.fetch(:heading, :h2), story.title, class: "A_Heading" %>
+
+  <%= simple_format story.body, class: "A_Text" %>
+
+  <% if story.images.any? %>
+    <div class="C_StoryImages">
+      <% story.images.each do |image| %>
+        <%= image_tag image.url, alt: "", class: "Q_StoryPhoto" %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if story.tags.any? %>
+    <div class="M_StoryTags">
+      <% story.tags.each do |tag| %>
+        <%= render "tags/chip", tag: tag %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if story.company %>
+    <p class="A_TextSmall">Компания: <%= link_to story.company.name, story.company, class: "A_TextLink" %></p>
+  <% end %>
+
+  <% if story.article %>
+    <p class="A_TextSmall">Что говорит закон: <%= link_to story.article.title, story.article, class: "A_TextLink" %></p>
+  <% end %>
+
+  <% if can? :update, story %>
+    <p class="A_TextSmall">Статус: <%= Story::STATUS_LABELS[story.status] %></p>
+  <% end %>
+</article>

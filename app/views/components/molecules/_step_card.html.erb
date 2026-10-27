@@ -1,0 +1,22 @@
+<div class="M_StepCard M_StepCard<%= color.camelize %>" data-step-cards-target="card" data-slot="<%= slot %>">
+  <div class="M_StepInfo">
+    <div class="M_StepNumber">
+      <%= image_tag "about/step_#{icon}.svg", alt: "", class: "A_Icon" %>
+      <span class="A_Text"><%= number %></span>
+    </div>
+    <button type="button" class="A_IconButton" aria-label="Следующий шаг">
+      <%= image_tag "about/step_expand.svg", alt: "", class: "A_Icon A_IconUp" %>
+    </button>
+  </div>
+  <div class="M_StepBody">
+    <div class="M_StepContent">
+      <h3 class="A_Heading"><%= title %></h3>
+      <p class="A_Text"><%= safe_join(text.split("\n"), tag.br) %></p>
+    </div>
+    <div class="C_Tags">
+      <% tags.each do |tag_text| %>
+        <%= render "components/molecules/tag", text: tag_text %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<% if comments.empty? %>
+  <p class="A_Text">Пока никто не прокомментировал</p>
+<% else %>
+  <div class="C_CommentList">
+    <% comments.each do |comment| %>
+      <article class="W_Card" id="<%= dom_id comment %>">
+        <%= render "components/molecules/story_author", user: comment.user,
+                   text: "#{comment.user.display_name} · #{comment.created_at.strftime("%d.%m.%Y %H:%M")}" %>
+
+        <%= simple_format comment.body, class: "A_Text" %>
+
+        <% if can? :destroy, comment %>
+          <%= button_to "Удалить", story_comment_path(comment.story_id, comment), method: :delete, class: "A_LinkButton",
+                        form_class: "W_InlineForm", form: { data: { turbo_confirm: "Удалить комментарий?" } } %>
+        <% end %>
+      </article>
+    <% end %>
+  </div>
+<% end %>

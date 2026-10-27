@@ -1,0 +1,6 @@
+<% content_for :title, "Новый тег" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Новый тег", narrow: true } do %>
+  <%= render "form", tag: @tag %>
+  <%= link_to "← Все теги", tags_path, class: "A_TextLink A_Text" %>
+<% end %>

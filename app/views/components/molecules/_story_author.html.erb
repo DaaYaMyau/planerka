@@ -1,0 +1,9 @@
+<% avatar = user&.profile&.avatar %>
+<div class="M_StoryAuthor">
+  <% if avatar.present? %>
+    <%= image_tag avatar.url, alt: "", class: "A_AuthorAvatar" %>
+  <% else %>
+    <%= image_tag local_assigns[:light] ? "feed/avatar_light.svg" : "feed/avatar.svg", alt: "", class: "A_AuthorAvatar" %>
+  <% end %>
+  <span class="A_TextSmall"><%= text %></span>
+</div>

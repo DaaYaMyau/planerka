@@ -1,0 +1,36 @@
+<% if Rails.configuration.x.teaser || user_signed_in? %>
+  <%= render "components/organisms/header_navigation" %>
+<% else %>
+<nav class="O_MenuBar">
+  <div class="C_MenuLinks">
+    <%= link_to "Планёрка", root_path, class: "A_Link" %>
+    <%= link_to "О проекте", about_path, class: "A_Link" %>
+    <% if current_user&.is_admin? %>
+      <%= link_to "Лента", admin_stories_path, class: "A_Link" %>
+      <%= link_to "Новая история", new_story_path, class: "A_Link" %>
+    <% end %>
+    <% if !Rails.configuration.x.teaser || current_user&.is_admin? %>
+      <%= link_to "Разобраться", articles_path, class: "A_Link" %>
+      <%= link_to "Отзывы", companies_path, class: "A_Link" %>
+      <% unless current_user&.is_admin? %>
+        <%= link_to "Рассказать", new_story_path, class: "A_Link" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="C_MenuLinks">
+    <% if current_user&.is_admin? %>
+      <%= link_to "Профиль", profile_path, class: "A_Link" %>
+      <%= link_to "Выйти", destroy_user_session_path, class: "A_Link", data: { "turbo-method": :delete } %>
+    <% elsif user_signed_in? %>
+      <% unless Rails.configuration.x.teaser %>
+        <%= link_to "Профиль", profile_path, class: "A_Link" %>
+      <% end %>
+      <%= link_to "Выйти", destroy_user_session_path, class: "A_Link", data: { "turbo-method": :delete } %>
+    <% elsif !Rails.configuration.x.teaser %>
+      <%= link_to "Войти", new_user_session_path, class: "A_Link" %>
+      <%= link_to "Регистрация", new_user_registration_path, class: "A_Link" %>
+    <% end %>
+  </div>
+</nav>
+<% end %>
+<%= render "components/organisms/mobile_navigation" %>

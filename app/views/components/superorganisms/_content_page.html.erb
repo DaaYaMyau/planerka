@@ -1,0 +1,10 @@
+<div class="S_ContentPage">
+  <div class="W_PageBody">
+    <div class="<%= class_names("W_PageContent", "W_PageContentNarrow" => local_assigns[:narrow], "W_PageContentMedium" => local_assigns[:medium]) %>">
+      <% if local_assigns[:title] %>
+        <h1 class="A_PageTitle"><%= title %></h1>
+      <% end %>
+      <%= yield %>
+    </div>
+  </div>
+</div>

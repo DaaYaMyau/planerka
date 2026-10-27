@@ -1,0 +1,6 @@
+<% content_for :title, "Редактирование истории" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Редактирование истории", medium: true } do %>
+  <%= render "form", story: @story %>
+  <%= link_to "← К истории", @story, class: "A_TextLink A_Text" %>
+<% end %>

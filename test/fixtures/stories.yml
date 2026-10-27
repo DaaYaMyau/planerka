@@ -1,0 +1,30 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+published:
+  user: anna
+  article: overtime
+  company: cloud
+  title: Переработки без оплаты
+  body: Каждый день задерживаюсь на два часа.
+  grade: junior
+  status: published
+  anonymous: false
+  votes_count: 1
+
+pending:
+  user: anna
+  company: cloud
+  title: Тестовое на неделю
+  body: Попросили сделать тестовое задание на неделю.
+  grade: junior
+  status: pending
+  anonymous: false
+
+anonymous:
+  user: boris
+  company: cloud
+  title: Зарплата в конверте
+  body: Половину зарплаты платят наличными.
+  grade: intern
+  status: published
+  anonymous: true

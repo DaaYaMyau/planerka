@@ -1,0 +1,34 @@
+<%= form_with(model: article, class: "O_Form") do |form| %>
+  <% if article.errors.any? %>
+    <div class="M_FormErrors">
+      <p>Не удалось сохранить статью:</p>
+      <% article.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="M_FormField">
+    <%= form.label :title, "Заголовок", class: "A_Label" %>
+    <%= form.text_field :title, class: "A_Input" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :slug, "Адрес страницы (slug)", class: "A_Label" %>
+    <%= form.text_field :slug, class: "A_Input" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :summary, "Кратко", class: "A_Label" %>
+    <%= form.textarea :summary, class: "A_Textarea" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :body, "Текст", class: "A_Label" %>
+    <%= form.textarea :body, class: "A_Textarea" %>
+  </div>
+
+  <div class="M_FormActions">
+    <%= form.submit "Сохранить", class: "A_PillButton" %>
+  </div>
+<% end %>

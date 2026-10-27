@@ -1,0 +1,6 @@
+<% content_for :title, "Новая статья" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Новая статья", medium: true } do %>
+  <%= render "form", article: @article %>
+  <%= link_to "← Все статьи", articles_path, class: "A_TextLink A_Text" %>
+<% end %>

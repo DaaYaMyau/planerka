@@ -1,0 +1,29 @@
+<% content_for :blue_footer, "true" %>
+<section class="O_StoriesFeed" id="stories" data-controller="load-more">
+  <%= render "components/molecules/section_header", title: "Истории", image: "feed/tab_stories.svg" %>
+  <div class="W_Section W_SectionViolet">
+    <%= render "components/organisms/stories_filters", filtered: filtered %>
+
+    <% if stories.empty? %>
+      <div class="M_FeedEmpty">
+        <% if filtered %>
+          <p class="A_Text">По вашему запросу историй не нашлось. Попробуйте убрать часть фильтров или изменить слова поиска.</p>
+          <%= link_to "Сбросить фильтры", feed_path, class: "A_Text A_Link" %>
+        <% else %>
+          <p class="A_Text">Пока здесь нет историй.</p>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="C_StoryList" data-load-more-target="list">
+        <% stories.each do |story| %>
+          <%= render "components/organisms/story_card", story: story %>
+        <% end %>
+      </div>
+
+      <button type="button" class="M_LoadMoreButton" data-load-more-target="button" data-action="load-more#more" hidden>
+        <span class="A_Text">Показать еще истории</span>
+        <%= image_tag "feed/arrow_button.svg", alt: "", class: "A_ButtonIcon" %>
+      </button>
+    <% end %>
+  </div>
+</section>

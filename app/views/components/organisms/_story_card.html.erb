@@ -1,0 +1,48 @@
+<% image = story.images.first %>
+<% light = image.present? %>
+<article class="O_StoryCard">
+  <div class="<%= class_names("M_StoryCardMedia", "M_StoryCardMediaImage" => light) %>">
+    <% if image %>
+      <%= image_tag image.url, alt: "", class: "Q_StoryImage" %>
+    <% end %>
+
+    <%= render "components/molecules/story_author", user: (story.user unless story.anonymous?), light: light,
+               text: story.anonymous? ? "Анонимно" : story.user.display_name %>
+
+    <div class="M_StoryEngagement">
+      <span class="M_EngagementCounter" title="Голоса">
+        <%= image_tag light ? "feed/votes_light.svg" : "feed/votes.svg", alt: "", class: "A_EngagementIcon" %>
+        <%= story.votes.size %>
+      </span>
+      <span class="M_EngagementCounter" title="Комментарии">
+        <%= image_tag light ? "feed/comments_light.svg" : "feed/comments.svg", alt: "", class: "A_EngagementIcon" %>
+        <%= story.comments.size %>
+      </span>
+    </div>
+  </div>
+
+  <div class="M_StoryCardContent">
+    <h2 class="A_StoryTitle"><%= link_to story.title, story, class: "A_Link" %></h2>
+    <p class="A_StoryText"><%= truncate(story.body, length: 300) %></p>
+    <% if story.tags.any? %>
+      <div class="M_StoryTags">
+        <% story.tags.each do |tag| %>
+          <span class="A_StatusTag A_StatusTag<%= (tag.color.presence || "pink").camelize %>"><%= tag.name %></span>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="M_DateLabel">
+      <%= image_tag "feed/calendar.svg", alt: "", class: "A_CalendarIcon" %>
+      <time datetime="<%= story.created_at.to_date.iso8601 %>"><%= l(story.created_at.to_date, format: "%-d %b %Y") %></time>
+    </div>
+  </div>
+
+  <div class="M_StoryCardActions">
+    <%= turbo_frame_tag dom_id(story, :voting) do %>
+      <%= render "components/molecules/voting_options", story: story %>
+    <% end %>
+    <%= link_to story, class: "A_Button", "aria-label": "Читать историю «#{story.title}»" do %>
+      <%= image_tag "feed/arrow_button.svg", alt: "" %>
+    <% end %>
+  </div>
+</article>

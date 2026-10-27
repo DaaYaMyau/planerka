@@ -1,0 +1,392 @@
+.O_HeaderNavigation {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  gap: 198rem;
+  height: 36rem;
+  padding: 20rem 12rem 0;
+  overflow: hidden;
+  background: var(--Violet);
+}
+
+.O_SplashFooter {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 856rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  padding: 0 50rem;
+  color: var(--White);
+}
+
+.O_SplashFooter .M_SocialIcons {
+  justify-self: end;
+  margin-top: 2rem;
+}
+
+.O_AboutHero {
+  position: relative;
+  box-sizing: border-box;
+  height: 736rem;
+  padding: 210rem 400rem 0;
+  overflow: hidden;
+  border-radius: var(--RadiusXS) var(--RadiusXS) 0 0;
+  background: var(--Blue);
+  color: var(--White);
+  text-align: center;
+}
+
+.O_AboutHero > .A_Text {
+  margin-top: 10rem;
+}
+
+.O_ProjectMission .W_Section {
+  padding: 165rem 0 220rem;
+}
+
+.O_ProjectMission .W_TaggedBlock {
+  width: 540rem;
+}
+
+.O_HowItWorks .W_Section {
+  padding: 110rem 0 165rem;
+}
+
+.O_ProjectPrinciples .W_Section,
+.O_SafetyAndPrivacy .W_Section {
+  padding: 110rem 0 219.5rem;
+}
+
+.O_ProjectRules .W_Section {
+  gap: 110rem;
+  padding: 108rem 0 163rem;
+}
+
+.O_ProjectTeam .W_Section {
+  padding: 110rem 0;
+}
+
+.O_ModerationTab {
+  --CardColor: var(--Pink);
+  width: 1114rem;
+}
+
+.O_ModerationTab[data-color="yellow"] {
+  --CardColor: var(--Yellow);
+}
+
+.O_ModerationTab[data-color="orange"] {
+  --CardColor: var(--Orange);
+}
+
+.O_ModerationTab[data-color="green"] {
+  --CardColor: var(--Green);
+}
+
+.O_ModerationTab[data-color="sky_blue"] {
+  --CardColor: var(--SkyBlue);
+}
+
+.O_ModerationTab .C_NavigationTabs {
+  margin-left: 143rem;
+}
+
+.O_Footer {
+  display: flex;
+  gap: 209rem;
+  padding: 50rem;
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.O_Footer .M_SubscriptionForm {
+  background: var(--Blue);
+}
+
+.O_Footer .A_EmailInput,
+.O_Footer .A_EmailInput::placeholder {
+  color: var(--Violet);
+}
+
+.O_Footer .A_SubscribeButton {
+  background-color: var(--Violet);
+}
+
+.O_FooterBlue {
+  background: var(--Blue);
+}
+
+.O_FooterBlue .M_SubscriptionForm {
+  background: var(--Violet);
+}
+
+.O_FooterBlue .A_EmailInput,
+.O_FooterBlue .A_EmailInput::placeholder {
+  color: var(--Blue);
+}
+
+.O_FooterBlue .A_SubscribeButton {
+  background-color: var(--Blue);
+}
+
+.O_HeroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 110rem;
+  padding: 210rem 0 160rem;
+  border-radius: var(--RadiusXS) var(--RadiusXS) 0 0;
+  background: var(--Blue);
+  color: var(--White);
+  text-align: center;
+}
+
+.O_StoriesFeed .W_Section {
+  gap: 40rem;
+  padding: 110rem 0;
+}
+
+.O_StoriesFilters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1129rem;
+  color: var(--White);
+}
+
+.O_StoriesFilters > .A_Link {
+  margin-right: auto;
+  margin-left: 20rem;
+}
+
+.O_StoryCard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+  width: 1114rem;
+  padding: 10rem 10rem 20rem;
+  border-radius: var(--RadiusL);
+  background: var(--White);
+}
+
+.O_ProfileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1114rem;
+}
+
+.O_ProfileSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+  width: 1114rem;
+}
+
+.O_ProfileSection .M_LoadMoreButton {
+  align-self: center;
+}
+
+.O_MenuBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40rem;
+  padding: 18rem 50rem;
+  background: var(--Violet);
+  font-size: var(--FontSizeBodyRegular);
+  color: var(--White);
+}
+
+
+.O_Form {
+  display: flex;
+  flex-direction: column;
+  gap: 25rem;
+}
+
+.O_CommentsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+}
+
+.O_NotFound {
+  position: absolute;
+  inset: 0;
+  color: var(--White);
+}
+
+.O_NotFound > .M_LoadMoreButton {
+  position: absolute;
+  left: 50%;
+  top: 717rem;
+  translate: -50% 0;
+}
+
+.O_MobileNavigation {
+  display: none;
+}
+
+.O_MobileMenu {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.O_MobileMenu[hidden] {
+  display: none;
+}
+
+.O_MobileMenu .M_SocialIcons {
+  position: absolute;
+  bottom: 45rem;
+}
+
+.O_MobileNavigation[data-open] .A_MobileTab {
+  background: var(--Blue);
+}
+
+@media (max-width: 767px) {
+  .O_HeaderNavigation,
+  .O_MenuBar {
+    display: none;
+  }
+
+  .O_MobileNavigation {
+    display: block;
+  }
+
+  .O_Footer {
+    flex-direction: column;
+    gap: 70rem;
+    padding: 40rem 30rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_SplashFooter {
+    top: 749rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15rem;
+    padding: 0 30rem;
+  }
+
+  .O_SplashFooter .M_Brand,
+  .O_SplashFooter .M_SocialIcons {
+    display: none;
+  }
+
+  .O_SplashFooter:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) .M_SocialLinks {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_AboutHero {
+    height: 726rem;
+    padding: 231rem 26rem 0;
+    border-radius: 0;
+  }
+
+  .O_ProjectMission .W_Section,
+  .O_HowItWorks .W_Section,
+  .O_ProjectPrinciples .W_Section,
+  .O_SafetyAndPrivacy .W_Section,
+  .O_ProjectTeam .W_Section {
+    padding: 70rem 30rem 180rem;
+  }
+
+  .O_ProjectMission .W_Section {
+    padding-top: 120rem;
+  }
+
+  .O_ProjectRules .W_Section {
+    gap: 100rem;
+    padding: 70rem 30rem 180rem;
+  }
+
+  .O_SafetyAndPrivacy .M_SectionHeader .Q_TabBackground {
+    width: 380rem;
+  }
+
+  .O_ProjectMission .W_TaggedBlock {
+    width: 100%;
+  }
+
+  .O_ProjectMission .A_Text br {
+    display: none;
+  }
+
+  .O_ModerationTab {
+    display: flex;
+    flex-direction: column;
+    gap: 20rem;
+    width: 100%;
+  }
+
+  .O_ModerationTab .C_NavigationTabs {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_HeroSection {
+    gap: 50rem;
+    padding: 200rem 30rem 120rem;
+    border-radius: 0;
+  }
+
+  .O_HeroSection .A_HeroTitle {
+    font-size: 37rem;
+    line-height: normal;
+  }
+
+  .O_StoriesFeed .W_Section {
+    gap: 30rem;
+    padding: 110rem 30rem;
+  }
+
+  .O_StoriesFilters {
+    flex-wrap: wrap;
+    gap: 10rem;
+    width: 100%;
+  }
+
+  .O_StoriesFilters > .A_Link {
+    margin: 0;
+  }
+
+  .O_StoryCard {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .O_ProfileHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30rem;
+    width: 100%;
+  }
+
+  .O_ProfileSection {
+    width: 100%;
+  }
+
+  .O_NotFound > .M_LoadMoreButton {
+    top: 650rem;
+  }
+}

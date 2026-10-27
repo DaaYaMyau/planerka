@@ -1,0 +1,33 @@
+<div id="subscription_form" class="W_SubscriptionForm" data-controller="subscription-reveal" data-action="focusin->subscription-reveal#reveal">
+  <%= form_with model: subscription do |form| %>
+    <div class="M_SubscriptionForm">
+      <%= form.label :email, "Почта", class: "Q_VisuallyHidden" %>
+      <%= form.email_field :email, placeholder: "адрес email", required: true, class: "A_EmailInput" %>
+      <%= form.submit "подписаться", class: "A_SubscribeButton" %>
+    </div>
+
+    <div class="M_Consent<%= " M_ConsentVisible" if subscription.errors.any? %>">
+      <div class="M_ConsentContent">
+      <label class="M_CheckboxField">
+        <%= form.checkbox :consent, class: "A_Checkbox" %>
+        <span>
+          Я соглашаюсь на
+          <%= link_to "обработку персональных данных", privacy_path, class: "A_ConsentLink", data: { turbo_frame: "_top" } %>
+        </span>
+      </label>
+      <label class="M_CheckboxField">
+        <input type="checkbox" class="A_Checkbox">
+        <span>Я согласен(на) получать новости и уведомления</span>
+      </label>
+      </div>
+    </div>
+
+    <% if subscription.errors.any? %>
+      <div class="A_FormErrors">
+        <% subscription.errors.each do |error| %>
+          <p><%= error.message %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,721 @@
+.A_TabText {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  font-size: var(--FontSizeBodyRegular);
+  text-align: center;
+  white-space: nowrap;
+  color: var(--White);
+}
+
+.A_SplashTitle {
+  position: absolute;
+  left: 483rem;
+  top: 300rem;
+  font-family: var(--FontHeading);
+  font-size: var(--FontSizeH2);
+  font-weight: var(--FontWeightBold);
+  line-height: var(--LineHeightH2);
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--White);
+}
+
+.A_Logo {
+  display: block;
+  width: 33rem;
+  height: 26rem;
+}
+
+.A_BrandTitle {
+  font-size: var(--FontSizeBodyLarge);
+  font-weight: var(--FontWeightBold);
+}
+
+.A_BrandCaption {
+  font-size: var(--FontSizeBodyRegular);
+}
+
+.A_EmailInput {
+  box-sizing: border-box;
+  width: 296rem;
+  height: 50rem;
+  padding: 0 20rem 8rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font: inherit;
+  font-size: var(--FontSizeBodyMedium);
+  color: var(--Blue);
+}
+
+.A_EmailInput::placeholder {
+  color: var(--Blue);
+  opacity: 0.5;
+}
+
+.A_SubscribeButton {
+  flex: 1;
+  height: 50rem;
+  padding: 0 20rem 8rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--Blue);
+  font: inherit;
+  font-size: var(--FontSizeBodyMedium);
+  color: var(--White);
+  cursor: pointer;
+}
+
+.A_Checkbox {
+  flex-shrink: 0;
+  display: grid;
+  place-content: center;
+  box-sizing: border-box;
+  width: 22rem;
+  height: 22rem;
+  margin: 0;
+  border: 1.5rem solid var(--White);
+  border-radius: var(--RadiusCheckbox);
+  background: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.A_Checkbox:checked::before {
+  content: "";
+  width: 12rem;
+  height: 12rem;
+  border-radius: var(--RadiusCheckboxMark);
+  background: var(--White);
+}
+
+.A_ConsentLink {
+  color: var(--White);
+}
+
+.A_FormErrors {
+  position: absolute;
+  bottom: 70rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: var(--FontSizeUICaption);
+  color: var(--Yellow);
+}
+
+.A_SocialButton {
+  display: block;
+  width: 60rem;
+  height: 60rem;
+}
+
+.A_SocialButton img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.A_HeroTitle {
+  font-family: var(--FontHeading);
+  font-size: var(--FontSizeH1);
+  font-weight: var(--FontWeightBold);
+}
+
+.A_Heading {
+  font-family: var(--FontHeading);
+  font-size: var(--FontSizeH3);
+  font-weight: var(--FontWeightBold);
+}
+
+.A_Text {
+  font-size: var(--FontSizeBodyMedium);
+}
+
+.A_TextSmall {
+  font-size: var(--FontSizeBodyRegular);
+}
+
+.A_CardTitle {
+  font-size: var(--FontSizeBodyLarge);
+  font-weight: var(--FontWeightBold);
+  white-space: nowrap;
+}
+
+.A_Link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.A_Icon {
+  display: block;
+  width: 40rem;
+  height: 40rem;
+}
+
+.A_IconUp {
+  rotate: -90deg;
+}
+
+.A_IconDown {
+  rotate: 90deg;
+}
+
+.A_TagIcon {
+  display: block;
+  width: 60rem;
+  height: 60rem;
+}
+
+.A_MoreIcon {
+  display: block;
+  width: 25.3rem;
+  height: 17.1rem;
+}
+
+.A_Button {
+  display: block;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.A_Button img,
+.A_ButtonIcon {
+  display: block;
+  width: 50rem;
+  height: 50rem;
+}
+
+.A_SearchInput {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  width: 355rem;
+  height: 50rem;
+  padding: 0 20rem;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+}
+
+.A_SearchInput input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 0 6rem;
+  border: 0;
+  outline: none;
+  background: none;
+  font: inherit;
+  font-size: var(--FontSizeBodyMedium);
+  color: var(--Blue);
+}
+
+.A_SearchInput input::placeholder {
+  color: var(--Blue);
+  opacity: 0.5;
+}
+
+.A_SearchIcon {
+  display: block;
+  width: 22rem;
+  height: 22rem;
+}
+
+.A_FilterIcon {
+  display: block;
+  width: auto;
+  height: 22rem;
+}
+
+.A_FilterIconFilterTopic {
+  rotate: -32.18deg;
+}
+
+.A_FilterIconFilterStage {
+  height: 20rem;
+}
+
+.A_FilterIconSortIcon {
+  height: 20.7rem;
+}
+
+.A_FilterSelect {
+  field-sizing: content;
+  padding: 0 39rem 6rem 0;
+  border: 0;
+  outline: none;
+  background: none;
+  appearance: none;
+  font: inherit;
+  font-size: var(--FontSizeBodyRegular);
+  color: var(--Violet);
+  cursor: pointer;
+}
+
+.A_ChevronDown {
+  position: absolute;
+  right: 10rem;
+  top: 50%;
+  translate: 0 -50%;
+  width: 15.5rem;
+  height: 7.5rem;
+  pointer-events: none;
+}
+
+.A_AuthorAvatar {
+  display: block;
+  width: 35rem;
+  height: 35rem;
+  border-radius: var(--RadiusRound);
+  object-fit: cover;
+}
+
+.A_EngagementIcon {
+  display: block;
+  width: auto;
+  height: 20rem;
+}
+
+.A_StoryTitle {
+  font-family: var(--FontHeading);
+  font-size: var(--FontSizeH4);
+  font-weight: var(--FontWeightBold);
+}
+
+.A_StoryText {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: var(--FontSizeBodyMedium);
+  opacity: 0.8;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.A_StatusTag {
+  padding: 2rem 10rem 8rem;
+  border-radius: var(--RadiusPill);
+  font-size: var(--FontSizeBodyRegular);
+  color: var(--White);
+  white-space: nowrap;
+}
+
+.A_StatusTagPink {
+  background: var(--Pink);
+}
+
+.A_StatusTagYellow {
+  background: var(--Yellow);
+}
+
+.A_StatusTagGreen {
+  background: var(--Green);
+}
+
+.A_StatusTagOrange {
+  background: var(--Orange);
+}
+
+.A_StatusTagBlue {
+  background: var(--SkyBlue);
+}
+
+.A_StatusTagViolet {
+  background: var(--Violet);
+}
+
+.A_CalendarIcon {
+  display: block;
+  width: 17.5rem;
+  height: 17.5rem;
+}
+
+.A_VerdictIcon {
+  display: block;
+  width: 38rem;
+  height: 38rem;
+}
+
+.A_VotePercentage {
+  padding-left: 10rem;
+}
+
+.A_PageTitle {
+  font-family: var(--FontHeading);
+  font-size: var(--FontSizeH2);
+  font-weight: var(--FontWeightBold);
+  line-height: var(--LineHeightH2);
+  text-transform: uppercase;
+}
+
+.A_UserAvatar {
+  display: block;
+  flex-shrink: 0;
+  width: 93rem;
+  height: 93rem;
+  border-radius: var(--RadiusRound);
+  object-fit: cover;
+}
+
+.A_ModerationTitle {
+  font-size: var(--FontSizeH5);
+  font-weight: var(--FontWeightBold);
+}
+
+.A_ModerationTitle,
+.A_ModerationSubtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.A_Label {
+  font-size: var(--FontSizeBodyRegular);
+}
+
+.A_Hint {
+  font-size: var(--FontSizeUISmall);
+  opacity: 0.8;
+}
+
+.A_TextLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.A_Input,
+.A_Select,
+.A_Textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50rem;
+  padding: 0 20rem 7rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font: inherit;
+  font-size: var(--FontSizeBodyMedium);
+  color: var(--Blue);
+}
+
+.A_Input::placeholder,
+.A_Textarea::placeholder {
+  color: var(--Blue);
+  opacity: 0.5;
+}
+
+.A_Select {
+  display: flex;
+  align-items: center;
+  padding-right: 50rem;
+  background: var(--White) url("/feed/chevron.svg") no-repeat right 20rem center / 15.5rem 7.5rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.A_Textarea {
+  height: auto;
+  min-height: 200rem;
+  padding: 15rem 20rem;
+  border-radius: var(--RadiusL);
+  resize: vertical;
+}
+
+.A_FileInput {
+  font: inherit;
+  font-size: var(--FontSizeBodyRegular);
+  color: inherit;
+}
+
+.A_FileInput::file-selector-button {
+  margin-right: 15rem;
+  padding: 7rem 20rem 13rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font: inherit;
+  color: var(--Blue);
+  cursor: pointer;
+}
+
+.A_PillButton {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: 50rem;
+  padding: 0 30rem 6rem;
+  border: 2rem solid var(--Violet);
+  border-radius: var(--RadiusPill);
+  background: var(--Violet);
+  font: inherit;
+  font-size: var(--FontSizeBodyMedium);
+  color: var(--White);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.A_PillButtonLight {
+  border-color: var(--White);
+  background: var(--White);
+  color: var(--Blue);
+}
+
+.A_PillButtonOutline {
+  border-color: var(--White);
+  background: none;
+  color: var(--White);
+}
+
+.A_Input:focus-visible,
+.A_Select:focus-visible,
+.A_Textarea:focus-visible {
+  outline: 3rem solid var(--Violet);
+}
+
+.A_LinkButton {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: var(--FontSizeBodyRegular);
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.A_TextStrong {
+  font-weight: var(--FontWeightBold);
+}
+
+.A_TextareaSmall {
+  min-height: 120rem;
+}
+
+.A_TableHead,
+.A_TableCell {
+  padding: 12rem 15rem;
+  text-align: left;
+}
+
+.A_TableHead {
+  font-size: var(--FontSizeBodyRegular);
+  font-weight: var(--FontWeightBold);
+}
+
+.A_TableCell {
+  font-size: var(--FontSizeBodyRegular);
+}
+
+.A_IconButton {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.A_FilterSelect,
+.A_FilterSelect::picker(select),
+.A_Select,
+.A_Select::picker(select) {
+  appearance: base-select;
+}
+
+.A_FilterSelect::picker-icon,
+.A_Select::picker-icon {
+  display: none;
+}
+
+.A_FilterSelect::picker(select),
+.A_Select::picker(select) {
+  margin-top: 10rem;
+  padding: 8rem;
+  border: 0;
+  border-radius: var(--RadiusM);
+  background: var(--White);
+}
+
+.A_FilterSelect option,
+.A_Select option {
+  padding: 6rem 15rem 10rem;
+  border-radius: var(--RadiusPill);
+  font-size: var(--FontSizeBodyRegular);
+  cursor: pointer;
+}
+
+.A_FilterSelect option {
+  color: var(--Violet);
+}
+
+.A_Select option {
+  color: var(--Blue);
+}
+
+.A_FilterSelect option::checkmark,
+.A_Select option::checkmark {
+  display: none;
+}
+
+.A_FilterSelect option:hover,
+.A_FilterSelect option:focus-visible,
+.A_FilterSelect option:checked {
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.A_Select option:hover,
+.A_Select option:focus-visible,
+.A_Select option:checked {
+  background: var(--Blue);
+  color: var(--White);
+}
+
+.A_ErrorDigit {
+  position: absolute;
+  font-family: var(--FontHeading);
+  font-size: 380rem;
+  font-weight: 700;
+  line-height: 1.354;
+  color: var(--White);
+  text-box: trim-both cap alphabetic;
+}
+
+.A_ErrorDigitLeft {
+  left: 227.8rem;
+  top: 152.3rem;
+}
+
+.A_ErrorDigitRight {
+  left: 981rem;
+  top: 156rem;
+}
+
+.A_ErrorLead {
+  font-size: 25rem;
+}
+
+.A_MobileTab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  height: 50rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--Violet);
+  cursor: pointer;
+}
+
+.A_MobileLogo {
+  display: block;
+  width: 28rem;
+  height: 22rem;
+}
+
+.A_MenuIcon {
+  display: block;
+  width: 22.5rem;
+  height: 15.5rem;
+}
+
+@media (max-width: 767px) {
+  .A_EmailInput {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .A_SubscribeButton {
+    flex: none;
+    width: 50rem;
+    padding: 0;
+    background-image: url("/mobile/arrow.svg");
+    background-position: center;
+    background-size: 50rem 50rem;
+    font-size: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .A_SplashTitle {
+    left: 30rem;
+    top: 297rem;
+    font-size: 37rem;
+    line-height: normal;
+  }
+}
+
+.A_ArrowButton {
+  display: block;
+  width: 50rem;
+  height: 50rem;
+}
+
+.A_ArrowButtonBack {
+  rotate: 180deg;
+}
+
+@media (max-width: 767px) {
+  .A_HeroTitle {
+    font-size: 60rem;
+    line-height: 1.354;
+  }
+}
+
+@media (max-width: 767px) {
+  .A_SearchInput {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .A_StoryTitle {
+    font-size: 25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .A_PageTitle {
+    font-size: 30rem;
+    line-height: normal;
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+
+  .A_Heading {
+    font-size: 25rem;
+  }
+
+  .A_ErrorDigit {
+    font-size: 150rem;
+  }
+
+  .A_ErrorDigitLeft {
+    left: 40rem;
+    top: 190rem;
+  }
+
+  .A_ErrorDigitRight {
+    left: 272rem;
+    top: 190rem;
+  }
+
+  .A_ModerationTitle,
+  .A_ModerationSubtitle {
+    white-space: normal;
+  }
+
+  .A_ErrorLead {
+    font-size: 20rem;
+  }
+
+  .A_ErrorLead br {
+    display: none;
+  }
+}

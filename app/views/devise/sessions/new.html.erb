@@ -1,0 +1,28 @@
+<% content_for :title, t("devise.sessions.new.sign_in") %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: t("devise.sessions.new.sign_in"), narrow: true } do %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "O_Form" }) do |f| %>
+    <div class="M_FormField">
+      <%= f.label :email, class: "A_Label" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "A_Input" %>
+    </div>
+
+    <div class="M_FormField">
+      <%= f.label :password, class: "A_Label" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "A_Input" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <%= f.label :remember_me, class: "M_CheckboxField" do %>
+        <%= f.check_box :remember_me, class: "A_Checkbox" %>
+        <span><%= resource.class.human_attribute_name(:remember_me) %></span>
+      <% end %>
+    <% end %>
+
+    <div class="M_FormActions">
+      <%= f.submit t("devise.sessions.new.sign_in"), class: "A_PillButton" %>
+    </div>
+  <% end %>
+
+  <%= render "devise/shared/links" %>
+<% end %>

@@ -1,0 +1,9 @@
+<% content_for :title, "Редактирование статьи" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Редактирование статьи", medium: true } do %>
+  <%= render "form", article: @article %>
+  <div class="M_FormActions">
+    <%= link_to "← К статье", @article, class: "A_TextLink A_Text" %>
+    <%= link_to "Все статьи", articles_path, class: "A_TextLink A_Text" %>
+  </div>
+<% end %>

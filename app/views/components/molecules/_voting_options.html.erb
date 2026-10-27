@@ -1,0 +1,30 @@
+<% my_vote = user_signed_in? && story.votes.find { |vote| vote.user_id == current_user.id } %>
+<% stats = story.vote_stats if my_vote || (user_signed_in? && cannot?(:create, Vote)) %>
+<div class="M_VotingOptions">
+  <% Vote::LABELS.each do |verdict, label| %>
+    <% chosen = my_vote && my_vote.verdict == verdict %>
+    <% classes = class_names("M_VotingOption", "M_VotingOptionChosen" => chosen) %>
+    <% content = capture do %>
+      <%= image_tag "feed/verdict_#{verdict}.svg", alt: "", class: "A_VerdictIcon" %>
+      <span><%= label.downcase %></span>
+      <% if stats %>
+        <span class="A_VotePercentage"><%= stats[verdict] %>%</span>
+      <% end %>
+    <% end %>
+
+    <% if can? :create, Vote %>
+      <%= button_to story_votes_path(story), params: { verdict: verdict }, class: classes, form_class: "W_InlineForm",
+                    title: ("Нажмите ещё раз, чтобы отменить голос" if chosen) do %>
+        <%= content %>
+      <% end %>
+    <% elsif user_signed_in? %>
+      <span class="<%= classes %>"><%= content %></span>
+    <% else %>
+      <%= link_to content, new_user_session_path, class: classes, title: "Войдите, чтобы проголосовать", data: { turbo_frame: "_top" } %>
+    <% end %>
+  <% end %>
+
+  <% if stats %>
+    <span class="A_Text M_VoteCount"><%= count_with_word(story.votes.size, "голос", "голоса", "голосов") %></span>
+  <% end %>
+</div>

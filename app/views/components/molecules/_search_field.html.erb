@@ -1,0 +1,10 @@
+<% placeholder = local_assigns.fetch(:placeholder, "Поиск по историям") %>
+<div class="M_SearchField">
+  <label class="A_SearchInput">
+    <%= image_tag "feed/search_icon.svg", alt: "", class: "A_SearchIcon" %>
+    <%= search_field_tag :q, params[:q], placeholder: placeholder, form: form, "aria-label": placeholder %>
+  </label>
+  <%= button_tag type: "submit", form: form, name: nil, class: "A_Button", "aria-label": "Найти" do %>
+    <%= image_tag "feed/arrow_button.svg", alt: "" %>
+  <% end %>
+</div>

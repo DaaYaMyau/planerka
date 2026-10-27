@@ -1,0 +1,17 @@
+<section class="O_HeroSection">
+  <div class="M_HeroText">
+    <h1 class="A_HeroTitle">ЭТО У МЕНЯ ОДНОГО ТАКАЯ ЖЕСТЬ?</h1>
+    <p class="A_Text">
+      Реальные истории молодых специалистов о работе, собеседованиях<br>
+      и первых карьерных трудностях. Читай, делись своим опытом и решай вместе с другими, что норм, а что — не очень
+    </p>
+    <div class="C_HeroTags" aria-hidden="true">
+      <%= render "components/molecules/tag", text: "спорно", modifier: "M_TagLarge M_TagPink" %>
+      <%= render "components/molecules/tag", text: "первый опыт", modifier: "M_TagLarge M_TagSkyBlue" %>
+      <% { "lamp" => "Violet", "orange" => "Orange", "yellow" => "Yellow", "green" => "Green" }.each do |name, color| %>
+        <%= render "components/molecules/tag", icon: "feed/hero_#{name}.svg", modifier: "M_TagIcon M_Tag#{color}" %>
+      <% end %>
+    </div>
+  </div>
+  <%= render "components/molecules/search_field", form: "stories_filters" %>
+</section>

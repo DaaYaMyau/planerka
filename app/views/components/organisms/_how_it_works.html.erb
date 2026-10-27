@@ -1,0 +1,27 @@
+<section class="O_HowItWorks" id="how">
+  <%= render "components/molecules/section_header", title: "Как всё устроено?", image: "about/tab_how.svg" %>
+  <div class="W_Section W_SectionBlue">
+    <div class="C_StepCards" data-controller="step-cards" data-action="click->step-cards#next">
+      <% [
+        { number: "01", icon: "write", color: "sky_blue", slot: 3,
+          title: "Поделись историей",
+          text: "Расскажи о своём рабочем опыте, задай вопрос или поделись ситуацией, которая вызывает сомнения",
+          tags: [ "личный опыт", "анонимно" ] },
+        { number: "02", icon: "discussion", color: "pink", slot: 2,
+          title: "Узнай мнение других",
+          text: "Посмотри, как сообщество оценивает ситуацию: нормально, спорно или недопустимо",
+          tags: [ "норм", "спорно", "не норм" ] },
+        { number: "03", icon: "document", color: "green", slot: 1,
+          title: "Разберись в ситуации",
+          text: "Изучи похожие истории, комментарии экспертов и полезные материалы\nо трудовых правах",
+          tags: [ "эксперты", "трудовые права" ] },
+        { number: "04", icon: "community", color: "orange", slot: 0,
+          title: "Найди решение",
+          text: "Используй полученные знания, чтобы оценить свои возможности и выбрать дальнейшие действия",
+          tags: [ "советы", "следующие шаги" ] }
+      ].each do |step| %>
+        <%= render "components/molecules/step_card", **step %>
+      <% end %>
+    </div>
+  </div>
+</section>

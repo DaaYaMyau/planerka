@@ -1,0 +1,19 @@
+<%= turbo_frame_tag dom_id(story, :voting) do %>
+  <section class="W_Card">
+    <h2 class="A_Heading">Это норм?</h2>
+
+    <%= render "components/molecules/voting_options", story: story %>
+
+    <% if can?(:create, Vote) && story.votes.any? { |vote| vote.user_id == current_user.id } %>
+      <% grade_votes = story.votes_from_grade(current_user) %>
+      <% if grade_votes.any? %>
+        <% grade_stats = story.vote_stats(grade_votes) %>
+        <p class="A_TextSmall">
+          Люди вашего грейда ответили так:
+          <%= Vote::LABELS.map { |verdict, label| "#{label} — #{grade_stats[verdict]}%" }.join(", ") %>
+          (<%= count_with_word(grade_votes.size, "голос", "голоса", "голосов") %>)
+        </p>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>

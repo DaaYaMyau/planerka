@@ -1,0 +1,14 @@
+<section class="O_ProjectTeam" id="team">
+  <%= render "components/molecules/section_header", title: "Команда", image: "about/tab_team.svg" %>
+  <div class="W_Section W_SectionBlue">
+    <div class="C_TeamGrid">
+      <% [
+        { name: "Матвеева Анна", role: "кодер, исследователь", telegram: "Bueeeef", photo: "about/team_anna.jpg", photo_position: "50% 59%" },
+        { name: "Николаева Виктория", role: "кодер, исследователь", telegram: "Lunycd", photo: "about/team_victoria.jpg" },
+        { name: "Кондратенко Ирина", role: "дизайнер, исследователь", telegram: "luurinna", photo: "about/team_irina.jpg" }
+      ].each do |member| %>
+        <%= render "components/molecules/team_card", **member %>
+      <% end %>
+    </div>
+  </div>
+</section>

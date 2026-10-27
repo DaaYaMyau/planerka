@@ -1,0 +1,6 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+boris_on_published:
+  user: boris
+  story: published
+  body: У меня было так же.

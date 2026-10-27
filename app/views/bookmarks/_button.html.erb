@@ -1,0 +1,7 @@
+<% if can? :create, Bookmark %>
+  <% if current_user.bookmarks.exists?(story: story) %>
+    <%= button_to "Убрать из сохранённого", story_bookmark_path(story), method: :delete, class: "A_PillButton A_PillButtonLight", form_class: "W_InlineForm" %>
+  <% else %>
+    <%= button_to "Сохранить", story_bookmark_path(story), class: "A_PillButton A_PillButtonLight", form_class: "W_InlineForm" %>
+  <% end %>
+<% end %>

@@ -1,0 +1,6 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+vera_on_anna:
+  review: anna_published
+  user: vera
+  body: Спасибо за отзыв, наставники у нас теперь есть.

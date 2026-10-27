@@ -1,0 +1,83 @@
+<%= form_with(model: story, class: "O_Form") do |form| %>
+  <% if story.errors.any? %>
+    <div class="M_FormErrors">
+      <p>Не удалось сохранить историю:</p>
+      <% story.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="M_FormField">
+    <%= form.label :title, "Заголовок", class: "A_Label" %>
+    <%= form.text_field :title, class: "A_Input" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :body, "Ваша история", class: "A_Label" %>
+    <%= form.textarea :body, rows: 10, class: "A_Textarea" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :images, "Картинки (необязательно, до #{Story::MAX_IMAGES} штук, PNG, JPG или WEBP до 5 МБ)", class: "A_Label" %>
+    <p class="A_Hint">Проверьте, что на картинке нет имён, лиц и названий компаний</p>
+
+    <% if story.images.any? %>
+      <div class="C_ImageThumbs">
+        <% story.images.each do |image| %>
+          <div class="M_ImageThumb">
+            <%= image_tag image.url, alt: "", class: "Q_ImageThumb" %>
+            <label class="M_CheckboxField">
+              <%= check_box_tag "story[images][]", image.cache_name || image.identifier, true, id: nil, class: "A_Checkbox" %>
+              <span>оставить</span>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= form.file_field :images, multiple: true, accept: Story::IMAGE_TYPES.join(","), class: "A_FileInput" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :grade, "Ваш грейд", class: "A_Label" %>
+    <%= form.select :grade, Story::GRADE_LABELS.invert, { include_blank: "Не указывать" }, class: "A_Select" %>
+  </div>
+
+  <% { "Профессия" => Tag.profession, "Тема" => Tag.topic, "Этап" => Tag.stage }.each do |title, tags| %>
+    <div class="M_FormField">
+      <p class="A_Label"><%= title %></p>
+      <div class="C_CheckboxGroup">
+        <%= form.collection_check_boxes :tag_ids, tags, :id, :name do |option| %>
+          <%= option.label(class: "M_CheckboxField") { option.check_box(class: "A_Checkbox") + tag.span(option.text) } %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="M_FormField">
+    <%= form.label :company_id, "Компания", class: "A_Label" %>
+    <%= form.collection_select :company_id, Company.published.order(:name), :id, :name, { include_blank: "Без компании" }, class: "A_Select" %>
+  </div>
+
+  <%= form.label :anonymous, class: "M_CheckboxField" do %>
+    <%= form.checkbox :anonymous, class: "A_Checkbox" %>
+    <span>Опубликовать анонимно</span>
+  <% end %>
+
+  <% if current_user.is_admin? %>
+    <div class="M_FormField">
+      <%= form.label :status, "Статус", class: "A_Label" %>
+      <%= form.select :status, Story::STATUS_LABELS.invert, {}, class: "A_Select" %>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :article_id, "Статья", class: "A_Label" %>
+      <%= form.collection_select :article_id, Article.all, :id, :title, { include_blank: "Без статьи" }, class: "A_Select" %>
+    </div>
+  <% end %>
+
+  <div class="M_FormActions">
+    <%= form.submit "Сохранить", class: "A_PillButton" %>
+  </div>
+<% end %>

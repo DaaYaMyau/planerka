@@ -1,0 +1,30 @@
+<% content_for :title, "Подписчики" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Подписчики" } do %>
+  <p class="A_Text">Всего: <%= @subscriptions.size %></p>
+
+  <div class="W_Card">
+    <% if @subscriptions.any? %>
+      <table class="C_Table">
+        <thead>
+          <tr>
+            <th class="A_TableHead">Почта</th>
+            <th class="A_TableHead">Подписка</th>
+            <th class="A_TableHead">Согласие</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @subscriptions.each do |subscription| %>
+            <tr>
+              <td class="A_TableCell"><%= subscription.email %></td>
+              <td class="A_TableCell"><%= subscription.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+              <td class="A_TableCell"><%= subscription.consented_at.strftime("%d.%m.%Y %H:%M") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="A_Text">Пока никто не подписался.</p>
+    <% end %>
+  </div>
+<% end %>
