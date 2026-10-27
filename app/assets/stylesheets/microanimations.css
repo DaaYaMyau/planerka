@@ -33,14 +33,14 @@
   outline-offset: 4px;
 }
 
-:is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+:is(a.A_TextLink, button.A_LinkButton,
   .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
   .M_ModerationStat.A_Link) {
   position: relative;
   text-decoration: none;
 }
 .A_NavigationLabel { position: relative; display: inline-block; }
-:is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+:is(a.A_TextLink, button.A_LinkButton,
   .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
   .M_ModerationStat.A_Link)::after,
 .A_NavigationLabel::after {
@@ -189,13 +189,13 @@ a.M_NavigationTab:focus-visible .A_NavigationLabel::after { transform: scaleX(1)
   .A_FilterSelect::picker(select), .A_Select::picker(select) { transform: none; }
 }
 
-:is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+:is(a.A_TextLink, button.A_LinkButton,
   .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
   .M_ModerationStat.A_Link):focus-visible::after {
   transform: scaleX(1);
 }
 @media (hover: hover) and (pointer: fine) {
-  :is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+  :is(a.A_TextLink, button.A_LinkButton,
     .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
     .M_ModerationStat.A_Link):hover::after { transform: scaleX(1); }
 }
@@ -248,12 +248,11 @@ html { scroll-padding-top: max(80rem, 64px); }
   grid-template-rows: 0fr;
   padding: 0;
   margin-top: 0;
-  white-space: normal;
   transition: grid-template-rows var(--MotionState) var(--MotionEase),
     margin-top var(--MotionState) var(--MotionEase),
     opacity var(--MotionState) ease, visibility var(--MotionState);
 }
-.M_ConsentContent { min-height: 0; overflow: hidden; }
+.M_ConsentContent { min-height: 0; overflow-x: visible; overflow-y: clip; }
 .M_ConsentContent .M_CheckboxField { align-items: flex-start; }
 .M_ConsentContent .M_CheckboxField + .M_CheckboxField { margin-top: 8rem; }
 .M_CheckboxField .A_Checkbox { margin-top: 3rem; }
