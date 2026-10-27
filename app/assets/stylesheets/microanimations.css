@@ -277,6 +277,12 @@ html { scroll-padding-top: max(80rem, 64px); }
 .S_Splash:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) .Q_SplashBackground {
   bottom: 0;
 }
+.C_SplashDecor {
+  transition: bottom var(--MotionState) var(--MotionEase);
+}
+.S_Splash:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) .C_SplashDecor {
+  bottom: 180rem;
+}
 
 body { cursor: default; }
 input:not([type="button"], [type="submit"], [type="checkbox"], [type="radio"], [type="file"]),
@@ -302,7 +308,7 @@ select, .M_CheckboxField { cursor: pointer; }
   .S_AboutPage .M_CategoryFolder:hover .Q_DocumentSheet { translate: 0 -4px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .M_Consent, .W_SubscriptionForm, .S_Splash { transition: none; }
+  .M_Consent, .W_SubscriptionForm, .S_Splash, .C_SplashDecor { transition: none; }
   .S_AboutPage :is(.M_CategoryFolder, .M_PrincipleCard, .M_TeamCard):hover,
   .S_AboutPage .M_CategoryFolder:hover .Q_DocumentSheet { translate: none; }
 }
