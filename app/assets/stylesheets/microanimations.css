@@ -30,8 +30,7 @@
 }
 
 :where(button, input[type="submit"], input[type="button"],
-  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton)
-:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton):active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
   scale: var(--MotionPressScale);
 }
 
@@ -97,14 +96,12 @@
 }
 
 /* Busy/disabled controls never suggest that another action is available. */
-:where(button, input[type="submit"], input[type="button"], a)
-:is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+:where(button, input[type="submit"], input[type="button"], a):is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
   scale: none;
   cursor: default;
 }
 
-:where(button, input[type="submit"], input[type="button"], a)
-:is(:disabled, [aria-disabled="true"], [aria-busy="true"]) :where(svg, .A_Icon, .A_TagIcon) {
+:where(button, input[type="submit"], input[type="button"], a):is(:disabled, [aria-disabled="true"], [aria-busy="true"]) :where(svg, .A_Icon, .A_TagIcon) {
   scale: none;
 }
 
