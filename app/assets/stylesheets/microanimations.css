@@ -1,128 +1,381 @@
-/* Shared interaction feedback; loaded after the existing decorative animations. */
+/* Interaction layer: reversible, interruptible motion without layout shifts. */
 :root {
-  --MotionFast: 120ms;
-  --MotionState: 200ms;
-  --MotionArrival: 280ms;
-  --MotionEase: cubic-bezier(0.16, 1, 0.3, 1);
-  --MotionPressScale: 0.97;
+  --MotionFast: 240ms;
+  --MotionState: 420ms;
+  --MotionUnderline: 460ms;
+  --MotionEase: cubic-bezier(0.42, 0, 0.22, 1);
+  --MotionPressScale: 0.98;
+  --MotionLine: 4px;
+  --FilterShadow: 0 8px 28px rgb(30 13 75 / 0.18), 0 2px 6px rgb(30 13 75 / 0.08);
 }
 
-/* Physical feedback is limited to actual controls, including link buttons. */
-:where(button, input[type="submit"], input[type="button"],
-  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton) {
-  transition:
-    scale var(--MotionFast) var(--MotionEase),
-    background-color var(--MotionState) var(--MotionEase),
-    color var(--MotionState) var(--MotionEase),
-    border-color var(--MotionState) var(--MotionEase);
+/* Explicit component selectors also cover links styled as buttons. */
+:is(.A_PillButton, .A_SubscribeButton, .M_VotingOption, button.M_Tag,
+  .A_Button, .A_IconButton, .A_SocialButton, .M_LoadMoreButton) {
+  transition: background-color var(--MotionState) var(--MotionEase),
+    color var(--MotionState) var(--MotionEase), border-color var(--MotionState) var(--MotionEase),
+    scale var(--MotionState) var(--MotionEase);
 }
 
-:where(button, input[type="submit"], input[type="button"],
-  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton)
-  :where(svg, .A_Icon, .A_TagIcon) {
-  transition: scale var(--MotionState) var(--MotionEase);
+:is(.A_Button, .A_IconButton, .A_SocialButton) img,
+.M_LoadMoreButton .A_ButtonIcon,
+.M_VotingOption .A_VerdictIcon {
+  transition: translate var(--MotionState) var(--MotionEase),
+    rotate var(--MotionState) var(--MotionEase),
+    scale var(--MotionState) var(--MotionEase);
 }
 
-:where(button, input[type="submit"], input[type="button"],
-  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton)
-  :is(svg, .A_Icon, .A_TagIcon) {
-  transform-origin: center;
-}
-
-:where(button, input[type="submit"], input[type="button"],
-  a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton):active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+:is(.A_PillButton, .A_SubscribeButton, .M_VotingOption, button.M_Tag,
+  .A_Button, .A_IconButton, .A_SocialButton, .M_LoadMoreButton):active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
   scale: var(--MotionPressScale);
 }
 
 :where(a, button, input, select, textarea, summary):focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: 3px;
-}
-
-:where(a.A_TextLink, a.A_Link, a.A_ConsentLink, button.A_LinkButton) {
-  text-underline-offset: 0.18em;
-  text-decoration-thickness: 0.06em;
-  transition: text-underline-offset var(--MotionFast) var(--MotionEase),
-    text-decoration-color var(--MotionFast) var(--MotionEase);
-}
-
-:where(.A_Input, .A_Select, .A_Textarea, .A_EmailInput, .A_FilterSelect) {
-  caret-color: var(--Blue);
-  transition: outline-offset var(--MotionFast) var(--MotionEase),
-    border-color var(--MotionState) var(--MotionEase);
-}
-
-:where(.A_Input, .A_Select, .A_Textarea, .A_EmailInput, .A_FilterSelect):focus-visible {
   outline-offset: 4px;
 }
 
-.A_Checkbox {
-  transition: background-color var(--MotionFast) var(--MotionEase),
-    border-color var(--MotionFast) var(--MotionEase);
+/* A separate transform layer keeps the line crisp and its thickness constant. */
+:is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+  .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
+  .M_ModerationStat.A_Link) {
+  position: relative;
+  text-decoration: none;
+}
+.A_NavigationLabel { position: relative; display: inline-block; }
+:is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+  .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
+  .M_ModerationStat.A_Link)::after,
+.A_NavigationLabel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.18em;
+  height: var(--MotionLine);
+  background: currentColor;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--MotionUnderline) var(--MotionEase);
 }
 
-.A_Checkbox:checked::before {
-  animation: ControlConfirm var(--MotionState) var(--MotionEase);
+/* Icon-only folder tabs (home/profile) receive feedback too. */
+a.M_NavigationTab .Q_TabBackground {
+  transition: translate var(--MotionState) var(--MotionEase),
+    opacity var(--MotionState) var(--MotionEase);
 }
 
-/* A notification appears once, at the moment Rails inserts it. */
-.M_Flash,
-#error_explanation,
-.A_FormErrors:not(:empty) {
-  animation: NoticeArrive var(--MotionArrival) var(--MotionEase);
-}
+a.M_NavigationTab:focus-visible .A_NavigationLabel::after { transform: scaleX(1); }
 
-@keyframes ControlConfirm {
-  from { scale: 0.75; }
-  to { scale: 1; }
+/* Feedback on profile stories and newly submitted companies. */
+.M_ModerationCard {
+  transition: background-color var(--MotionState) var(--MotionEase);
 }
-
-@keyframes NoticeArrive {
-  from { opacity: 0.65; translate: 0 -3px; }
-  to { opacity: 1; translate: 0 0; }
+.M_ModerationCard .M_Tag {
+  transition: background-color var(--MotionState) var(--MotionEase),
+    color var(--MotionState) var(--MotionEase), border-color var(--MotionState) var(--MotionEase),
+    scale var(--MotionState) var(--MotionEase);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  :where(button, input[type="submit"], input[type="button"],
-    a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton):hover
-    :where(svg, .A_Icon, .A_TagIcon) {
-    scale: 1.06;
+  /* White controls stay white on a blue page; blue controls turn purple. */
+  .A_PillButton:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+    background-color: var(--Pink);
+    border-color: var(--Pink);
+    color: var(--Blue);
   }
+  .A_PillButtonLight:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+    background-color: var(--White);
+    border-color: var(--White);
+    color: var(--Violet);
+  }
+  .A_PillButtonOutline:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+    background-color: var(--White);
+    border-color: var(--White);
+    color: var(--Violet);
+  }
+  .A_SubscribeButton:hover:not(:disabled),
+  .M_VotingOption:hover:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+    background-color: var(--Violet);
+    color: var(--White);
+  }
+  .M_VotingOption:hover .A_VerdictIcon { scale: 1.12; }
+  .M_VotingOptionChosen:hover { background-color: var(--Violet); }
 
-  :where(a.A_TextLink, a.A_Link, a.A_ConsentLink, button.A_LinkButton):hover {
-    text-decoration-line: underline;
-    text-underline-offset: 0.28em;
+  :is(a, button).A_Button:hover img { translate: 4px 0; }
+  .M_FilterGroup .A_Button:hover img { translate: 3px 0; }
+  .A_IconButton:hover img { scale: 1.1; }
+  .A_SocialButton:hover img { translate: 0 -3px; }
+  .M_LoadMoreButton:hover .A_ButtonIcon { translate: 0 3px; }
+  .M_LoadMoreButton[aria-expanded="true"]:hover .A_ButtonIcon { translate: 0 -3px; }
+  a.M_NavigationTab:not(:has(.A_NavigationLabel)):hover .Q_TabBackground {
+    translate: 0 -3px;
+    opacity: 0.85;
+  }
+  a.M_NavigationTab:hover .A_NavigationLabel::after { transform: scaleX(1); }
+  .M_ModerationCard:has(a:hover, button:hover) {
+    background-color: color-mix(in srgb, var(--CardColor) 91%, var(--Violet));
+  }
+  .M_ModerationCard button.M_Tag:hover:not(:disabled) {
+    background-color: var(--Violet);
+    border-color: var(--Violet);
+    color: var(--White);
+  }
+  .M_ModerationCard button.M_TagOutline:hover:not(:disabled) {
+    background-color: var(--White);
+    border-color: var(--White);
+    color: var(--Violet);
   }
 }
 
-/* Busy/disabled controls never suggest that another action is available. */
-:where(button, input[type="submit"], input[type="button"], a):is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+/* Native customizable select keeps keyboard navigation, selection and form data. */
+.A_FilterSelect::picker(select),
+.A_Select::picker(select) {
+  box-shadow: var(--FilterShadow);
+  opacity: 0;
+  transform: translateY(-6px);
+  transform-origin: top center;
+  transition: opacity var(--MotionState) var(--MotionEase),
+    transform var(--MotionState) var(--MotionEase),
+    display var(--MotionState) allow-discrete,
+    overlay var(--MotionState) allow-discrete;
+}
+.A_FilterSelect:open::picker(select),
+.A_Select:open::picker(select) {
+  opacity: 1;
+  transform: translateY(0);
+}
+@starting-style {
+  .A_FilterSelect:open::picker(select),
+  .A_Select:open::picker(select) {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.M_Filter .A_ChevronDown {
+  transition: rotate var(--MotionState) var(--MotionEase);
+}
+.M_Filter:has(.A_FilterSelect:open) .A_ChevronDown { rotate: 180deg; }
+.A_FilterSelect option,
+.A_Select option {
+  transition: background-color var(--MotionFast) var(--MotionEase), color var(--MotionFast) var(--MotionEase);
+}
+
+/* Focus feedback does not disturb field size. */
+:is(.A_Input, .A_Select, .A_Textarea, .A_EmailInput, .A_FilterSelect) {
+  caret-color: var(--Blue);
+  transition: outline-offset var(--MotionState) var(--MotionEase);
+}
+.A_Checkbox:checked::before { animation: ControlConfirm var(--MotionState) var(--MotionEase); }
+.M_Flash { animation: NoticeArrive var(--MotionState) var(--MotionEase); }
+@keyframes ControlConfirm { from { scale: 0.8; } to { scale: 1; } }
+/* Keep the flash's existing translate(-50%, 0) centering untouched. */
+@keyframes NoticeArrive { from { opacity: 0.4; } to { opacity: 1; } }
+
+:is(button, input, a):is(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
   scale: none;
   cursor: default;
 }
-
-:where(button, input[type="submit"], input[type="button"], a):is(:disabled, [aria-disabled="true"], [aria-busy="true"]) :where(svg, .A_Icon, .A_TagIcon) {
+:is(button, a):is(:disabled, [aria-disabled="true"], [aria-busy="true"]) img {
+  translate: none;
   scale: none;
 }
-
 @media (prefers-reduced-motion: reduce) {
-  :root {
-    --MotionFast: 0ms;
-    --MotionState: 0ms;
-    --MotionArrival: 0ms;
-    --MotionPressScale: 1;
-  }
-
-  .A_Checkbox:checked::before,
-  .M_Flash,
-  #error_explanation,
-  .A_FormErrors:not(:empty) {
-    animation: none;
-  }
-
-  :where(button, input[type="submit"], input[type="button"],
-    a.A_PillButton, a.M_VotingOption, a.M_Tag, a.A_SocialButton):hover
-    :where(svg, .A_Icon, .A_TagIcon) {
+  :root { --MotionFast: 0ms; --MotionState: 0ms; --MotionUnderline: 0ms; --MotionPressScale: 1; }
+  .M_Flash, .A_Checkbox:checked::before { animation: none; }
+  :is(a, button).A_Button:hover img,
+  .M_FilterGroup .A_Button:hover img,
+  .M_LoadMoreButton[aria-expanded="true"]:hover .A_ButtonIcon,
+  :is(.A_Button, .A_IconButton, .A_SocialButton, .M_LoadMoreButton, .M_VotingOption):hover img,
+  a.M_NavigationTab:hover .Q_TabBackground {
+    translate: none;
     scale: none;
   }
+  .A_FilterSelect::picker(select), .A_Select::picker(select) { transform: none; }
 }
+
+/* Keyboard and mouse share the same reversible line transition. */
+:is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+  .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
+  .M_ModerationStat.A_Link):focus-visible::after {
+  transform: scaleX(1);
+}
+@media (hover: hover) and (pointer: fine) {
+  :is(a.A_TextLink, a.A_ConsentLink, button.A_LinkButton,
+    .O_Footer a.A_Link, .O_MenuBar a.A_Link, .A_StoryTitle a.A_Link,
+    .M_ModerationStat.A_Link):hover::after { transform: scaleX(1); }
+}
+
+/* Keep the existing header footprint, so pinning does not shift the page. */
+.O_HeaderNavigation,
+.O_MenuBar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  view-transition-name: site-header;
+}
+html { scroll-padding-top: max(80rem, 64px); }
+
+/* Existing interactions follow the same motion rhythm. */
+.M_ModerationTab,
+.M_ModerationTabCard {
+  transition: background-color var(--MotionState) var(--MotionEase);
+}
+.M_ModerationTab .A_TabText,
+.M_ModerationTabCard .M_Tag {
+  transition: color var(--MotionState) var(--MotionEase);
+}
+.C_StepCards > .M_StepCard {
+  transition: top 600ms var(--MotionEase), width 600ms var(--MotionEase), height 600ms var(--MotionEase);
+}
+.C_StepCards .M_StepBody {
+  transition: opacity var(--MotionState) var(--MotionEase), visibility var(--MotionState);
+}
+.C_StepCards .A_IconUp { transition: rotate 600ms var(--MotionEase); }
+.Q_Decor { transition: scale var(--MotionState) var(--MotionEase); }
+
+/* Turbo owns navigation and scroll restoration. CSS only blends its snapshots. */
+::view-transition-old(root) { animation: PageOut 360ms ease-in-out both; }
+::view-transition-new(root) { animation: PageIn 360ms ease-in-out both; }
+::view-transition-group(site-header) { animation-duration: 0s; }
+::view-transition-old(site-header),
+::view-transition-new(site-header) { animation: none; }
+@keyframes PageOut { to { opacity: 0; } }
+@keyframes PageIn { from { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .M_ModerationTab, .M_ModerationTabCard, .M_ModerationTab .A_TabText,
+  .M_ModerationTabCard .M_Tag, .C_StepCards > .M_StepCard,
+  .C_StepCards .M_StepBody, .C_StepCards .A_IconUp, .Q_Decor { transition: none; }
+  ::view-transition-old(root), ::view-transition-new(root),
+  ::view-transition-group(site-header) { animation: none; }
+}
+
+/* Consent participates in layout: the footer grows with the actual text height. */
+.M_Consent {
+  position: static;
+  display: grid;
+  grid-template-rows: 0fr;
+  padding: 0;
+  margin-top: 0;
+  white-space: normal;
+  transition: grid-template-rows var(--MotionState) var(--MotionEase),
+    margin-top var(--MotionState) var(--MotionEase),
+    opacity var(--MotionState) ease, visibility var(--MotionState);
+}
+.M_ConsentContent { min-height: 0; overflow: hidden; }
+.M_ConsentContent .M_CheckboxField { align-items: flex-start; }
+.M_ConsentContent .M_CheckboxField + .M_CheckboxField { margin-top: 8rem; }
+.M_CheckboxField .A_Checkbox { margin-top: 3rem; }
+.W_SubscriptionForm:focus-within .M_Consent,
+.M_Consent.M_ConsentVisible {
+  grid-template-rows: 1fr;
+  margin-top: 16rem;
+}
+.W_SubscriptionForm {
+  padding-bottom: 0;
+  transition: padding-bottom var(--MotionState) var(--MotionEase);
+}
+.W_SubscriptionForm:has(:focus, .M_ConsentVisible) { padding-bottom: 24rem; }
+/* The teaser footer is positioned absolutely, so reserve room in its section too. */
+.S_Splash {
+  padding-bottom: 0;
+  transition: padding-bottom var(--MotionState) var(--MotionEase);
+}
+.S_Splash:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) {
+  padding-bottom: 180rem;
+}
+.S_Splash:has(.W_SubscriptionForm:focus-within, .M_ConsentVisible) .Q_SplashBackground {
+  bottom: 0;
+}
+
+/* Ordinary copy stays selectable; only editable fields use the I-beam. */
+body { cursor: default; }
+input:not([type="button"], [type="submit"], [type="checkbox"], [type="radio"], [type="file"]),
+textarea, [contenteditable="true"] { cursor: text; }
+a[href], button, input[type="submit"], input[type="button"],
+select, .M_CheckboxField { cursor: pointer; }
+
+/* Tactile paper feedback, scoped to the About page's noninteractive objects. */
+.S_AboutPage :is(.M_CategoryFolder, .M_PrincipleCard, .M_TeamCard) {
+  transition: translate var(--MotionState) var(--MotionEase),
+    scale var(--MotionState) var(--MotionEase);
+}
+.S_AboutPage .M_CategoryFolder .Q_DocumentSheet {
+  transition: translate var(--MotionState) var(--MotionEase);
+}
+@media (hover: hover) and (pointer: fine) {
+  .O_Footer .A_SubscribeButton:hover:not(:disabled) {
+    background-color: var(--White);
+    color: var(--Violet);
+  }
+  .S_AboutPage :is(.M_CategoryFolder, .M_PrincipleCard, .M_TeamCard):hover {
+    translate: 0 -5px;
+  }
+  .S_AboutPage .M_CategoryFolder:hover .Q_DocumentSheet { translate: 0 -4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .M_Consent, .W_SubscriptionForm, .S_Splash { transition: none; }
+  .S_AboutPage :is(.M_CategoryFolder, .M_PrincipleCard, .M_TeamCard):hover,
+  .S_AboutPage .M_CategoryFolder:hover .Q_DocumentSheet { translate: none; }
+}
+
+/* Use the six complete designer assets without rebuilding their shapes. */
+.A_SocialButton {
+  position: relative;
+  display: block;
+  border: 0;
+  padding: 0;
+  background: none;
+}
+.A_SocialButton img.A_SocialState {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  translate: none;
+  scale: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease-in-out;
+}
+.A_SocialButton img.A_SocialState_normal { opacity: 1; }
+.A_SocialButton:focus-visible img.A_SocialState_hover { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .A_SocialButton:hover img.A_SocialState_hover { opacity: 1; }
+}
+.A_SocialButton:active img.A_SocialState_active { opacity: 1; }
+.A_SocialButton:active:not(:disabled, [aria-disabled="true"], [aria-busy="true"]) { scale: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .A_SocialButton img.A_SocialState { transition: none; }
+}
+/* Keep the footer email field exactly in its original color scheme. */
+.O_Footer .M_SubscriptionForm { background: var(--Blue); }
+.O_Footer .A_SubscribeButton { background: var(--Violet); color: var(--White); }
+html { scroll-behavior: auto; }
+
+/* Footer variant: blue rim and violet centre, with high-resolution glyphs. */
+.A_SocialButton.A_SocialButtonFooter {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  border: 5rem solid var(--Blue);
+  border-radius: 50%;
+  background: var(--Violet);
+}
+.A_SocialButtonFooter img.A_FooterSocialGlyph {
+  width: 36rem;
+  height: auto;
+  object-fit: contain;
+  translate: none;
+  scale: none;
+}
+.A_SocialButtonFooter img.A_FooterSocialGlyph_telegram { width: 30rem; }
+.A_SocialButton.A_SocialButtonFooter:focus-visible { background: var(--Pink); }
+@media (hover: hover) and (pointer: fine) {
+  .A_SocialButton.A_SocialButtonFooter:hover { background: var(--Pink); }
+  .A_SocialButtonFooter:hover img.A_FooterSocialGlyph { translate: none; }
+}
+.A_SocialButton.A_SocialButtonFooter:active { background: var(--VioletPressed, #5f1eb8); }
