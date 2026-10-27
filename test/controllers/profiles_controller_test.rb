@@ -4,12 +4,12 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
   test "на страницах входа, регистрации и смены пароля есть главный заголовок" do
     [ new_user_session_url, new_user_registration_url, new_user_password_url ].each do |url|
       get url
-      assert_match(/<h1>.+<\/h1>/, response.body)
+      assert_select "h1", minimum: 1
     end
 
     sign_in users(:boris)
     get edit_user_registration_url
-    assert_includes response.body, "<h1>Почта и пароль</h1>"
+    assert_select "h1", "Почта и пароль"
   end
 
   test "гостя отправляют на вход" do
@@ -80,11 +80,14 @@ class ProfilesControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:boris)
 
     patch profile_url, params: { profile: { avatar: fixture_file_upload("avatar.png", "image/png") } }
-    assert profiles(:boris).reload.avatar.attached?
+    avatar = profiles(:boris).reload.avatar
+    assert avatar.present?
+    assert_match(/\A\h{8}-\h{4}-\h{4}-\h{4}-\h{12}\.png\z/, avatar.file.filename)
+    assert File.exist?(avatar.path)
 
     patch profile_url, params: { profile: { remove_avatar: "1" } }
-    perform_enqueued_jobs
-    assert_not profiles(:boris).reload.avatar.attached?
+    assert_not profiles(:boris).reload.avatar.present?
+    assert_not File.exist?(avatar.path)
   end
 
   test "вместо аватара нельзя загрузить текст" do

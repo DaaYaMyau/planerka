@@ -69,20 +69,20 @@ class StoryValidationTest < ActiveSupport::TestCase
 
   test "картинка не может быть текстом с расширением .png" do
     story = stories(:published)
-    story.images.attach(io: StringIO.new("просто текст"), filename: "fake.png", content_type: "image/png")
+    story.images = [ file_fixture("not_image.png").open ]
 
     assert_not story.valid?
-    assert_includes story.errors[:images], "Картинки должны быть в формате PNG, JPG или WEBP"
+    assert_includes story.errors[:images], "Картинки должны быть в формате PNG, JPG или WEBP, каждая не больше 5 МБ"
   end
 
-  test "не больше четырёх картинок, удалённые не считаются" do
+  test "не больше четырёх картинок" do
     story = stories(:published)
-    5.times { |i| story.images.attach(io: file_fixture("avatar.png").open, filename: "#{i}.png") }
 
+    story.images = Array.new(5) { file_fixture("avatar.png").open }
     assert_not story.valid?
     assert_includes story.errors[:images], "Можно прикрепить не больше 4 картинок"
 
-    story.remove_image_ids = [ story.images.first.id.to_s ]
+    story.images = Array.new(4) { file_fixture("avatar.png").open }
     assert story.valid?
   end
 end

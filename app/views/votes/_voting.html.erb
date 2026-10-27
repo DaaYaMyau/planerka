@@ -1,46 +1,19 @@
 <%= turbo_frame_tag dom_id(story, :voting) do %>
-  <h3>Это норм?</h3>
+  <section class="W_Card">
+    <h2 class="A_Heading">Это норм?</h2>
 
-  <% if can? :create, Vote %>
-    <% my_vote = story.votes.find { |vote| vote.user_id == current_user.id } %>
+    <%= render "components/molecules/voting_options", story: story %>
 
-    <div style="display: flex; gap: 8px;">
-      <% Vote::LABELS.each do |verdict, label| %>
-        <% if my_vote&.verdict == verdict %>
-          <%= button_to "✓ #{label}", story_votes_path(story), params: { verdict: verdict },
-                        title: "Нажмите ещё раз, чтобы отменить голос" %>
-        <% else %>
-          <%= button_to label, story_votes_path(story), params: { verdict: verdict } %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <% if my_vote %>
-      <% stats = story.vote_stats %>
-      <ul>
-        <% Vote::LABELS.each do |verdict, label| %>
-          <li><%= label %>: <%= stats[verdict] %>%</li>
-        <% end %>
-      </ul>
-      <p>Всего голосов: <%= story.votes.size %></p>
-
+    <% if can?(:create, Vote) && story.votes.any? { |vote| vote.user_id == current_user.id } %>
       <% grade_votes = story.votes_from_grade(current_user) %>
       <% if grade_votes.any? %>
         <% grade_stats = story.vote_stats(grade_votes) %>
-        <p>
+        <p class="A_TextSmall">
           Люди вашего грейда ответили так:
           <%= Vote::LABELS.map { |verdict, label| "#{label} — #{grade_stats[verdict]}%" }.join(", ") %>
-          (голосов: <%= grade_votes.size %>)
+          (<%= count_with_word(grade_votes.size, "голос", "голоса", "голосов") %>)
         </p>
       <% end %>
     <% end %>
-  <% elsif user_signed_in? %>
-    <% stats = story.vote_stats %>
-    <p>
-      <%= Vote::LABELS.map { |verdict, label| "#{label} — #{stats[verdict]}%" }.join(", ") %>
-      (голосов: <%= story.votes.size %>)
-    </p>
-  <% else %>
-    <p><%= link_to "Войдите, чтобы проголосовать", new_user_session_path, data: { turbo_frame: "_top" } %></p>
-  <% end %>
+  </section>
 <% end %>

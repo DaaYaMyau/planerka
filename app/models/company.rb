@@ -4,8 +4,8 @@ class Company < ApplicationRecord
   has_many :stories, dependent: :nullify
   has_many :company_representatives, dependent: :destroy
 
-  enum :status, { pending: 0, published: 1 }, validate: true
-  STATUS_LABELS = { "pending" => "На модерации", "published" => "Опубликована" }.freeze
+  enum :status, { pending: 0, published: 1, rejected: 2 }, validate: true
+  STATUS_LABELS = { "pending" => "На модерации", "published" => "Опубликована", "rejected" => "Отклонена" }.freeze
 
   normalizes :slug, with: ->(slug) { slug.strip.downcase }
   normalizes :inn, with: ->(inn) { inn.strip.presence }

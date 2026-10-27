@@ -1,0 +1,200 @@
+@keyframes Sway {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 4rem -12rem;
+  }
+}
+
+.Q_Decor {
+  animation: Sway 6s ease-in-out infinite;
+  transition: scale 0.3s ease;
+}
+
+.Q_Decor:hover {
+  scale: 1.05;
+}
+
+.Q_DecorFolderInterviews {
+  animation-duration: 7s;
+  animation-delay: -1s;
+}
+
+.Q_DecorTagDisputed {
+  animation-duration: 5s;
+  animation-delay: -2.5s;
+}
+
+.Q_DecorTagAbnormal {
+  animation-duration: 5.5s;
+  animation-delay: -0.5s;
+}
+
+.Q_DecorCircleCheck {
+  animation-duration: 4.5s;
+  animation-delay: -3s;
+}
+
+.Q_DecorFilterDesign {
+  animation-duration: 6.5s;
+  animation-delay: -4s;
+}
+
+.Q_DecorFolderRights {
+  animation-duration: 8s;
+  animation-delay: -2s;
+}
+
+.Q_DecorFolderWork {
+  animation-duration: 7.5s;
+  animation-delay: -5s;
+}
+
+.Q_DecorCircleCross {
+  animation-duration: 4.8s;
+  animation-delay: -1.5s;
+}
+
+.Q_DecorFolderFirstJob {
+  animation-duration: 8.5s;
+  animation-delay: -3.5s;
+}
+
+.Q_DecorFilterIntern {
+  animation-duration: 6s;
+  animation-delay: -0.8s;
+}
+
+.Q_DecorFilterHybrid {
+  animation-duration: 6.8s;
+  animation-delay: -4.2s;
+}
+
+.Q_DecorCircleQuestion {
+  animation-duration: 5.2s;
+  animation-delay: -2.2s;
+}
+
+.M_Consent {
+  transition: opacity 0.2s ease, visibility 0.2s;
+}
+
+@keyframes Float {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(4rem, -12rem);
+  }
+}
+
+.C_HeroTags > .M_Tag,
+.C_MissionTags > .M_Tag,
+.C_CommunicationTags > .M_Tag {
+  animation: Float 6s ease-in-out infinite;
+}
+
+.C_HeroTags > :nth-child(2),
+.C_MissionTags > :nth-child(2),
+.C_CommunicationTags > :nth-child(2) {
+  animation-duration: 5s;
+  animation-delay: -2.5s;
+}
+
+.C_HeroTags > :nth-child(3),
+.C_MissionTags > :nth-child(3),
+.C_CommunicationTags > :nth-child(3) {
+  animation-duration: 7s;
+  animation-delay: -1s;
+}
+
+.C_HeroTags > :nth-child(4),
+.C_MissionTags > :nth-child(4),
+.C_CommunicationTags > :nth-child(4) {
+  animation-duration: 4.8s;
+  animation-delay: -3s;
+}
+
+.C_HeroTags > :nth-child(5),
+.C_MissionTags > :nth-child(5),
+.C_CommunicationTags > :nth-child(5) {
+  animation-duration: 6.5s;
+  animation-delay: -4s;
+}
+
+.C_HeroTags > :nth-child(6),
+.C_MissionTags > :nth-child(6),
+.C_CommunicationTags > :nth-child(6) {
+  animation-duration: 5.5s;
+  animation-delay: -0.5s;
+}
+
+.C_HeroTags > :nth-child(7),
+.C_MissionTags > :nth-child(7),
+.C_CommunicationTags > :nth-child(7) {
+  animation-duration: 7.5s;
+  animation-delay: -2s;
+}
+
+.M_ModerationTab,
+.M_ModerationTabCard {
+  transition: background-color 0.3s ease;
+}
+
+.M_ModerationTab .A_TabText,
+.M_ModerationTabCard .M_Tag {
+  transition: color 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .M_Consent {
+    transition: none;
+  }
+
+  .Q_Decor {
+    animation: none;
+    transition: none;
+  }
+
+  .Q_Decor:hover {
+    scale: none;
+  }
+
+  .C_HeroTags > .M_Tag,
+  .C_MissionTags > .M_Tag,
+  .C_CommunicationTags > .M_Tag {
+    animation: none;
+  }
+
+  .M_ModerationTab,
+  .M_ModerationTabCard,
+  .M_ModerationTab .A_TabText,
+  .M_ModerationTabCard .M_Tag {
+    transition: none;
+  }
+}
+
+.C_StepCards > .M_StepCard {
+  transition: top 0.5s ease, width 0.5s ease, height 0.5s ease;
+}
+
+.C_StepCards .M_StepBody {
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.C_StepCards .A_IconUp {
+  transition: rotate 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .C_StepCards > .M_StepCard,
+  .C_StepCards .M_StepBody,
+  .C_StepCards .A_IconUp {
+    transition: none;
+  }
+}

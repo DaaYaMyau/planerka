@@ -1,0 +1,5 @@
+<label class="M_Filter">
+  <%= image_tag "feed/#{icon}.svg", alt: "", class: "A_FilterIcon A_FilterIcon#{icon.camelize}" %>
+  <%= form.select field, options, { include_blank: local_assigns[:blank], selected: params[field] }, class: "A_FilterSelect", "aria-label": label %>
+  <%= image_tag "feed/chevron.svg", alt: "", class: "A_ChevronDown" %>
+</label>

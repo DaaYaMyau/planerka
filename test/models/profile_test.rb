@@ -26,7 +26,8 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   test "аватар не может быть текстом с расширением .png" do
-    @profile.avatar.attach(io: StringIO.new("просто текст"), filename: "fake.png", content_type: "image/png")
+    @profile.avatar = file_fixture("not_image.png").open
     assert_not @profile.valid?
+    assert_includes @profile.errors[:avatar], "Аватар должен быть картинкой: PNG, JPG или WEBP, не больше 5 МБ"
   end
 end

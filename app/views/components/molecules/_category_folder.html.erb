@@ -1,0 +1,21 @@
+<div class="M_CategoryFolder M_CategoryFolder<%= size.camelize %>">
+  <%= image_tag "about/folder_#{size}_#{color}.svg", alt: "", class: "Q_FolderBack" %>
+  <% if size == "large" %>
+    <span class="Q_DocumentSheet Q_DocumentSheetFirst"></span>
+    <span class="Q_DocumentSheet Q_DocumentSheetSecond"></span>
+    <span class="Q_DocumentSheet Q_DocumentSheetThird"></span>
+  <% else %>
+    <span class="Q_FolderFront"></span>
+  <% end %>
+  <div class="M_FolderContent M_FolderContent<%= color.camelize %>">
+    <div class="M_FolderHeader">
+      <h3 class="A_CardTitle"><%= title %></h3>
+      <% if local_assigns[:more] %>
+        <%= image_tag "about/more.svg", alt: "", class: "A_MoreIcon" %>
+      <% end %>
+    </div>
+    <% if local_assigns[:text] %>
+      <p class="A_TextSmall"><%= safe_join(text.split("\n"), tag.br) %></p>
+    <% end %>
+  </div>
+</div>

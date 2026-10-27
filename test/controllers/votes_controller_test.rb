@@ -58,12 +58,12 @@ class VotesControllerTest < ActionDispatch::IntegrationTest
   test "проценты видны только после голосования" do
     sign_in users(:anna)
     get story_url(@story)
-    assert_not_includes response.body, "Всего голосов"
+    assert_select ".A_VotePercentage", 0
 
     sign_in users(:boris)
     get story_url(@story)
-    assert_includes response.body, "Всего голосов: 1"
-    assert_includes response.body, "✓ Не норм"
+    assert_select ".M_VoteCount", "1 голос"
+    assert_select ".M_VotingOptionChosen", /не норм/
   end
 
   test "строка про грейд появляется, если голосовал человек того же грейда" do

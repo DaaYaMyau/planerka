@@ -8,7 +8,7 @@ class SubscriptionsControllerTest < ActionDispatch::IntegrationTest
     get root_url
 
     assert_includes response.body, %(id="subscription_form")
-    assert_includes response.body, "Согласен(на) на обработку персональных данных"
+    assert_includes response.body, "обработку персональных данных"
   end
 
   test "после подписки отправляется письмо-подтверждение" do

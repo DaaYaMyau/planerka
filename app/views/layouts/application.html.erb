@@ -26,13 +26,17 @@
 <body>
   <%= render "menubar" %>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if notice.present? %>
+    <p class="M_Flash" role="status"><%= notice %></p>
+  <% end %>
+  <% if alert.present? %>
+    <p class="M_Flash M_FlashAlert" role="alert"><%= alert %></p>
+  <% end %>
 
   <main>
     <%= yield %>
   </main>
 
-  <%= render "footer" %>
+  <%= render "components/organisms/footer" unless content_for?(:hide_footer) %>
 </body>
 </html>

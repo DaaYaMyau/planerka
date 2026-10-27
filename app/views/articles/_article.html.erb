@@ -1,5 +1,5 @@
-<div id="<%= dom_id article %>">
-  <h1><%= article.title %></h1>
-  <p><strong><%= article.summary %></strong></p>
-  <p><%= article.body %></p>
-</div>
+<article class="W_Card" id="<%= dom_id article %>">
+  <h1 class="A_Heading"><%= article.title %></h1>
+  <p class="A_Text A_TextStrong"><%= article.summary %></p>
+  <%= simple_format article.body, class: "A_Text" %>
+</article>

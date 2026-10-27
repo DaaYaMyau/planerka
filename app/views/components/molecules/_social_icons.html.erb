@@ -1,0 +1,5 @@
+<% folder = local_assigns.fetch(:folder, "splash") %>
+<div class="M_SocialIcons">
+  <%= render "components/atoms/social_button", image: "#{folder}/social_telegram.svg", label: "Telegram" %>
+  <%= render "components/atoms/social_button", image: "#{folder}/social_mail.svg", label: "Почта" %>
+</div>

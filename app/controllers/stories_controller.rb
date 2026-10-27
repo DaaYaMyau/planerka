@@ -8,7 +8,7 @@ class StoriesController < ApplicationController
 
   # GET /stories/1 or /stories/1.json
   def show
-    @comments = @story.comments.includes(user: { profile: { avatar_attachment: :blob } }).order(:created_at, :id)
+    @comments = @story.comments.includes(user: :profile).order(:created_at, :id)
     @comment = Comment.new
   end
 
@@ -71,6 +71,7 @@ class StoriesController < ApplicationController
 
   def story_saved_notice
     return "История опубликована" if @story.published?
+    return "История отклонена" if @story.rejected?
     return "История сохранена: #{Story::STATUS_LABELS[@story.status].downcase}" if current_user.is_admin?
 
     "Спасибо! История появится после проверки модератором"
@@ -80,10 +81,10 @@ class StoriesController < ApplicationController
   def story_params
     if current_user.is_admin?
       params.expect(story: [ :article_id, :company_id, :title, :body, :grade, :status, :anonymous,
-                             tag_ids: [], images: [], remove_image_ids: [] ])
+                             tag_ids: [], images: [] ])
     else
       params.expect(story: [ :company_id, :title, :body, :grade, :anonymous,
-                             tag_ids: [], images: [], remove_image_ids: [] ])
+                             tag_ids: [], images: [] ])
     end
   end
 end

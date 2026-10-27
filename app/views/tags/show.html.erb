@@ -1,11 +1,15 @@
 <% content_for :title, "Тег «#{@tag.name}»" %>
 
-<h1>Тег «<%= @tag.name %>»</h1>
-<p>Тип: <%= Tag::KIND_LABELS[@tag.kind] %></p>
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Тег «#{@tag.name}»", medium: true } do %>
+  <div class="W_Card">
+    <p><%= render "tags/chip", tag: @tag %></p>
+    <p class="A_Text">Тип: <%= Tag::KIND_LABELS[@tag.kind] %></p>
+  </div>
 
-<p>
-  <%= link_to "Редактировать", edit_tag_path(@tag) %> ·
-  <%= link_to "← Все теги", tags_path %>
-</p>
-
-<%= button_to "Удалить тег", @tag, method: :delete, form: { data: { turbo_confirm: "Удалить тег?" } } %>
+  <div class="M_FormActions">
+    <%= link_to "Редактировать", edit_tag_path(@tag), class: "A_PillButton A_PillButtonLight" %>
+    <%= button_to "Удалить тег", @tag, method: :delete, class: "A_PillButton A_PillButtonOutline", form_class: "W_InlineForm",
+                  form: { data: { turbo_confirm: "Удалить тег?" } } %>
+    <%= link_to "← Все теги", tags_path, class: "A_TextLink A_Text" %>
+  </div>
+<% end %>

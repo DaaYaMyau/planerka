@@ -140,6 +140,16 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "7700000005", coffee.inn
   end
 
+  test "админ отклоняет новую компанию, в списке её нет" do
+    sign_in users(:admin)
+
+    patch company_url(companies(:coffee)), params: { company: { status: "rejected" } }
+    assert companies(:coffee).reload.rejected?
+
+    get companies_url
+    assert_not_includes response.body, companies(:coffee).name
+  end
+
   test "обычный пользователь не может править компанию" do
     sign_in users(:boris)
 

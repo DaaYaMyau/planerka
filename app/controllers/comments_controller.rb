@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to story_path(@story, anchor: "comments"), notice: "Комментарий добавлен"
     else
-      @comments = @story.comments.includes(user: { profile: { avatar_attachment: :blob } }).order(:created_at, :id)
+      @comments = @story.comments.includes(user: :profile).order(:created_at, :id)
       render "stories/show", status: :unprocessable_content
     end
   end

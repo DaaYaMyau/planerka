@@ -1,0 +1,24 @@
+<section class="O_ProjectMission" id="goal">
+  <%= render "components/molecules/section_header", title: "Цель", image: "about/tab_goal.svg" %>
+  <div class="W_Section W_SectionViolet">
+    <div class="W_TaggedBlock">
+      <p class="A_Text">
+        Мы стремимся сделать начало карьеры<br>
+        понятнее и комфортнее для молодых специалистов.<br>
+        Для этого мы создаём пространство, где можно<br>
+        открыто делиться рабочими историями, обсуждать спорные ситуации, сравнивать свой опыт с опытом других
+        и лучше понимать трудовые права. Мы хотим, чтобы каждый мог находить ответы на волнующие вопросы,
+        увереннее чувствовать себя на работе<br>
+        и принимать осознанные решения
+      </p>
+      <div class="C_MissionTags" aria-hidden="true">
+        <% [ "первый опыт", "анонимно", "твои права" ].each do |text| %>
+          <%= render "components/molecules/tag", text: text, modifier: "M_TagLarge M_TagBlue" %>
+        <% end %>
+        <% %w[ chart briefcase ].each do |name| %>
+          <%= render "components/molecules/tag", icon: "about/tag_#{name}.svg", modifier: "M_TagIcon M_TagBlue" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

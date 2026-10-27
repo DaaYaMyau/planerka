@@ -1,0 +1,40 @@
+<section class="O_ProjectRules" id="rules">
+  <%= render "components/molecules/section_header", title: "Правила", image: "about/tab_rules.svg" %>
+  <div class="W_Section W_SectionBlue">
+    <div class="W_RulesBlock">
+      <%= render "components/molecules/rules_heading", title: "Публикации", text: "Как делиться рабочими историями и оставлять отзывы о компаниях" %>
+      <div class="C_PublicationCards">
+        <% [
+          { title: "Реальный опыт", color: "yellow", text: "Рассказывайте\nо ситуациях, которые произошли с вами или свидетелем которых\nвы стали. Опирайтесь\nна личный опыт" },
+          { title: "Одна ситуация", color: "sky_blue", text: "Одна история — одна ситуация. Так другим проще разобраться\nв ней и поделиться мнением" },
+          { title: "Честные отзывы", color: "green", text: "Делитесь опытом работы в компании или прохождения отбора. Пишите только\nо реальных ситуациях" },
+          { title: "Проверка историй", color: "pink", text: "Перед публикацией\nмы проверяем материалы и при необходимости просим уточнить детали или внести изменения" }
+        ].each do |card| %>
+          <%= render "components/molecules/principle_card", **card %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="W_RulesBlock W_RulesBlockNarrow W_TaggedBlock">
+      <%= render "components/molecules/rules_heading", title: "Общение", text: "Как обсуждать рабочие ситуации и взаимодействовать с другими" %>
+      <p class="A_Text">
+        На Планёрке можно открыто делиться мнением, поддерживать друг друга и обсуждать рабочие ситуации
+        без оскорблений и обесценивания. Голосуйте, опираясь на свой опыт, и уважайте разные точки зрения.
+        Результаты голосования отражают мнение сообщества, но не определяют, кто прав
+      </p>
+      <div class="C_CommunicationTags" aria-hidden="true">
+        <% [ "без осуждения", "твой голос", "разберёмся вместе", "ты не один" ].each do |text| %>
+          <%= render "components/molecules/tag", text: text, modifier: "M_TagLarge M_TagViolet" %>
+        <% end %>
+        <% %w[ folder scales shield ].each do |name| %>
+          <%= render "components/molecules/tag", icon: "about/tag_#{name}.svg", modifier: "M_TagIcon M_TagViolet" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="W_RulesBlock">
+      <%= render "components/molecules/rules_heading", title: "Модерация", text: "Как мы проверяем материалы и следим за соблюдением правил" %>
+      <%= render "components/organisms/moderation_tab" %>
+    </div>
+  </div>
+</section>

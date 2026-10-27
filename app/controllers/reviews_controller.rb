@@ -29,7 +29,10 @@ class ReviewsController < ApplicationController
     @review.edited_after_reply = true if @review.reply.present? && @review.user == current_user
 
     if @review.save
-      redirect_to @company, notice: @review.published? ? "Отзыв сохранён" : "Отзыв отправлен на модерацию", status: :see_other
+      notice = "Отзыв отправлен на модерацию"
+      notice = "Отзыв сохранён" if @review.published?
+      notice = "Отзыв отклонён" if @review.rejected?
+      redirect_to @company, notice: notice, status: :see_other
     else
       render :edit, status: :unprocessable_content
     end

@@ -1,32 +1,29 @@
-<%= form_with(model: tag) do |form| %>
+<%= form_with(model: tag, class: "O_Form") do |form| %>
   <% if tag.errors.any? %>
-    <div style="color: red">
-      <h2>Не удалось сохранить тег:</h2>
-
-      <ul>
-        <% tag.errors.each do |error| %>
-          <li><%= error.message %></li>
-        <% end %>
-      </ul>
+    <div class="M_FormErrors">
+      <p>Не удалось сохранить тег:</p>
+      <% tag.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, "Название", style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="M_FormField">
+    <%= form.label :name, "Название", class: "A_Label" %>
+    <%= form.text_field :name, class: "A_Input" %>
   </div>
 
-  <div>
-    <%= form.label :kind, "Тип", style: "display: block" %>
-    <%= form.select :kind, Tag::KIND_LABELS.invert %>
+  <div class="M_FormField">
+    <%= form.label :kind, "Тип", class: "A_Label" %>
+    <%= form.select :kind, Tag::KIND_LABELS.invert, {}, class: "A_Select" %>
   </div>
 
-  <div>
-    <%= form.label :color, "Цвет", style: "display: block" %>
-    <%= form.select :color, Tag::COLOR_LABELS.invert, include_blank: "Без цвета" %>
+  <div class="M_FormField">
+    <%= form.label :color, "Цвет", class: "A_Label" %>
+    <%= form.select :color, Tag::COLOR_LABELS.invert, { include_blank: "Без цвета" }, class: "A_Select" %>
   </div>
 
-  <div>
-    <%= form.submit "Сохранить" %>
+  <div class="M_FormActions">
+    <%= form.submit "Сохранить", class: "A_PillButton" %>
   </div>
 <% end %>

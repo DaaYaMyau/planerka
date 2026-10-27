@@ -1,20 +1,26 @@
-<%= render @article %>
+<% content_for :title, @article.title %>
 
-<% if @stories.any? %>
-  <h2>Похожие истории</h2>
-  <% @stories.each do |story| %>
-    <p><%= link_to story.title, story %></p>
+<%= render layout: "components/superorganisms/content_page" do %>
+  <%= render @article %>
+
+  <div class="M_FormActions">
+    <% if can? :update, @article %>
+      <%= link_to "Редактировать", edit_article_path(@article), class: "A_PillButton A_PillButtonLight" %>
+    <% end %>
+    <% if can? :destroy, @article %>
+      <%= button_to "Удалить", @article, method: :delete, class: "A_PillButton A_PillButtonOutline", form_class: "W_InlineForm" %>
+    <% end %>
+    <%= link_to "Назад к статьям", articles_path, class: "A_TextLink A_Text" %>
+  </div>
+
+  <% if @stories.any? %>
+    <section class="O_CommentsSection">
+      <h2 class="A_Heading">Похожие истории</h2>
+      <div class="C_StoryList">
+        <% @stories.each do |story| %>
+          <%= render "components/organisms/story_card", story: story %>
+        <% end %>
+      </div>
+    </section>
   <% end %>
 <% end %>
-
-<div>
-<%= link_to "Назад к статьям", articles_path %>
-
-<% if can? :update, @article %>
-  | <%= link_to "Редактировать", edit_article_path(@article) %>
-<% end %>
-
-<% if can? :destroy, @article %>
-  <%= button_to "Удалить", @article, method: :delete %>
-<% end %>
-</div>

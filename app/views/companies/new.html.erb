@@ -1,8 +1,7 @@
 <% content_for :title, "Добавить компанию" %>
 
-<h1>Добавить компанию</h1>
-<p>Компания появится на сайте после проверки модератором. Отзыв о ней можно оставить сразу.</p>
-
-<%= render "form", company: @company %>
-
-<p><%= link_to "← Все компании", companies_path %></p>
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Добавить компанию", medium: true } do %>
+  <p class="A_Text">Компания появится на сайте после проверки модератором. Отзыв о ней можно оставить сразу.</p>
+  <%= render "form", company: @company %>
+  <%= link_to "← Все компании", companies_path, class: "A_TextLink A_Text" %>
+<% end %>

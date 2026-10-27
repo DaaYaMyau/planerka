@@ -28,7 +28,7 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:admin)
 
     get tag_url(@tag)
-    assert_includes response.body, "<h1>Тег «зарплата»</h1>"
+    assert_select "h1", "Тег «зарплата»"
   end
 
   test "админ создаёт тег" do

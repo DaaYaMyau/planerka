@@ -114,12 +114,11 @@ def remove_schema_file
 end
 
 def reset_db
-  if ActiveStorage::Blob.table_exists?
-    ActiveStorage::Blob.find_each { |blob| blob.service.delete(blob.key) }
-  end
+  FileUtils.rm_rf(Rails.root.join("public/uploads"))
   Rake::Task['db:drop'].invoke
   Rake::Task['db:create'].invoke
   Rake::Task['db:migrate'].invoke
+  ActiveRecord::Base.descendants.each(&:reset_column_information)
 end
 
 
@@ -170,7 +169,7 @@ def update_profiles
 
     if rand < 0.5
       path = Dir[Rails.root.join("db/seeds/avatars/*.png")].sample
-      user.profile.avatar.attach(io: File.open(path), filename: File.basename(path), content_type: "image/png")
+      user.profile.update!(avatar: File.open(path))
     end
 
     puts "Profile '#{nickname}' updated for user #{user.id}"
@@ -223,12 +222,10 @@ def attach_story_images
   paths = Dir[Rails.root.join("db/seeds/images/*")]
 
   Story.published.sample(6).each do |story|
-    paths.sample(rand(1..2)).each do |path|
-      story.images.attach(io: File.open(path), filename: File.basename(path))
-    end
+    story.update!(images: paths.sample(rand(1..2)).map { |path| File.open(path) })
   end
 
-  puts "Images attached to #{Story.joins(:images_attachments).distinct.count} stories"
+  puts "Images attached to #{Story.all.count { |story| story.images.any? }} stories"
 end
 
 def create_votes

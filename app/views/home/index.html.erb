@@ -1,6 +1,4 @@
-<section>
-  <h1>Это у меня одной такая жесть?</h1>
-  <p>Истории молодых специалистов о том, как на самом деле работается.</p>
-</section>
-
-<%= render "stories/feed", stories: @stories, filtered: @filtered %>
+<div class="S_MainPage">
+  <%= render "components/organisms/hero_section" %>
+  <%= render "components/organisms/stories_feed", stories: @stories, filtered: @filtered %>
+</div>

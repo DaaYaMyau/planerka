@@ -36,3 +36,5 @@
 .DS_Store
 Thumbs.db
 CLAUDE.md
+# Ignore files uploaded through CarrierWave.
+/public/uploads

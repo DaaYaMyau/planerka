@@ -1,0 +1,75 @@
+.W_SubscriptionForm {
+  position: relative;
+  width: 472rem;
+  margin-top: 2rem;
+}
+
+.W_Section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--White);
+}
+
+.W_SectionBlue {
+  background: var(--Blue);
+}
+
+.W_SectionViolet {
+  background: var(--Violet);
+}
+
+.W_TaggedBlock {
+  position: relative;
+}
+
+.W_RulesBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50rem;
+}
+
+.W_RulesBlockNarrow {
+  width: 623rem;
+}
+
+.W_RulesBlockNarrow > .A_Text {
+  width: 547rem;
+}
+
+.W_PageBody {
+  display: flex;
+  justify-content: center;
+  padding: 110rem 0 165rem;
+  border-radius: var(--RadiusXS) var(--RadiusXS) 0 0;
+  background: var(--Blue);
+  color: var(--White);
+}
+
+.W_PageContent {
+  display: flex;
+  flex-direction: column;
+  gap: 40rem;
+  width: 1114rem;
+}
+
+.W_PageContentNarrow {
+  width: 560rem;
+}
+
+.W_PageContentMedium {
+  width: 760rem;
+}
+
+.W_Card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+  padding: 30rem;
+  border-radius: var(--RadiusL);
+  background: var(--White);
+  color: var(--Blue);
+}

@@ -38,17 +38,19 @@ class AdminRoleTest < ActionDispatch::IntegrationTest
 
     assert_not_includes response.body, "Написать комментарий"
     assert_not_includes response.body, ">Сохранить<"
-    assert_not_includes response.body, ">Норм</button>"
-    assert_includes response.body, "Не норм — 100%"
+    assert_select "button.M_VotingOption", 0
+    assert_select ".M_VotingOption", /не норм\s*100%/
     assert_not_includes response.body, "Войдите, чтобы"
   end
 
-  test "в профиле админа — сводка с переходом к подписчикам, без блока «Управление»" do
+  test "в профиле админа — сводка модерации с переходом к подписчикам, без блока «Управление»" do
     get profile_url
 
-    assert_includes response.body, "Историй всего: #{Story.count}"
-    assert_includes response.body, "Подписчиков: #{Subscription.count}"
+    assert_equal 1, Story.pending.count
+    assert_includes response.body, "1 история"
+    assert_includes response.body, "подписчики: #{Subscription.count}"
     assert_includes response.body, %(href="#{admin_subscriptions_path}")
+    assert_includes response.body, %(href="#{destroy_user_session_path}")
     assert_not_includes response.body, "Управление"
   end
 

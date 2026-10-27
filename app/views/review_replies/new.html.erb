@@ -1,5 +1,5 @@
 <% content_for :title, "Ответ на отзыв" %>
 
-<h1>Ответ на отзыв о компании «<%= @company.name %>»</h1>
-
-<%= render "form", company: @company, review: @review, reply: @reply %>
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Ответ на отзыв о компании «#{@company.name}»", medium: true } do %>
+  <%= render "form", company: @company, review: @review, reply: @reply %>
+<% end %>

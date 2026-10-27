@@ -1,0 +1,14 @@
+<section class="O_ProfileSection" id="<%= id %>" data-controller="collapse">
+  <h2 class="A_Heading"><%= title %></h2>
+  <% if count.zero? %>
+    <p class="A_Text"><%= empty %></p>
+  <% else %>
+    <div class="C_ModerationList" data-collapse-target="list">
+      <%= yield %>
+    </div>
+    <button type="button" class="M_LoadMoreButton" data-collapse-target="button" data-action="collapse#toggle" hidden>
+      <span class="A_Text" data-collapse-target="label"></span>
+      <%= image_tag "feed/arrow_button.svg", alt: "", class: "A_ButtonIcon" %>
+    </button>
+  <% end %>
+</section>

@@ -1,0 +1,7 @@
+<span class="<%= class_names("M_Tag", local_assigns[:modifier]) %>">
+  <% if local_assigns[:icon] %>
+    <%= image_tag icon, alt: "", class: "A_TagIcon" %>
+  <% else %>
+    <%= text %>
+  <% end %>
+</span>

@@ -1,6 +1,9 @@
-<div id="<%= dom_id tag %>">
-  <p>
-    <%= render "tags/chip", tag: tag %> · <%= Tag::KIND_LABELS[tag.kind] %>
-    · <%= Tag::COLOR_LABELS.fetch(tag.color.to_s, "Без цвета") %>
-  </p>
-</div>
+<li class="M_ListRow" id="<%= dom_id tag %>">
+  <span class="M_FormActions">
+    <%= render "tags/chip", tag: tag %>
+    <span class="A_TextSmall">
+      <%= Tag::KIND_LABELS[tag.kind] %> · <%= Tag::COLOR_LABELS.fetch(tag.color.to_s, "Без цвета") %>
+    </span>
+  </span>
+  <%= link_to "Открыть", tag, class: "A_TextLink A_TextSmall" %>
+</li>

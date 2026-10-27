@@ -1,45 +1,46 @@
 <% content_for :title, "Я представляю компанию" %>
 
-<h1>Я представляю компанию «<%= @company.name %>»</h1>
-<p>
-  Представитель может дополнять описание компании и отвечать на отзывы от её имени.
-  Удалять или скрывать отзывы представитель не может.
-</p>
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Я представляю компанию «#{@company.name}»", medium: true } do %>
+  <p class="A_Text">
+    Представитель может дополнять описание компании и отвечать на отзывы от её имени.
+    Удалять или скрывать отзывы представитель не может.
+  </p>
 
-<%= form_with model: [ @company, @representative ], url: company_company_representatives_path(@company) do |form| %>
-  <% if @representative.errors.any? %>
-    <div style="color: red">
-      <% @representative.errors.each do |error| %>
-        <p><%= error.message %></p>
-      <% end %>
+  <%= form_with model: [ @company, @representative ], url: company_company_representatives_path(@company), class: "O_Form" do |form| %>
+    <% if @representative.errors.any? %>
+      <div class="M_FormErrors">
+        <% @representative.errors.each do |error| %>
+          <p><%= error.message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="M_FormField">
+      <%= form.label :position, "Ваша должность", class: "A_Label" %>
+      <%= form.text_field :position, class: "A_Input" %>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :work_email, "Рабочая почта", class: "A_Label" %>
+      <%= form.email_field :work_email, class: "A_Input" %>
+      <p class="A_Hint">Лучше на домене компании — так модератору проще проверить.</p>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :inn, "ИНН компании (необязательно)", class: "A_Label" %>
+      <%= form.text_field :inn, class: "A_Input" %>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :proof, "Пояснение для модератора", class: "A_Label" %>
+      <%= form.textarea :proof, rows: 4, class: "A_Textarea A_TextareaSmall" %>
+      <p class="A_Hint">Например, ссылка на страницу команды на сайте или на ваш профиль в соцсетях.</p>
+    </div>
+
+    <div class="M_FormActions">
+      <%= form.submit "Отправить заявку", class: "A_PillButton" %>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :position, "Ваша должность", style: "display: block" %>
-    <%= form.text_field :position %>
-  </div>
-
-  <div>
-    <%= form.label :work_email, "Рабочая почта", style: "display: block" %>
-    <%= form.email_field :work_email %>
-    <p>Лучше на домене компании — так модератору проще проверить.</p>
-  </div>
-
-  <div>
-    <%= form.label :inn, "ИНН компании (необязательно)", style: "display: block" %>
-    <%= form.text_field :inn %>
-  </div>
-
-  <div>
-    <%= form.label :proof, "Пояснение для модератора", style: "display: block" %>
-    <%= form.textarea :proof, rows: 4 %>
-    <p>Например, ссылка на страницу команды на сайте или на ваш профиль в соцсетях.</p>
-  </div>
-
-  <div>
-    <%= form.submit "Отправить заявку" %>
-  </div>
+  <%= link_to "← К компании", @company, class: "A_TextLink A_Text" %>
 <% end %>
-
-<p><%= link_to "← К компании", @company %></p>

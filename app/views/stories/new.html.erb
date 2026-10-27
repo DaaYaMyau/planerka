@@ -1,7 +1,6 @@
 <% content_for :title, "Рассказать историю" %>
 
-<h1>Рассказать историю</h1>
-
-<%= render "form", story: @story %>
-
-<p><%= link_to "← На главную", root_path %></p>
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Рассказать историю", medium: true } do %>
+  <%= render "form", story: @story %>
+  <%= link_to "← На главную", root_path, class: "A_TextLink A_Text" %>
+<% end %>

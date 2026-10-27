@@ -58,4 +58,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, profiles(:anna).nickname
     assert_not_includes response.body, users(:anna).email
   end
+
+  test "у истории без картинки в карточке нет блока картинки" do
+    get root_url
+
+    assert_select ".O_StoryCard", minimum: 1
+    assert_select ".M_StoryCardMediaImage", 0
+    assert_select ".Q_StoryImage", 0
+  end
 end

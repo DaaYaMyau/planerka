@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_21_101012) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_26_123027) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -106,6 +106,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_21_101012) do
     t.integer "profession_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar"
     t.index ["nickname"], name: "index_profiles_on_nickname", unique: true
     t.index ["profession_id"], name: "index_profiles_on_profession_id"
     t.index ["user_id"], name: "index_profiles_on_user_id", unique: true
@@ -150,6 +151,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_21_101012) do
     t.datetime "updated_at", null: false
     t.integer "company_id"
     t.integer "votes_count", default: 0, null: false
+    t.json "images"
     t.index ["article_id"], name: "index_stories_on_article_id"
     t.index ["company_id"], name: "index_stories_on_company_id"
     t.index ["user_id"], name: "index_stories_on_user_id"

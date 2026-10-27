@@ -42,7 +42,7 @@ class CompaniesController < ApplicationController
 
   def update
     if @company.update(company_params)
-      redirect_to @company, notice: "Компания сохранена", status: :see_other
+      redirect_to @company, notice: @company.rejected? ? "Компания отклонена" : "Компания сохранена", status: :see_other
     else
       render :edit, status: :unprocessable_content
     end
@@ -56,7 +56,7 @@ class CompaniesController < ApplicationController
   private
 
   def published_reviews
-    @company.reviews.published.includes(:reply, user: { profile: { avatar_attachment: :blob } }).order(created_at: :desc)
+    @company.reviews.published.includes(:reply, user: :profile).order(created_at: :desc)
   end
 
   def company_params

@@ -14,7 +14,7 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
   test "на странице истории заголовок — h1, порядок «автор · грейд · дата», без висящего «|»" do
     get story_url(@published)
 
-    assert_includes response.body, "<h1>#{@published.title}</h1>"
+    assert_select "h1", @published.title
     assert_match(/#{profiles(:anna).nickname}\s*· Джун\s*· \d{2}\.\d{2}\.\d{4}/, response.body)
     assert_no_match(/<\/a>\s*\|/, response.body)
   end
@@ -117,6 +117,29 @@ class StoriesControllerTest < ActionDispatch::IntegrationTest
     patch story_url(@pending), params: { story: { status: "published" } }
 
     assert @pending.reload.published?
+  end
+
+  test "админ отклоняет историю, и гость её не видит" do
+    sign_in users(:admin)
+
+    patch story_url(@pending), params: { story: { status: "rejected" } }
+    assert @pending.reload.rejected?
+
+    sign_out users(:admin)
+    get story_url(@pending)
+    assert_redirected_to new_user_session_url
+  end
+
+  test "при правке можно убрать одну картинку, остальные остаются" do
+    sign_in users(:admin)
+    @published.update!(images: Array.new(2) { file_fixture("avatar.png").open })
+    kept, removed = @published.images
+
+    patch story_url(@published), params: { story: { images: [ kept.identifier, "" ] } }
+
+    assert_equal [ kept.identifier ], @published.reload.images.map(&:identifier)
+    assert File.exist?(kept.path)
+    assert_not File.exist?(removed.path)
   end
 
   test "автор удаляет свою историю" do

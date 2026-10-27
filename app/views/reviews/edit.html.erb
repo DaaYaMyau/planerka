@@ -1,9 +1,10 @@
-<h1>Отзыв о компании «<%= @company.name %>»</h1>
+<% content_for :title, "Отзыв о компании «#{@company.name}»" %>
 
-<% unless current_user.is_admin? %>
-  <p>После сохранения отзыв снова уйдёт на проверку модератору.</p>
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Отзыв о компании «#{@company.name}»", medium: true } do %>
+  <% unless current_user.is_admin? %>
+    <p class="A_Text">После сохранения отзыв снова уйдёт на проверку модератору.</p>
+  <% end %>
+
+  <%= render "form", company: @company, review: @review %>
+  <%= link_to "← К компании", @company, class: "A_TextLink A_Text" %>
 <% end %>
-
-<%= render "form", company: @company, review: @review %>
-
-<p><%= link_to "← К компании", @company %></p>

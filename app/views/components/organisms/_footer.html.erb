@@ -1,0 +1,13 @@
+<footer class="O_Footer">
+  <div class="M_FooterContent">
+    <%= render "components/molecules/brand", modifier: "M_BrandLarge", caption: "пространство реальных рабочих историй, открытых обсуждений и полезных советов" %>
+    <%= render "subscriptions/form", subscription: Subscription.new %>
+  </div>
+  <div class="C_FooterLinks">
+    <% if user_signed_in? || !Rails.configuration.x.teaser %>
+      <%= render "components/molecules/footer_navigation" %>
+    <% end %>
+    <%= render "components/molecules/footer_contacts" %>
+    <%= render "components/molecules/footer_credits" %>
+  </div>
+</footer>

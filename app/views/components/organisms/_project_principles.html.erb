@@ -1,0 +1,17 @@
+<section class="O_ProjectPrinciples" id="principles">
+  <%= render "components/molecules/section_header", title: "Принципы", image: "about/tab_principles.svg" %>
+  <div class="W_Section W_SectionViolet">
+    <div class="C_FoldersGrid">
+      <% [
+        { title: "Реальный опыт", text: "Настоящие истории, вопросы\nи трудности специалистов на разных этапах карьеры" },
+        { title: "Открытость", text: "Возможность свободно высказываться, делиться мнением\nи узнавать другие взгляды" },
+        { title: "Достоверность", text: "Проверенная информация, комментарии экспертов\nи разъяснения трудовых норм" },
+        { title: "Анонимность", text: "Возможность рассказывать о работе и задавать вопросы, не раскрывая свою личность" },
+        { title: "Взаимоуважение", text: "Поддержка друг друга, конструктивный диалог и уважение\nк чужой позиции" },
+        { title: "Практичность", text: "Полезные советы, понятные рекомендации и конкретные шаги для решения проблем" }
+      ].each do |folder| %>
+        <%= render "components/molecules/category_folder", size: "large", color: "pink", **folder %>
+      <% end %>
+    </div>
+  </div>
+</section>

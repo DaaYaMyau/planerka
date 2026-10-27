@@ -1,0 +1,345 @@
+.C_NavigationTabs {
+  display: flex;
+}
+
+.C_NavigationTabs > .M_NavigationTab:not(:last-child),
+.C_NavigationTabs > .M_ModerationTab:not(:last-child) {
+  margin-right: -26rem;
+}
+
+.C_SplashDecor {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.C_Tags {
+  display: flex;
+  gap: 10rem;
+}
+
+.C_HeroFolders {
+  position: absolute;
+  inset: 0;
+  text-align: left;
+}
+
+.C_HeroFolders > .M_CategoryFolder {
+  position: absolute;
+}
+
+.C_HeroFolders .M_FolderContent {
+  min-height: 200rem;
+}
+
+.C_HeroFolders > :nth-child(1) {
+  left: 896.98rem;
+  top: 492.9rem;
+  rotate: 14.76deg;
+}
+
+.C_HeroFolders > :nth-child(2) {
+  left: 524.8rem;
+  top: 490.63rem;
+  rotate: -2.81deg;
+}
+
+.C_HeroFolders > :nth-child(3) {
+  left: 1052.94rem;
+  top: 628.7rem;
+  rotate: 6.19deg;
+}
+
+.C_HeroFolders > :nth-child(4) {
+  left: 172.28rem;
+  top: 538.36rem;
+  rotate: -9.52deg;
+}
+
+.C_HeroFolders > :nth-child(5) {
+  left: 767.8rem;
+  top: 602.81rem;
+  rotate: -8.74deg;
+}
+
+.C_HeroFolders > :nth-child(6) {
+  left: 360.2rem;
+  top: 599.9rem;
+  rotate: 6.56deg;
+}
+
+.C_MissionTags,
+.C_CommunicationTags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.C_MissionTags > .M_Tag,
+.C_CommunicationTags > .M_Tag {
+  position: absolute;
+  translate: -50% -50%;
+}
+
+.C_MissionTags > :nth-child(1) {
+  left: 500.85rem;
+  top: -22.22rem;
+  rotate: -11.53deg;
+}
+
+.C_MissionTags > :nth-child(2) {
+  left: -7.34rem;
+  top: -54.4rem;
+  rotate: 9.32deg;
+}
+
+.C_MissionTags > :nth-child(3) {
+  left: 461.06rem;
+  top: 288.12rem;
+  rotate: 9.14deg;
+}
+
+.C_MissionTags > :nth-child(4) {
+  left: 610.18rem;
+  top: 76.18rem;
+  rotate: -13.46deg;
+}
+
+.C_MissionTags > :nth-child(5) {
+  left: -71.02rem;
+  top: 180.98rem;
+  rotate: -10.89deg;
+}
+
+.C_CommunicationTags > :nth-child(1) {
+  left: -65.86rem;
+  top: 200.75rem;
+  rotate: -8.22deg;
+}
+
+.C_CommunicationTags > :nth-child(2) {
+  left: -96.33rem;
+  top: 44.07rem;
+  rotate: 5.82deg;
+}
+
+.C_CommunicationTags > :nth-child(3) {
+  left: 742.58rem;
+  top: 208.4rem;
+  rotate: 6.38deg;
+}
+
+.C_CommunicationTags > :nth-child(4) {
+  left: 658.13rem;
+  top: 278.08rem;
+  rotate: -4.16deg;
+}
+
+.C_CommunicationTags > :nth-child(5) {
+  left: -169.9rem;
+  top: 114.6rem;
+  rotate: -10.12deg;
+}
+
+.C_CommunicationTags > :nth-child(6) {
+  left: -38.3rem;
+  top: 267.7rem;
+  rotate: 13.5deg;
+}
+
+.C_CommunicationTags > :nth-child(7) {
+  left: 708.13rem;
+  top: 69.63rem;
+  rotate: -14.45deg;
+}
+
+.C_StepCards {
+  position: relative;
+  width: 1114rem;
+  height: 479rem;
+  cursor: pointer;
+}
+
+.C_StepCards > .M_StepCard {
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  overflow: hidden;
+}
+
+.C_StepCards > [data-slot="0"] {
+  top: 0;
+  z-index: 1;
+  width: 474rem;
+  height: 116rem;
+}
+
+.C_StepCards > [data-slot="1"] {
+  top: 60rem;
+  z-index: 2;
+  width: 700rem;
+  height: 116rem;
+}
+
+.C_StepCards > [data-slot="2"] {
+  top: 120rem;
+  z-index: 3;
+  width: 926rem;
+  height: 116rem;
+}
+
+.C_StepCards > [data-slot="3"] {
+  top: 180rem;
+  z-index: 4;
+  width: 1114rem;
+  height: 299rem;
+}
+
+.C_StepCards > :not([data-slot="3"]) .M_StepBody {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.C_StepCards > [data-slot="3"] .A_IconUp {
+  rotate: 90deg;
+}
+
+.C_FoldersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 95rem 20rem;
+}
+
+.C_PublicationCards {
+  display: flex;
+  gap: 20rem;
+  width: 1114rem;
+}
+
+.C_TeamGrid {
+  display: flex;
+  gap: 20rem;
+}
+
+.C_FooterLinks {
+  display: flex;
+  gap: 54rem;
+}
+
+.C_HeroTags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.C_HeroTags > .M_Tag {
+  position: absolute;
+  translate: -50% -50%;
+}
+
+.C_HeroTags > :nth-child(1) {
+  left: -52.5rem;
+  top: -17.5rem;
+  rotate: 9.23deg;
+}
+
+.C_HeroTags > :nth-child(2) {
+  left: 839.5rem;
+  top: 148.3rem;
+  rotate: -11.53deg;
+}
+
+.C_HeroTags > :nth-child(3) {
+  left: -70.9rem;
+  top: 165.9rem;
+  rotate: -12.8deg;
+}
+
+.C_HeroTags > :nth-child(4) {
+  left: 841.7rem;
+  top: -37.5rem;
+  rotate: 14.23deg;
+}
+
+.C_HeroTags > :nth-child(5) {
+  left: -11.6rem;
+  top: 240.2rem;
+  rotate: 14.59deg;
+}
+
+.C_HeroTags > :nth-child(6) {
+  left: 802.1rem;
+  top: 236.9rem;
+  rotate: 15.04deg;
+}
+
+.C_StoryList {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+}
+
+.C_ModerationList {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+}
+
+.C_CardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rem;
+}
+
+.C_TextList {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  padding-left: 25rem;
+  list-style: disc;
+}
+
+.C_MenuLinks {
+  display: flex;
+  gap: 25rem;
+}
+
+.C_StoryImages,
+.C_CommentList {
+  display: flex;
+  flex-direction: column;
+  gap: 20rem;
+}
+
+.C_ImageThumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rem;
+}
+
+.C_CheckboxGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rem 25rem;
+}
+
+.C_CardGridTwo {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.C_RowList {
+  display: flex;
+  flex-direction: column;
+  gap: 15rem;
+}
+
+.C_Table {
+  width: 100%;
+}
+
+.C_Table tbody tr:nth-child(odd) {
+  background: var(--Blue);
+  color: var(--White);
+}

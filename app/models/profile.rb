@@ -1,12 +1,9 @@
 class Profile < ApplicationRecord
   belongs_to :user
   belongs_to :profession, class_name: "Tag", optional: true
-  has_one_attached :avatar
+  mount_uploader :avatar, AvatarUploader, validate_integrity: false, validate_processing: false
 
-  AVATAR_TYPES = %w[image/png image/jpeg image/webp image/gif].freeze
-
-  attribute :remove_avatar, :boolean, default: false
-  after_save :purge_avatar, if: :remove_avatar
+  AVATAR_TYPES = %w[image/png image/jpeg image/webp].freeze
 
   enum :grade, { student: 0, intern: 1, junior: 2, middle: 3, senior: 4 }, validate: { allow_nil: true }
 
@@ -27,26 +24,8 @@ class Profile < ApplicationRecord
   end
 
   def avatar_must_be_small_image
-    return unless avatar.attached?
+    return if avatar_integrity_error.nil? && avatar_processing_error.nil?
 
-    real_type = real_avatar_type
-    looks_like_image = avatar.content_type.in?(AVATAR_TYPES)
-    really_image = real_type.nil? || real_type.in?(AVATAR_TYPES)
-    unless looks_like_image && really_image
-      errors.add(:avatar, "Аватар должен быть картинкой: PNG, JPG, WEBP или GIF")
-    end
-    errors.add(:avatar, "Аватар должен быть не больше 2 МБ") if avatar.byte_size > 2.megabytes
-  end
-
-  def real_avatar_type
-    file = attachment_changes["avatar"]&.attachable
-    file = file[:io] if file.is_a?(Hash)
-    return unless file.respond_to?(:read)
-
-    Marcel::MimeType.for(file)
-  end
-
-  def purge_avatar
-    avatar.purge_later
+    errors.add(:avatar, "Аватар должен быть картинкой: PNG, JPG или WEBP, не больше 5 МБ")
   end
 end

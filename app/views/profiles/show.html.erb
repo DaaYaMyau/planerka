@@ -1,133 +1,177 @@
-<h1>Профиль</h1>
-<p><%= avatar_for(current_user, size: 64) %> <strong><%= current_user.display_name %></strong> · <%= current_user.email %></p>
+<% content_for :title, "Профиль" %>
 
 <% if current_user.is_admin? %>
-  <h2>Сводка</h2>
-  <ul>
-    <li>Историй всего: <%= @stories_count %>, опубликовано: <%= @published_count %>, на модерации: <%= @pending_stories.size %></li>
-    <li>Подписчиков: <%= @subscriptions_count %> · <%= link_to "список", admin_subscriptions_path %></li>
-  </ul>
+  <div class="S_ProfilePage">
+    <%= render "components/organisms/profile_header", user: current_user,
+               counts: { stories: @pending_stories.size, reviews: @pending_reviews.size,
+                         companies: @pending_companies.size, representatives: @pending_representatives.size } %>
 
-  <h2>На модерации</h2>
-
-  <h3>Истории (<%= @pending_stories.size %>)</h3>
-  <% if @pending_stories.any? %>
-    <% @pending_stories.each do |story| %>
-      <p>
-        <%= link_to story.title, story %> —
-        <%= link_to "проверить", edit_story_path(story) %>
-      </p>
+    <%= render layout: "components/organisms/moderation_section",
+               locals: { id: "moderation_stories", title: "Истории", count: @pending_stories.size,
+                         empty: "Новых историй на проверке нет." } do %>
+      <% @pending_stories.each do |story| %>
+        <%= render "components/molecules/moderation_card", kind: "story", title: story.title, date: story.created_at,
+                   href: edit_story_path(story),
+                   publish_url: story_path(story), publish_params: { story: { status: "published" } },
+                   reject_url: story_path(story), reject_params: { story: { status: "rejected" } } %>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>Новых историй на проверке нет.</p>
-  <% end %>
 
-  <h3>Отзывы (<%= @pending_reviews.size %>)</h3>
-  <% if @pending_reviews.any? %>
-    <% @pending_reviews.each do |review| %>
-      <p>
-        <%= review.company.name %>: «<%= truncate(review.wish_i_knew, length: 60) %>» —
-        <%= link_to "проверить", edit_company_review_path(review.company, review) %>
-      </p>
+    <%= render layout: "components/organisms/moderation_section",
+               locals: { id: "moderation_reviews", title: "Отзывы", count: @pending_reviews.size,
+                         empty: "Новых отзывов на проверке нет." } do %>
+      <% @pending_reviews.each do |review| %>
+        <%= render "components/molecules/moderation_card", kind: "review", title: review.company.name,
+                   text: "«#{truncate(review.wish_i_knew, length: 70)}»", date: review.created_at,
+                   href: edit_company_review_path(review.company, review),
+                   publish_url: company_review_path(review.company, review), publish_params: { review: { status: "published" } },
+                   reject_url: company_review_path(review.company, review), reject_params: { review: { status: "rejected" } } %>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>Новых отзывов на проверке нет.</p>
-  <% end %>
 
-  <h3>Новые компании (<%= @pending_companies.size %>)</h3>
-  <% if @pending_companies.any? %>
-    <% @pending_companies.each do |company| %>
-      <p>
-        <%= link_to company.name, company %>
-        <% if company.created_by %>(добавил(а) <%= company.created_by.display_name %>)<% end %> —
-        <%= link_to "проверить", edit_company_path(company) %>
-      </p>
+    <%= render layout: "components/organisms/moderation_section",
+               locals: { id: "moderation_companies", title: "Новые компании", count: @pending_companies.size,
+                         empty: "Новых компаний на проверке нет." } do %>
+      <% @pending_companies.each do |company| %>
+        <%= render "components/molecules/moderation_card", kind: "company", title: company.name,
+                   text: ("Добавил(а) #{company.created_by.display_name}" if company.created_by), date: company.created_at,
+                   href: edit_company_path(company),
+                   publish_url: company_path(company), publish_params: { company: { status: "published" } },
+                   reject_url: company_path(company), reject_params: { company: { status: "rejected" } } %>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>Новых компаний на проверке нет.</p>
-  <% end %>
 
-  <h3>Заявки представителей (<%= @pending_representatives.size %>)</h3>
-  <% if @pending_representatives.any? %>
-    <% @pending_representatives.each do |representative| %>
-      <p>
-        <%= representative.user.display_name %> — <%= representative.company.name %>, <%= representative.position %> —
-        <%= link_to "проверить", company_representative_path(representative) %>
-      </p>
+    <%= render layout: "components/organisms/moderation_section",
+               locals: { id: "moderation_representatives", title: "Заявки представителей", count: @pending_representatives.size,
+                         empty: "Новых заявок нет." } do %>
+      <% @pending_representatives.each do |representative| %>
+        <%= render "components/molecules/moderation_card", kind: "representative", title: representative.user.display_name,
+                   text: "#{representative.company.name}, #{representative.position}", date: representative.created_at,
+                   href: company_representative_path(representative),
+                   publish_label: "одобрить",
+                   publish_url: company_representative_path(representative), publish_params: { status: "approved" },
+                   reject_url: company_representative_path(representative), reject_params: { status: "rejected" } %>
+      <% end %>
     <% end %>
-  <% else %>
-    <p>Новых заявок нет.</p>
-  <% end %>
+
+    <%= render "components/molecules/profile_actions" %>
+  </div>
 <% else %>
-  <h2>Мои истории</h2>
-  <% if @stories.any? %>
-    <% @stories.each do |story| %>
-      <p><%= link_to story.title, story %> — <%= Story::STATUS_LABELS[story.status] %></p>
-    <% end %>
-  <% else %>
-    <p>Вы ещё не рассказали ни одной истории. <%= link_to "Рассказать", new_story_path %></p>
-  <% end %>
+  <% status_colors = { "draft" => "Blue", "pending" => "Pink", "published" => "Green", "rejected" => "Orange", "approved" => "Green" } %>
+  <div class="S_ProfilePage">
+    <%= render "components/organisms/profile_header", user: current_user %>
 
-  <h2>Мои отзывы</h2>
-  <% if @reviews.any? %>
-    <% @reviews.each do |review| %>
-      <p>
-        <%= link_to review.company.name, review.company %> —
-        <%= Story::STATUS_LABELS[review.status] %> ·
-        <%= link_to "редактировать", edit_company_review_path(review.company, review) %>
-      </p>
-    <% end %>
-  <% else %>
-    <p>Вы ещё не оставили ни одного отзыва. <%= link_to "Выбрать компанию", companies_path %></p>
-  <% end %>
+    <section class="O_ProfileSection">
+      <h2 class="A_Heading">Мои истории</h2>
+      <div class="W_Card">
+        <% if @stories.any? %>
+          <ul class="C_RowList">
+            <% @stories.each do |story| %>
+              <li class="M_ListRow">
+                <%= link_to story.title, story, class: "A_TextLink A_Text" %>
+                <span class="A_StatusTag A_StatusTag<%= status_colors[story.status] %>"><%= Story::STATUS_LABELS[story.status] %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="A_Text">Вы ещё не рассказали ни одной истории. <%= link_to "Рассказать", new_story_path, class: "A_TextLink" %></p>
+        <% end %>
+      </div>
+    </section>
 
-  <h2>Мои заявки представителя</h2>
-  <% if @representatives.any? %>
-    <% @representatives.each do |representative| %>
-      <p>
-        <%= link_to representative.company.name, representative.company %> —
-        <%= CompanyRepresentative::STATUS_LABELS[representative.status] %>
-      </p>
-    <% end %>
-  <% else %>
-    <p>Вы не подавали заявок. Если вы представляете компанию, нажмите «Я представляю эту компанию» на её странице.</p>
-  <% end %>
+    <section class="O_ProfileSection">
+      <h2 class="A_Heading">Мои отзывы</h2>
+      <div class="W_Card">
+        <% if @reviews.any? %>
+          <ul class="C_RowList">
+            <% @reviews.each do |review| %>
+              <li class="M_ListRow">
+                <%= link_to review.company.name, review.company, class: "A_TextLink A_Text" %>
+                <span class="M_FormActions">
+                  <%= link_to "редактировать", edit_company_review_path(review.company, review), class: "A_TextLink A_TextSmall" %>
+                  <span class="A_StatusTag A_StatusTag<%= status_colors[review.status] %>"><%= Story::STATUS_LABELS[review.status] %></span>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="A_Text">Вы ещё не оставили ни одного отзыва. <%= link_to "Выбрать компанию", companies_path, class: "A_TextLink" %></p>
+        <% end %>
+      </div>
+    </section>
 
-  <h2>Моя активность</h2>
+    <section class="O_ProfileSection">
+      <h2 class="A_Heading">Мои заявки представителя</h2>
+      <div class="W_Card">
+        <% if @representatives.any? %>
+          <ul class="C_RowList">
+            <% @representatives.each do |representative| %>
+              <li class="M_ListRow">
+                <%= link_to representative.company.name, representative.company, class: "A_TextLink A_Text" %>
+                <span class="A_StatusTag A_StatusTag<%= status_colors[representative.status] %>">
+                  <%= CompanyRepresentative::STATUS_LABELS[representative.status] %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="A_Text">Вы не подавали заявок. Если вы представляете компанию, нажмите «Я представляю эту компанию» на её странице.</p>
+        <% end %>
+      </div>
+    </section>
 
-  <h3>Я голосовал(а)</h3>
-  <% if @my_votes.any? %>
-    <% @my_votes.each do |vote| %>
-      <p><%= link_to vote.story.title, vote.story %> — <%= Vote::LABELS[vote.verdict] %></p>
-    <% end %>
-  <% else %>
-    <p>Вы пока не голосовали.</p>
-  <% end %>
+    <section class="O_ProfileSection">
+      <h2 class="A_Heading">Моя активность</h2>
+      <div class="C_CardGrid C_CardGridTwo">
+        <div class="W_Card">
+          <h3 class="A_StoryTitle">Я голосовал(а)</h3>
+          <% if @my_votes.any? %>
+            <ul class="C_RowList">
+              <% @my_votes.each do |vote| %>
+                <li class="M_ListRow">
+                  <%= link_to vote.story.title, vote.story, class: "A_TextLink A_Text" %>
+                  <span class="A_StatusTag A_StatusTagPink"><%= Vote::LABELS[vote.verdict] %></span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="A_Text">Вы пока не голосовали.</p>
+          <% end %>
+        </div>
 
-  <h3>Мои комментарии</h3>
-  <% if @my_comments.any? %>
-    <% @my_comments.each do |comment| %>
-      <p>
-        «<%= truncate(comment.body, length: 80) %>» —
-        <%= link_to comment.story.title, story_path(comment.story, anchor: dom_id(comment)) %>
-      </p>
-    <% end %>
-  <% else %>
-    <p>Вы пока не комментировали.</p>
-  <% end %>
+        <div class="W_Card">
+          <h3 class="A_StoryTitle">Мои комментарии</h3>
+          <% if @my_comments.any? %>
+            <ul class="C_RowList">
+              <% @my_comments.each do |comment| %>
+                <li class="M_ListRow M_ListRowStacked">
+                  <span class="A_Text">«<%= truncate(comment.body, length: 80) %>»</span>
+                  <%= link_to comment.story.title, story_path(comment.story, anchor: dom_id(comment)), class: "A_TextLink A_TextSmall" %>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="A_Text">Вы пока не комментировали.</p>
+          <% end %>
+        </div>
+      </div>
+    </section>
 
-  <h2>Сохранённое</h2>
-  <% if @bookmarked_stories.any? %>
-    <% @bookmarked_stories.each do |story| %>
-      <p><%= link_to story.title, story %></p>
-    <% end %>
-  <% else %>
-    <p>Вы пока ничего не сохранили. Нажмите «Сохранить» на странице истории, чтобы вернуться к ней позже.</p>
-  <% end %>
-<% end %>
+    <section class="O_ProfileSection">
+      <h2 class="A_Heading">Сохранённое</h2>
+      <div class="W_Card">
+        <% if @bookmarked_stories.any? %>
+          <ul class="C_RowList">
+            <% @bookmarked_stories.each do |story| %>
+              <li class="M_ListRow"><%= link_to story.title, story, class: "A_TextLink A_Text" %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="A_Text">Вы пока ничего не сохранили. Нажмите «Сохранить» на странице истории, чтобы вернуться к ней позже.</p>
+        <% end %>
+      </div>
+    </section>
 
-<h2>Настройки и анонимность</h2>
-<p><%= link_to "Редактировать профиль", edit_profile_path %></p>
-<% unless Rails.configuration.x.teaser %>
-  <p><%= link_to "Сменить email или пароль", edit_user_registration_path %></p>
+    <%= render "components/molecules/profile_actions" %>
+  </div>
 <% end %>

@@ -1,0 +1,859 @@
+.M_NavigationTab {
+  position: relative;
+  display: block;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.M_NavigationTabSoon {
+  cursor: default;
+}
+
+.M_Brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 254rem;
+}
+
+.M_BrandName {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  height: 30rem;
+}
+
+.M_SubscriptionForm {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  width: 472rem;
+  padding: 5rem;
+  border-radius: 49rem;
+  background: var(--Violet);
+}
+
+.M_Consent {
+  position: absolute;
+  top: 70rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding-left: 10rem;
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.W_SubscriptionForm:focus-within .M_Consent,
+.M_ConsentVisible {
+  visibility: visible;
+  opacity: 1;
+}
+
+.M_CheckboxField {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  font-size: 20rem;
+  cursor: pointer;
+}
+
+.M_SocialIcons {
+  display: flex;
+  gap: 10rem;
+}
+
+.M_NavigationTabLight .A_TabText {
+  color: var(--Blue);
+}
+
+.M_NavigationTabLarge {
+  width: fit-content;
+}
+
+.M_NavigationTabLarge .Q_TabBackground {
+  height: 108rem;
+}
+
+.M_NavigationTabLarge .A_TabText {
+  top: 15rem;
+  font-family: var(--FontHeading);
+  font-size: 30rem;
+  font-weight: 700;
+}
+
+.M_SectionHeader {
+  position: relative;
+  z-index: 1;
+  height: 55rem;
+  margin-top: -55rem;
+  padding: 0 105rem;
+}
+
+.M_BrandLarge {
+  gap: 10rem;
+  width: 437rem;
+}
+
+.M_BrandLarge .M_BrandName {
+  height: auto;
+}
+
+.M_BrandLarge .A_Logo {
+  width: 35rem;
+  height: 28rem;
+}
+
+.M_BrandLarge .A_BrandTitle {
+  font-family: var(--FontHeading);
+  font-size: 30rem;
+}
+
+.M_Tag {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: 37rem;
+  padding: 0 20rem 6rem;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font-size: 18rem;
+  white-space: nowrap;
+}
+
+.M_TagLarge {
+  height: 50rem;
+  font-size: 20rem;
+}
+
+.M_TagIcon {
+  justify-content: center;
+  width: 70rem;
+  height: 70rem;
+  padding: 5rem;
+  border-radius: 50%;
+}
+
+.M_TagBlue {
+  background: var(--Blue);
+  color: var(--White);
+}
+
+.M_TagViolet {
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.M_CategoryFolder {
+  position: relative;
+  color: var(--White);
+}
+
+.M_CategoryFolderLarge {
+  width: 358rem;
+  height: 164rem;
+}
+
+.M_CategoryFolderSmall {
+  width: 213rem;
+  height: 130rem;
+}
+
+.M_CategoryFolderWide {
+  width: 358rem;
+  height: 129.5rem;
+}
+
+.M_FolderContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  padding: 10rem 20rem 10rem 15rem;
+  border-radius: 0 0 var(--RadiusM) var(--RadiusM);
+}
+
+.M_CategoryFolderLarge .M_FolderContent {
+  top: 74rem;
+  border-radius: var(--RadiusM);
+}
+
+.M_FolderContentPink {
+  background: var(--Pink);
+}
+
+.M_FolderContentGreen {
+  background: var(--Green);
+}
+
+.M_FolderContentYellow {
+  background: var(--Yellow);
+}
+
+.M_FolderContentSkyBlue {
+  background: var(--SkyBlue);
+}
+
+.M_FolderContentOrange {
+  background: var(--Orange);
+}
+
+.M_FolderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.M_StepCard {
+  --CardColor: var(--SkyBlue);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rem;
+  padding: 10rem;
+  border-radius: var(--RadiusL);
+  background: var(--CardColor);
+  color: var(--White);
+}
+
+.M_StepCardPink {
+  --CardColor: var(--Pink);
+}
+
+.M_StepCardGreen {
+  --CardColor: var(--Green);
+}
+
+.M_StepCardOrange {
+  --CardColor: var(--Orange);
+}
+
+.M_StepCard .M_Tag {
+  color: var(--CardColor);
+}
+
+.M_StepBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rem;
+}
+
+.M_StepInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.M_StepNumber {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+}
+
+.M_RulesHeading,
+.M_StepContent,
+.M_ModerationContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rem;
+  text-align: center;
+}
+
+.M_RulesHeading {
+  white-space: nowrap;
+}
+
+.M_StepContent .A_Text {
+  width: 390rem;
+}
+
+.M_PrincipleCard {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  height: 264rem;
+  padding: 20rem 20rem 10rem 15rem;
+  color: var(--White);
+  mask: url("/about/card_mask.svg") center / 100% 100% no-repeat;
+}
+
+.M_PrincipleCardYellow {
+  background: var(--Yellow);
+}
+
+.M_PrincipleCardSkyBlue {
+  background: var(--SkyBlue);
+}
+
+.M_PrincipleCardGreen {
+  background: var(--Green);
+}
+
+.M_PrincipleCardPink {
+  background: var(--Pink);
+}
+
+.M_ModerationTab {
+  position: relative;
+  flex-shrink: 0;
+  height: 70rem;
+  padding: 0;
+  border: 0;
+  background: var(--White);
+  font: inherit;
+  cursor: pointer;
+  mask: var(--TabShape) center / 100% 100% no-repeat;
+}
+
+.M_ModerationTab .A_TabText {
+  color: var(--CardColor);
+}
+
+.M_ModerationTab[aria-selected="true"] {
+  background: var(--CardColor);
+}
+
+.M_ModerationTab[aria-selected="true"] .A_TabText {
+  color: var(--White);
+}
+
+.M_ModerationTabCheck {
+  --TabShape: url("/about/moderation_check.svg");
+  width: 178rem;
+}
+
+.M_ModerationTabClarify {
+  --TabShape: url("/about/moderation_clarify.svg");
+  width: 185rem;
+}
+
+.M_ModerationTabTalk {
+  --TabShape: url("/about/moderation_talk.svg");
+  width: 175rem;
+}
+
+.M_ModerationTabViolations {
+  --TabShape: url("/about/moderation_violations.svg");
+  width: 194rem;
+}
+
+.M_ModerationTabAppeals {
+  --TabShape: url("/about/moderation_appeals.svg");
+  width: 195rem;
+}
+
+.M_ModerationTabCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15rem;
+  margin-top: -34rem;
+  padding: 50rem 10rem 40rem;
+  border-radius: var(--RadiusL);
+  background: var(--CardColor);
+  color: var(--White);
+}
+
+.M_ModerationTabCard .A_Text {
+  width: 462rem;
+}
+
+.M_ModerationTabCard .M_Tag {
+  color: var(--CardColor);
+}
+
+.M_TeamCard {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  width: 358rem;
+  padding: 10rem;
+  border-radius: var(--RadiusL);
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.M_TeamCard > .A_Text {
+  padding: 0 5rem 0 10rem;
+}
+
+.M_TeamCardContent {
+  position: relative;
+}
+
+.M_MemberRole {
+  position: absolute;
+  left: 10rem;
+  top: 193rem;
+  padding: 2rem 10rem 8rem;
+  border-radius: var(--RadiusPill);
+  background: var(--Violet);
+  font-size: 18rem;
+  white-space: nowrap;
+}
+
+.M_FooterContent {
+  display: flex;
+  flex-direction: column;
+  gap: 116rem;
+  width: 472rem;
+}
+
+.M_FooterNavigation,
+.M_FooterContacts,
+.M_FooterCredits {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5rem;
+  width: 173rem;
+}
+
+.M_FooterContacts {
+  gap: 16rem;
+}
+
+.M_FooterCredits {
+  white-space: nowrap;
+}
+
+.M_TagPink {
+  background: var(--Pink);
+  color: var(--White);
+}
+
+.M_TagSkyBlue {
+  background: var(--SkyBlue);
+  color: var(--White);
+}
+
+.M_TagOrange {
+  background: var(--Orange);
+  color: var(--White);
+}
+
+.M_TagYellow {
+  background: var(--Yellow);
+  color: var(--White);
+}
+
+.M_TagGreen {
+  background: var(--Green);
+  color: var(--White);
+}
+
+.M_HeroText {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rem;
+  width: 814rem;
+}
+
+.M_HeroText > .A_Text {
+  width: 722rem;
+}
+
+.M_SearchField {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  padding: 5rem;
+  border-radius: var(--RadiusPill);
+  background: var(--Violet);
+}
+
+.M_FilterGroup,
+.M_SortDropdown {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  padding: 5rem;
+  border-radius: var(--RadiusPill);
+  background: var(--Blue);
+}
+
+.M_FilterGroup .A_Button img {
+  width: 37rem;
+  height: 37rem;
+}
+
+.M_Filter {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  height: 37rem;
+  padding: 5rem 10rem;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+}
+
+.M_StoryCardMedia {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10rem 20rem 0;
+  border-radius: var(--RadiusL);
+  color: var(--Blue);
+}
+
+.M_StoryCardMediaImage {
+  flex-direction: column;
+  height: 240rem;
+  padding-bottom: 10rem;
+  color: var(--White);
+}
+
+.M_StoryAuthor,
+.M_StoryEngagement {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.M_StoryAuthor {
+  gap: 10rem;
+}
+
+.M_StoryEngagement {
+  gap: 5rem;
+}
+
+.M_EngagementCounter {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  height: 37rem;
+  padding: 0 10rem;
+  border-radius: var(--RadiusPill);
+  background: var(--Blue);
+  font-size: 18rem;
+  color: var(--White);
+}
+
+.M_StoryCardMediaImage .M_EngagementCounter {
+  background: var(--White);
+  color: var(--Blue);
+}
+
+.M_StoryCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10rem;
+  padding: 10rem 20rem;
+  color: var(--Blue);
+}
+
+.M_StoryTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5rem;
+  padding: 5rem 0 10rem;
+}
+
+.M_DateLabel {
+  display: flex;
+  align-items: center;
+  gap: 7rem;
+  font-size: 16rem;
+}
+
+.M_StoryCardActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50rem;
+  padding: 0 20rem;
+}
+
+.M_VotingOptions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5rem;
+}
+
+.W_InlineForm {
+  display: contents;
+}
+
+.M_VotingOption {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  height: 50rem;
+  padding: 5rem 20rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--Blue);
+  font: inherit;
+  font-size: 20rem;
+  color: var(--White);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+span.M_VotingOption {
+  cursor: default;
+}
+
+.M_VotingOptionChosen {
+  background: var(--Pink);
+}
+
+.M_VoteCount {
+  padding-left: 10rem;
+  color: var(--Blue);
+}
+
+.M_LoadMoreButton {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 320rem;
+  padding: 5rem 5rem 5rem 30rem;
+  border: 0;
+  border-radius: 72rem;
+  background: var(--White);
+  font: inherit;
+  color: var(--Blue);
+  cursor: pointer;
+}
+
+.M_FeedEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rem;
+  width: 1114rem;
+  text-align: center;
+}
+
+.M_TagIconSmall {
+  width: 40rem;
+  height: 40rem;
+  padding: 3rem;
+}
+
+.M_TagIconSmall .A_TagIcon {
+  width: 34rem;
+  height: 34rem;
+}
+
+.M_TagOutline {
+  border: 2rem solid var(--White);
+  background: none;
+  color: var(--White);
+}
+
+button.M_Tag {
+  border: 2rem solid var(--White);
+  font: inherit;
+  font-size: 18rem;
+  cursor: pointer;
+}
+
+.M_ProfileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 40rem;
+  width: 377rem;
+}
+
+.M_UserIdentity {
+  display: flex;
+  align-items: center;
+  gap: 20rem;
+}
+
+.M_UserDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.M_ModerationSummary {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10rem 20rem;
+  width: 433rem;
+  padding: 20rem;
+  border-radius: var(--RadiusM);
+  background: var(--White);
+  color: var(--Blue);
+}
+
+.M_ModerationSummary > .A_CardTitle {
+  grid-column: 1 / -1;
+}
+
+.M_ModerationStat {
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+}
+
+.M_ModerationCard {
+  --CardColor: var(--Pink);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20rem;
+  width: 1114rem;
+  padding: 10rem 20rem;
+  border-radius: var(--RadiusL);
+  background: var(--CardColor);
+  color: var(--White);
+}
+
+.M_ModerationCardYellow {
+  --CardColor: var(--Yellow);
+}
+
+.M_ModerationCardGreen {
+  --CardColor: var(--Green);
+}
+
+.M_ModerationCardSkyBlue {
+  --CardColor: var(--SkyBlue);
+}
+
+.M_ModerationCard .A_StatusTag,
+.M_ModerationCard .M_Tag:not(.M_TagOutline) {
+  background: var(--White);
+  color: var(--CardColor);
+}
+
+.M_ModerationInfo {
+  display: flex;
+  align-items: center;
+  gap: 20rem;
+  min-width: 0;
+}
+
+.M_ModerationText {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-width: 0;
+}
+
+.M_ModerationActions {
+  display: flex;
+  align-items: center;
+  gap: 20rem;
+  flex-shrink: 0;
+}
+
+.M_LoadMoreButton[aria-expanded="false"] .A_ButtonIcon {
+  rotate: 90deg;
+}
+
+.M_LoadMoreButton[aria-expanded="true"] .A_ButtonIcon {
+  rotate: -90deg;
+}
+
+.M_FormField {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.M_FormActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10rem 20rem;
+}
+
+.M_FormErrors {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  font-size: 18rem;
+  color: var(--Yellow);
+}
+
+.M_FormLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  font-size: 18rem;
+}
+
+.M_Flash {
+  position: absolute;
+  top: 100rem;
+  left: 50%;
+  z-index: 2;
+  translate: -50% 0;
+  padding: 8rem 25rem 12rem;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font-size: 18rem;
+  color: var(--Blue);
+  white-space: nowrap;
+}
+
+.M_FlashAlert {
+  color: var(--Orange);
+}
+
+.M_ImageThumb {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+}
+
+.M_CompanyReply {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  padding: 20rem;
+  border-radius: var(--RadiusM);
+  background: var(--Blue);
+  color: var(--White);
+}
+
+.M_ListRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20rem;
+}
+
+.M_ListRowStacked {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5rem;
+}
+
+.M_ProfileActions {
+  width: 1114rem;
+}

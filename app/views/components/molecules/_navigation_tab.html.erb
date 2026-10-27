@@ -1,0 +1,16 @@
+<% light = local_assigns[:light] %>
+<% classes = class_names("M_NavigationTab", local_assigns[:modifier], "M_NavigationTabLight" => light) %>
+<% content = capture do %>
+  <%= image_tag light ? image.sub(".svg", "_light.svg") : image, alt: local_assigns[:alt].to_s, class: "Q_TabBackground" %>
+  <% if local_assigns[:text] %>
+    <span class="A_TabText"><%= text %></span>
+  <% end %>
+<% end %>
+
+<% if local_assigns[:href] %>
+  <%= link_to content, href, class: classes, "aria-current": ("page" if current_page?(href)) %>
+<% elsif local_assigns[:tag] %>
+  <%= content_tag tag, content, class: classes %>
+<% else %>
+  <span class="<%= classes %> M_NavigationTabSoon" title="Скоро"><%= content %></span>
+<% end %>

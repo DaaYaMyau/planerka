@@ -1,0 +1,19 @@
+<% open = !Rails.configuration.x.teaser || current_user&.is_admin? %>
+<% links = {
+  "главная" => root_path,
+  "о проекте" => about_path,
+  "разобраться" => (articles_path if open),
+  "отзывы" => (companies_path if open),
+  "рассказать историю" => (new_story_path if open),
+  "профиль" => (profile_path if open)
+} %>
+<nav class="M_FooterNavigation" aria-label="Разделы">
+  <p class="A_Text">Разделы:</p>
+  <% links.each do |text, path| %>
+    <% if path %>
+      <%= link_to text, path, class: "A_TextSmall A_Link" %>
+    <% else %>
+      <span class="A_TextSmall" title="Скоро"><%= text %></span>
+    <% end %>
+  <% end %>
+</nav>

@@ -16,14 +16,15 @@ class TeaserTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "на главной — сплэш без ленты, у админа тоже" do
+  test "на главной у гостя — сплэш без ленты, у админа — лента" do
     get root_url
     assert_includes response.body, "Узнать о запуске"
     assert_not_includes response.body, stories(:published).title
 
     sign_in users(:admin)
     get root_url
-    assert_includes response.body, "Узнать о запуске"
+    assert_includes response.body, stories(:published).title
+    assert_not_includes response.body, "Узнать о запуске"
   end
 
   test "в тизере фильтры ленты ведут в ленту админки" do
@@ -33,15 +34,33 @@ class TeaserTest < ActionDispatch::IntegrationTest
     assert_includes response.body, %(action="#{admin_stories_path}")
   end
 
-  test "у гостя в шапке только «Планёрка» и «О проекте»" do
-    get root_url
-    menu = response.body[/<nav class="menuBar">.*?<\/nav>/m]
+  test "у гостя в шапке только главная и «о проекте», в подвале нет «Разделов»" do
+    get about_url
+    menu = response.body[/<nav class="O_HeaderNavigation">.*?<\/nav>/m]
 
-    assert_includes menu, ">Планёрка</a>"
-    assert_includes menu, ">О проекте</a>"
-    %w[ Войти Регистрация Разобраться Отзывы Рассказать Профиль ].each do |label|
-      assert_not_includes menu, ">#{label}</a>"
+    assert_includes menu, %(href="#{root_path}")
+    assert_includes menu, %(href="#{about_path}")
+    [ "разобраться", "отзывы", "рассказать историю", "Профиль", "Скоро" ].each do |text|
+      assert_not_includes menu, text
     end
+    assert_not_includes response.body, "Разделы:"
+  end
+
+  test "у вошедшего пользователя в шапке остальные вкладки — «Скоро», в подвале есть «Разделы»" do
+    sign_in users(:boris)
+    get about_url
+    menu = response.body[/<nav class="O_HeaderNavigation">.*?<\/nav>/m]
+
+    assert_equal 4, menu.scan('title="Скоро"').size
+    assert_includes response.body, "Разделы:"
+  end
+
+  test "на странице «О проекте» в шапке активна вкладка «о проекте»" do
+    get about_url
+    menu = response.body[/<nav class="O_HeaderNavigation">.*?<\/nav>/m]
+
+    assert_includes menu, %(aria-current="page" href="#{about_path}")
+    assert_includes menu, "tab_logo_light"
   end
 
   test "у админа одна шапка на всех страницах: сплэш, лента и разделы сайта" do
@@ -49,15 +68,13 @@ class TeaserTest < ActionDispatch::IntegrationTest
 
     [ root_url, admin_stories_url, companies_url ].each do |url|
       get url
-      menu = response.body[/<nav class="menuBar">.*?<\/nav>/m]
+      menu = response.body[/<nav class="O_HeaderNavigation">.*?<\/nav>/m]
 
-      [ "Планёрка", "О проекте", "Лента", "Новая история", "Разобраться", "Отзывы", "Профиль" ].each do |label|
-        assert_includes menu, ">#{label}</a>", url
+      [ root_path, about_path, articles_path, companies_path, new_story_path, profile_path ].each do |path|
+        assert_includes menu, %(href="#{path}"), url
       end
+      assert_not_includes menu, "Скоро", url
     end
-
-    get root_url
-    assert_includes response.body, "Узнать о запуске"
   end
 
   test "обычного пользователя тоже не пускают дальше главной" do

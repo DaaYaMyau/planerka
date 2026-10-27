@@ -1,37 +1,38 @@
-<div id="<%= dom_id story %>">
-  <%= content_tag local_assigns.fetch(:heading, :h2), story.title %>
+<article class="W_Card" id="<%= dom_id story %>">
+  <% meta = [ story.anonymous? ? "Анонимно" : story.user.display_name ] %>
+  <% meta << Story::GRADE_LABELS[story.grade] if story.grade %>
+  <% meta << story.created_at.strftime("%d.%m.%Y") %>
+  <%= render "components/molecules/story_author", user: (story.user unless story.anonymous?), text: meta.join(" · ") %>
 
-  <p>
-    <% if story.anonymous? %>
-      Анонимно
-    <% else %>
-      <%= avatar_for(story.user, size: 24) %> <%= story.user.display_name %>
-    <% end %>
-    <% if story.grade %> · <%= Story::GRADE_LABELS[story.grade] %><% end %>
-    · <%= story.created_at.strftime("%d.%m.%Y") %>
-  </p>
+  <%= content_tag local_assigns.fetch(:heading, :h2), story.title, class: "A_Heading" %>
 
-  <p><%= story.body %></p>
+  <%= simple_format story.body, class: "A_Text" %>
 
-  <% story.images.each do |image| %>
-    <p><%= image_tag image.variant(resize_to_limit: [ 1200, 1200 ], saver: { strip: true }), alt: "", style: "max-width: 100%; height: auto;" %></p>
+  <% if story.images.any? %>
+    <div class="C_StoryImages">
+      <% story.images.each do |image| %>
+        <%= image_tag image.url, alt: "", class: "Q_StoryPhoto" %>
+      <% end %>
+    </div>
   <% end %>
 
-  <p>
-    <% story.tags.each do |tag| %>
-      <%= render "tags/chip", tag: tag %>
-    <% end %>
-  </p>
+  <% if story.tags.any? %>
+    <div class="M_StoryTags">
+      <% story.tags.each do |tag| %>
+        <%= render "tags/chip", tag: tag %>
+      <% end %>
+    </div>
+  <% end %>
 
   <% if story.company %>
-    <p>Компания: <%= link_to story.company.name, story.company %></p>
+    <p class="A_TextSmall">Компания: <%= link_to story.company.name, story.company, class: "A_TextLink" %></p>
   <% end %>
 
   <% if story.article %>
-    <p>Что говорит закон: <%= link_to story.article.title, story.article %></p>
+    <p class="A_TextSmall">Что говорит закон: <%= link_to story.article.title, story.article, class: "A_TextLink" %></p>
   <% end %>
 
   <% if can? :update, story %>
-    <p>Статус: <%= Story::STATUS_LABELS[story.status] %></p>
+    <p class="A_TextSmall">Статус: <%= Story::STATUS_LABELS[story.status] %></p>
   <% end %>
-</div>
+</article>

@@ -90,6 +90,15 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert pending.reload.published?
   end
 
+  test "админ отклоняет отзыв с модерации" do
+    sign_in users(:admin)
+    pending = reviews(:anna_pending)
+
+    patch company_review_url(pending.company, pending), params: { review: { status: "rejected" } }
+    assert pending.reload.rejected?
+    assert_equal "Отзыв отклонён", flash[:notice]
+  end
+
   test "в профиле: у пользователя — мои отзывы, у админа — отзывы на модерации" do
     sign_in users(:anna)
     get profile_url

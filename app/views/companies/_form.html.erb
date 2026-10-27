@@ -1,6 +1,6 @@
-<%= form_with model: company do |form| %>
+<%= form_with model: company, class: "O_Form" do |form| %>
   <% if company.errors.any? %>
-    <div style="color: red">
+    <div class="M_FormErrors">
       <% company.errors.each do |error| %>
         <p><%= error.message %></p>
       <% end %>
@@ -8,22 +8,22 @@
   <% end %>
 
   <% if company.new_record? %>
-    <div data-controller="similar-companies" data-similar-companies-url-value="<%= similar_companies_path %>">
-      <%= form.label :name, "Название", style: "display: block" %>
-      <%= form.text_field :name, autocomplete: "off",
+    <div class="M_FormField" data-controller="similar-companies" data-similar-companies-url-value="<%= similar_companies_path %>">
+      <%= form.label :name, "Название", class: "A_Label" %>
+      <%= form.text_field :name, autocomplete: "off", class: "A_Input",
                           data: { similar_companies_target: "input", action: "input->similar-companies#search" } %>
       <%= turbo_frame_tag "similar_companies", data: { similar_companies_target: "frame" } %>
     </div>
   <% elsif current_user.is_admin? %>
-    <div>
-      <%= form.label :name, "Название", style: "display: block" %>
-      <%= form.text_field :name %>
+    <div class="M_FormField">
+      <%= form.label :name, "Название", class: "A_Label" %>
+      <%= form.text_field :name, class: "A_Input" %>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :industry, "Сфера", style: "display: block" %>
-    <%= form.text_field :industry, list: "industries" %>
+  <div class="M_FormField">
+    <%= form.label :industry, "Сфера", class: "A_Label" %>
+    <%= form.text_field :industry, list: "industries", class: "A_Input" %>
     <datalist id="industries">
       <% Company.industries.each do |industry| %>
         <option value="<%= industry %>"></option>
@@ -31,37 +31,37 @@
     </datalist>
   </div>
 
-  <div>
-    <%= form.label :website, "Сайт (необязательно)", style: "display: block" %>
-    <%= form.text_field :website, placeholder: "example.ru" %>
+  <div class="M_FormField">
+    <%= form.label :website, "Сайт (необязательно)", class: "A_Label" %>
+    <%= form.text_field :website, placeholder: "example.ru", class: "A_Input" %>
   </div>
 
   <% if company.persisted? %>
-    <div>
-      <%= form.label :description, "Описание", style: "display: block" %>
-      <%= form.textarea :description, rows: 4 %>
+    <div class="M_FormField">
+      <%= form.label :description, "Описание", class: "A_Label" %>
+      <%= form.textarea :description, rows: 4, class: "A_Textarea" %>
     </div>
 
-    <div>
-      <%= form.label :inn, "ИНН", style: "display: block" %>
-      <%= form.text_field :inn %>
+    <div class="M_FormField">
+      <%= form.label :inn, "ИНН", class: "A_Label" %>
+      <%= form.text_field :inn, class: "A_Input" %>
     </div>
   <% end %>
 
   <% if current_user.is_admin? %>
-    <div>
-      <%= form.label :slug, "Адрес страницы (slug)", style: "display: block" %>
-      <%= form.text_field :slug %>
-      <p>Если оставить пустым, адрес придумается из названия.</p>
+    <div class="M_FormField">
+      <%= form.label :slug, "Адрес страницы (slug)", class: "A_Label" %>
+      <%= form.text_field :slug, class: "A_Input" %>
+      <p class="A_Hint">Если оставить пустым, адрес придумается из названия.</p>
     </div>
 
-    <div>
-      <%= form.label :status, "Статус", style: "display: block" %>
-      <%= form.select :status, Company::STATUS_LABELS.invert %>
+    <div class="M_FormField">
+      <%= form.label :status, "Статус", class: "A_Label" %>
+      <%= form.select :status, Company::STATUS_LABELS.invert, {}, class: "A_Select" %>
     </div>
   <% end %>
 
-  <div>
-    <%= form.submit "Сохранить" %>
+  <div class="M_FormActions">
+    <%= form.submit "Сохранить", class: "A_PillButton" %>
   </div>
 <% end %>

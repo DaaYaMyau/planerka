@@ -1,0 +1,8 @@
+<div class="M_TeamCard">
+  <h3 class="A_Text"><%= name %></h3>
+  <div class="M_TeamCardContent">
+    <%= image_tag photo, alt: name, class: "Q_PhotoBackground", style: ("object-position: #{photo_position}" if local_assigns[:photo_position]) %>
+    <span class="M_MemberRole"><%= role %></span>
+  </div>
+  <p class="A_Text">Тг: <%= link_to "@#{telegram}", "https://t.me/#{telegram}", class: "A_Link" %></p>
+</div>

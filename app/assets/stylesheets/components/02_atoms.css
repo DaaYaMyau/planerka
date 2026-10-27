@@ -1,0 +1,574 @@
+.A_TabText {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  font-size: 18rem;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--White);
+}
+
+.A_SplashTitle {
+  position: absolute;
+  left: 483rem;
+  top: 300rem;
+  font-family: "Inter Tight", sans-serif;
+  font-size: 60rem;
+  font-weight: 700;
+  line-height: 1.354;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--White);
+}
+
+.A_Logo {
+  display: block;
+  width: 33rem;
+  height: 26rem;
+}
+
+.A_BrandTitle {
+  font-size: 25rem;
+  font-weight: 700;
+}
+
+.A_BrandCaption {
+  font-size: 18rem;
+}
+
+.A_EmailInput {
+  box-sizing: border-box;
+  width: 296rem;
+  height: 50rem;
+  padding: 0 20rem 8rem;
+  border: 0;
+  border-radius: 49rem;
+  background: var(--White);
+  font: inherit;
+  font-size: 20rem;
+  color: var(--Blue);
+}
+
+.A_EmailInput::placeholder {
+  color: var(--Blue);
+  opacity: 0.5;
+}
+
+.A_SubscribeButton {
+  flex: 1;
+  height: 50rem;
+  padding: 0 20rem 8rem;
+  border: 0;
+  border-radius: 49rem;
+  background: var(--Blue);
+  font: inherit;
+  font-size: 20rem;
+  color: var(--White);
+  cursor: pointer;
+}
+
+.A_Checkbox {
+  flex-shrink: 0;
+  display: grid;
+  place-content: center;
+  box-sizing: border-box;
+  width: 22rem;
+  height: 22rem;
+  margin: 0;
+  border: 1.5rem solid var(--White);
+  border-radius: var(--RadiusCheckbox);
+  background: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.A_Checkbox:checked::before {
+  content: "";
+  width: 12rem;
+  height: 12rem;
+  border-radius: var(--RadiusCheckboxMark);
+  background: var(--White);
+}
+
+.A_ConsentLink {
+  color: var(--White);
+}
+
+.A_FormErrors {
+  position: absolute;
+  bottom: 70rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 14rem;
+  color: var(--Yellow);
+}
+
+.A_SocialButton {
+  display: block;
+  width: 60rem;
+  height: 60rem;
+}
+
+.A_SocialButton img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.A_HeroTitle {
+  font-family: var(--FontHeading);
+  font-size: 75rem;
+  font-weight: 700;
+}
+
+.A_Heading {
+  font-family: var(--FontHeading);
+  font-size: 35rem;
+  font-weight: 700;
+}
+
+.A_Text {
+  font-size: 20rem;
+}
+
+.A_TextSmall {
+  font-size: 18rem;
+}
+
+.A_CardTitle {
+  font-size: 25rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.A_Link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.A_Icon {
+  display: block;
+  width: 40rem;
+  height: 40rem;
+}
+
+.A_IconUp {
+  rotate: -90deg;
+}
+
+.A_IconDown {
+  rotate: 90deg;
+}
+
+.A_TagIcon {
+  display: block;
+  width: 60rem;
+  height: 60rem;
+}
+
+.A_MoreIcon {
+  display: block;
+  width: 25.3rem;
+  height: 17.1rem;
+}
+
+.A_Button {
+  display: block;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.A_Button img,
+.A_ButtonIcon {
+  display: block;
+  width: 50rem;
+  height: 50rem;
+}
+
+.A_SearchInput {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10rem;
+  width: 355rem;
+  height: 50rem;
+  padding: 0 20rem;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+}
+
+.A_SearchInput input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font: inherit;
+  font-size: 20rem;
+  color: var(--Blue);
+}
+
+.A_SearchInput input::placeholder {
+  color: var(--Blue);
+  opacity: 0.5;
+}
+
+.A_SearchIcon {
+  display: block;
+  width: 22rem;
+  height: 22rem;
+}
+
+.A_FilterIcon {
+  display: block;
+  width: auto;
+  height: 22rem;
+}
+
+.A_FilterIconFilterTopic {
+  rotate: -32.18deg;
+}
+
+.A_FilterIconFilterStage {
+  height: 20rem;
+}
+
+.A_FilterIconSortIcon {
+  height: 20.7rem;
+}
+
+.A_FilterSelect {
+  field-sizing: content;
+  padding: 0 39rem 0 0;
+  border: 0;
+  outline: none;
+  background: none;
+  appearance: none;
+  font: inherit;
+  font-size: 18rem;
+  color: var(--Violet);
+  cursor: pointer;
+}
+
+.A_ChevronDown {
+  position: absolute;
+  right: 10rem;
+  top: 50%;
+  translate: 0 -50%;
+  width: 15.5rem;
+  height: 7.5rem;
+  pointer-events: none;
+}
+
+.A_AuthorAvatar {
+  display: block;
+  width: 35rem;
+  height: 35rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.A_EngagementIcon {
+  display: block;
+  width: auto;
+  height: 20rem;
+}
+
+.A_StoryTitle {
+  font-family: var(--FontHeading);
+  font-size: 30rem;
+  font-weight: 700;
+}
+
+.A_StoryText {
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 20rem;
+  opacity: 0.8;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.A_StatusTag {
+  padding: 2rem 10rem 8rem;
+  border-radius: var(--RadiusPill);
+  font-size: 18rem;
+  color: var(--White);
+  white-space: nowrap;
+}
+
+.A_StatusTagPink {
+  background: var(--Pink);
+}
+
+.A_StatusTagYellow {
+  background: var(--Yellow);
+}
+
+.A_StatusTagGreen {
+  background: var(--Green);
+}
+
+.A_StatusTagOrange {
+  background: var(--Orange);
+}
+
+.A_StatusTagBlue {
+  background: var(--SkyBlue);
+}
+
+.A_StatusTagViolet {
+  background: var(--Violet);
+}
+
+.A_CalendarIcon {
+  display: block;
+  width: 17.5rem;
+  height: 17.5rem;
+}
+
+.A_VerdictIcon {
+  display: block;
+  width: 38rem;
+  height: 38rem;
+}
+
+.A_VotePercentage {
+  padding-left: 10rem;
+}
+
+.A_PageTitle {
+  font-family: var(--FontHeading);
+  font-size: 60rem;
+  font-weight: 700;
+  line-height: 1.354;
+  text-transform: uppercase;
+}
+
+.A_UserAvatar {
+  display: block;
+  flex-shrink: 0;
+  width: 93rem;
+  height: 93rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.A_ModerationTitle {
+  font-size: 22rem;
+  font-weight: 700;
+}
+
+.A_ModerationTitle,
+.A_ModerationSubtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.A_Label {
+  font-size: 18rem;
+}
+
+.A_Hint {
+  font-size: 16rem;
+  opacity: 0.8;
+}
+
+.A_TextLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.A_Input,
+.A_Select,
+.A_Textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 50rem;
+  padding: 0 20rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font: inherit;
+  font-size: 20rem;
+  color: var(--Blue);
+}
+
+.A_Input::placeholder,
+.A_Textarea::placeholder {
+  color: var(--Blue);
+  opacity: 0.5;
+}
+
+.A_Select {
+  padding-right: 50rem;
+  background: var(--White) url("/feed/chevron.svg") no-repeat right 20rem center / 15.5rem 7.5rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.A_Textarea {
+  height: auto;
+  min-height: 200rem;
+  padding: 15rem 20rem;
+  border-radius: var(--RadiusL);
+  resize: vertical;
+}
+
+.A_FileInput {
+  font: inherit;
+  font-size: 18rem;
+  color: inherit;
+}
+
+.A_FileInput::file-selector-button {
+  margin-right: 15rem;
+  padding: 10rem 20rem;
+  border: 0;
+  border-radius: var(--RadiusPill);
+  background: var(--White);
+  font: inherit;
+  color: var(--Blue);
+  cursor: pointer;
+}
+
+.A_PillButton {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  height: 50rem;
+  padding: 0 30rem 6rem;
+  border: 2rem solid var(--Violet);
+  border-radius: var(--RadiusPill);
+  background: var(--Violet);
+  font: inherit;
+  font-size: 20rem;
+  color: var(--White);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.A_PillButtonLight {
+  border-color: var(--White);
+  background: var(--White);
+  color: var(--Blue);
+}
+
+.A_PillButtonOutline {
+  border-color: var(--White);
+  background: none;
+  color: var(--White);
+}
+
+.A_Input:focus-visible,
+.A_Select:focus-visible,
+.A_Textarea:focus-visible {
+  outline: 3rem solid var(--Violet);
+}
+
+.A_LinkButton {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 18rem;
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.A_TextStrong {
+  font-weight: 700;
+}
+
+.A_TextareaSmall {
+  min-height: 120rem;
+}
+
+.A_TableHead,
+.A_TableCell {
+  padding: 12rem 15rem;
+  text-align: left;
+}
+
+.A_TableHead {
+  font-size: 18rem;
+  font-weight: 700;
+}
+
+.A_TableCell {
+  font-size: 18rem;
+}
+
+.A_IconButton {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.A_FilterSelect,
+.A_FilterSelect::picker(select),
+.A_Select,
+.A_Select::picker(select) {
+  appearance: base-select;
+}
+
+.A_FilterSelect::picker-icon,
+.A_Select::picker-icon {
+  display: none;
+}
+
+.A_FilterSelect::picker(select),
+.A_Select::picker(select) {
+  margin-top: 10rem;
+  padding: 8rem;
+  border: 0;
+  border-radius: var(--RadiusM);
+  background: var(--White);
+}
+
+.A_FilterSelect option,
+.A_Select option {
+  padding: 6rem 15rem 10rem;
+  border-radius: var(--RadiusPill);
+  font-size: 18rem;
+  cursor: pointer;
+}
+
+.A_FilterSelect option {
+  color: var(--Violet);
+}
+
+.A_Select option {
+  color: var(--Blue);
+}
+
+.A_FilterSelect option::checkmark,
+.A_Select option::checkmark {
+  display: none;
+}
+
+.A_FilterSelect option:hover,
+.A_FilterSelect option:focus-visible,
+.A_FilterSelect option:checked {
+  background: var(--Violet);
+  color: var(--White);
+}
+
+.A_Select option:hover,
+.A_Select option:focus-visible,
+.A_Select option:checked {
+  background: var(--Blue);
+  color: var(--White);
+}

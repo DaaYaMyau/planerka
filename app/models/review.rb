@@ -4,7 +4,7 @@ class Review < ApplicationRecord
   has_one :reply, class_name: "ReviewReply", dependent: :destroy
 
   enum :grade, { student: 0, intern: 1, junior: 2, middle: 3, senior: 4 }, validate: { allow_nil: true }
-  enum :status, { draft: 0, pending: 1, published: 2 }, validate: true
+  enum :status, { draft: 0, pending: 1, published: 2, rejected: 3 }, validate: true
 
   QUESTIONS = {
     wish_i_knew: "Что хотели бы знать заранее?",

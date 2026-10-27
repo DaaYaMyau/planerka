@@ -1,26 +1,35 @@
 :root {
-  --Blue: #2667ff;
-  --Violet: #7b2ff7;
-  --Pink: #ff85e0;
-  --Yellow: #f5c542;
-  --Green: #4fdc8a;
-  --Orange: #f27f4e;
+  --Blue: #246bfd;
+  --Violet: #7928e8;
+  --Pink: #fd83e5;
+  --Yellow: #f4c542;
+  --Green: #50de8b;
+  --Orange: #f47c4c;
+  --SkyBlue: #60cffe;
   --White: #ffffff;
+
+  --FontText: "Gramatika", sans-serif;
+  --FontHeading: "Inter Tight", sans-serif;
+
+  --RadiusXS: 10rem;
+  --RadiusS: 11rem;
+  --RadiusM: 12rem;
+  --RadiusL: 30rem;
+  --RadiusPill: 49rem;
+  --RadiusCheckbox: 5rem;
+  --RadiusCheckboxMark: 3rem;
 }
 
-/* html {
-  font-size: calc(100vw / 1440);  
-}
-
-@media (min-width: 1440px) {
-  html { font-size: 1px; }        
+html {
+  font-size: calc(100vw / 1440);
 }
 
 body {
-  font-family: "Manrope", sans-serif;
-  background: var(--Blue);
-  color: var(--White);
-} */
+  background: var(--Violet);
+  font-family: "Gramatika", sans-serif;
+  font-size: 18rem;
+  line-height: normal;
+}
 
 .tag {
   display: inline-block;
