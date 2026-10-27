@@ -1,0 +1,12 @@
+<%= turbo_frame_tag "similar_companies" do %>
+  <% if @similar.any? %>
+    <div class="M_FormField">
+      <p class="A_Hint">Возможно, вы имели в виду:</p>
+      <ul class="C_TextList">
+        <% @similar.each do |company| %>
+          <li class="A_TextSmall"><%= link_to company.name, company, class: "A_TextLink", data: { turbo_frame: "_top" } %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

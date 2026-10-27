@@ -1,0 +1,16 @@
+<div class="O_SplashFooter">
+  <% if local_assigns.fetch(:subscription, true) %>
+    <h2 class="Q_VisuallyHidden">Узнать о запуске</h2>
+  <% end %>
+  <%= render "components/molecules/brand" %>
+  <% if local_assigns.fetch(:subscription, true) %>
+    <%= render "subscriptions/form", subscription: Subscription.new %>
+  <% else %>
+    <div></div>
+  <% end %>
+  <%= render "components/molecules/social_icons" %>
+  <div class="M_SocialLinks">
+    <%= link_to "Тг-канал", "https://t.me/PlanerkaMedia", class: "A_Link", target: "_blank", rel: "noopener" %>
+    <%= link_to "Почта", "mailto:annaalekmatveeva@edu.hse.ru", class: "A_Link" %>
+  </div>
+</div>

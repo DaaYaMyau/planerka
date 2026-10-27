@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+design:
+  name: дизайн
+  kind: profession
+
+salary:
+  name: зарплата
+  kind: topic
+
+trial:
+  name: испытательный срок
+  kind: stage

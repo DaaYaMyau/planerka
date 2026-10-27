@@ -1,0 +1,96 @@
+<% content_for :title, @company.name %>
+
+<%= render layout: "components/superorganisms/content_page" do %>
+  <article class="W_Card">
+    <h1 class="A_Heading"><%= @company.name %></h1>
+
+    <% if @company.verified? %>
+      <p><span class="A_StatusTag A_StatusTagGreen">Компания на Планёрке ✓</span></p>
+    <% end %>
+
+    <% if @company.pending? %>
+      <p class="A_TextSmall"><span class="A_TextStrong">Компания на проверке у модератора.</span> Пока её видите только вы и модератор.</p>
+    <% elsif @company.rejected? %>
+      <p class="A_TextSmall"><span class="A_TextStrong">Модератор отклонил компанию.</span> Её видите только вы и модератор.</p>
+    <% end %>
+
+    <p class="A_TextSmall">
+      <%= @company.industry.presence || "Сфера не указана" %>
+      <% if @company.website.present? %>
+        · <%= link_to @company.website, @company.website, target: "_blank", rel: "noopener", class: "A_TextLink" %>
+      <% end %>
+    </p>
+
+    <% if @company.description.present? %>
+      <%= simple_format @company.description, class: "A_Text" %>
+    <% end %>
+  </article>
+
+  <div class="M_FormActions">
+    <% if can? :update, @company %>
+      <%= link_to "Редактировать компанию", edit_company_path(@company), class: "A_PillButton A_PillButtonLight" %>
+    <% end %>
+
+    <% if can? :destroy, @company %>
+      <%= button_to "Удалить компанию", @company, method: :delete, class: "A_PillButton A_PillButtonOutline", form_class: "W_InlineForm",
+                    form: { data: { turbo_confirm: "Удалить компанию вместе со всеми отзывами?" } } %>
+    <% end %>
+
+    <% if can? :create, CompanyRepresentative %>
+      <% if @my_request&.approved? %>
+        <p class="A_Text">Вы представитель этой компании.</p>
+      <% elsif @my_request&.pending? %>
+        <p class="A_Text">Ваша заявка представителя на рассмотрении у модератора.</p>
+      <% else %>
+        <%= link_to "Я представляю эту компанию", new_company_company_representative_path(@company), class: "A_PillButton A_PillButtonLight" %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <section class="O_CommentsSection" id="reviews">
+    <h2 class="A_Heading">Отзывы (<%= @reviews.size %>)</h2>
+
+    <% if @reviews.empty? %>
+      <p class="A_Text">Пока никто не оставил отзыв. Будьте первым!</p>
+    <% else %>
+      <div class="C_CommentList">
+        <%= render partial: "reviews/review", collection: @reviews %>
+      </div>
+    <% end %>
+  </section>
+
+  <section class="O_CommentsSection" id="stories">
+    <h2 class="A_Heading">Истории, связанные с компанией</h2>
+
+    <% if @stories.any? %>
+      <div class="C_StoryList">
+        <% @stories.each do |story| %>
+          <%= render "components/organisms/story_card", story: story %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="A_Text">Пока нет историй об этой компании.</p>
+    <% end %>
+  </section>
+
+  <% if can?(:create, Review) || !user_signed_in? %>
+    <section class="O_CommentsSection" id="new_review">
+      <h2 class="A_Heading">Оставить отзыв</h2>
+
+      <% if @my_review %>
+        <p class="A_Text">
+          Вы уже оставили отзыв об этой компании (<%= Story::STATUS_LABELS[@my_review.status].downcase %>).
+          <%= link_to "Редактировать мой отзыв", edit_company_review_path(@company, @my_review), class: "A_TextLink" %>
+        </p>
+      <% elsif can? :create, Review %>
+        <div class="W_PageContentMedium">
+          <%= render "reviews/form", company: @company, review: @review %>
+        </div>
+      <% else %>
+        <p class="A_Text"><%= link_to "Войдите, чтобы оставить отзыв", new_user_session_path, class: "A_TextLink" %></p>
+      <% end %>
+    </section>
+  <% end %>
+
+  <%= link_to "← Все компании", companies_path, class: "A_TextLink A_Text" %>
+<% end %>

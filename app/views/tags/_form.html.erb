@@ -1,0 +1,29 @@
+<%= form_with(model: tag, class: "O_Form") do |form| %>
+  <% if tag.errors.any? %>
+    <div class="M_FormErrors">
+      <p>Не удалось сохранить тег:</p>
+      <% tag.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="M_FormField">
+    <%= form.label :name, "Название", class: "A_Label" %>
+    <%= form.text_field :name, class: "A_Input" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :kind, "Тип", class: "A_Label" %>
+    <%= form.select :kind, Tag::KIND_LABELS.invert, {}, class: "A_Select" %>
+  </div>
+
+  <div class="M_FormField">
+    <%= form.label :color, "Цвет", class: "A_Label" %>
+    <%= form.select :color, Tag::COLOR_LABELS.invert, { include_blank: "Без цвета" }, class: "A_Select" %>
+  </div>
+
+  <div class="M_FormActions">
+    <%= form.submit "Сохранить", class: "A_PillButton" %>
+  </div>
+<% end %>

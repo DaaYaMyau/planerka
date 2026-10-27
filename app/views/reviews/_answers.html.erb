@@ -1,0 +1,8 @@
+<% Review::QUESTIONS.each do |field, question| %>
+  <% if review[field].present? %>
+    <div class="M_FormField">
+      <p class="A_Text A_TextStrong"><%= question %></p>
+      <%= simple_format review[field], class: "A_Text" %>
+    </div>
+  <% end %>
+<% end %>

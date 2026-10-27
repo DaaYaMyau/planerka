@@ -1,0 +1,7 @@
+<div class="<%= class_names("M_Brand", local_assigns[:modifier]) %>">
+  <div class="M_BrandName">
+    <%= image_tag "splash/logo.svg", alt: "", class: "A_Logo" %>
+    <span class="A_BrandTitle">ПЛАНЁРКА</span>
+  </div>
+  <p class="A_BrandCaption"><%= local_assigns.fetch(:caption, "Разбираемся в работе вместе") %></p>
+</div>

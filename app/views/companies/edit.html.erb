@@ -1,0 +1,6 @@
+<% content_for :title, "Редактирование компании" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Редактирование компании", medium: true } do %>
+  <%= render "form", company: @company %>
+  <%= link_to "← К компании", @company, class: "A_TextLink A_Text" %>
+<% end %>

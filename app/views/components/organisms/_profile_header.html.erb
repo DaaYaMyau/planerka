@@ -1,0 +1,34 @@
+<% avatar = user.profile&.avatar %>
+<div class="O_ProfileHeader" data-controller="anchor-scroll" data-action="click->anchor-scroll#navigate">
+  <div class="M_ProfileInfo">
+    <h1 class="A_PageTitle">Профиль</h1>
+    <div class="M_UserIdentity">
+      <% if avatar.present? %>
+        <%= image_tag avatar.url, alt: "", class: "A_UserAvatar" %>
+      <% else %>
+        <%= image_tag "moderation/user_avatar.svg", alt: "", class: "A_UserAvatar" %>
+      <% end %>
+      <div class="M_UserDetails">
+        <p class="A_CardTitle"><%= user.display_name %></p>
+        <p class="A_TextSmall"><%= user.email %></p>
+      </div>
+    </div>
+  </div>
+
+  <% if local_assigns[:counts] %>
+    <div class="M_ModerationSummary">
+      <h2 class="A_CardTitle">На модерации</h2>
+      <% [
+        [ "story", "Pink", "#moderation_stories", count_with_word(counts[:stories], "история", "истории", "историй") ],
+        [ "company", "Green", "#moderation_companies", count_with_word(counts[:companies], "компания", "компании", "компаний") ],
+        [ "review", "Yellow", "#moderation_reviews", count_with_word(counts[:reviews], "отзыв", "отзыва", "отзывов") ],
+        [ "representative", "SkyBlue", "#moderation_representatives", count_with_word(counts[:representatives], "заявка", "заявки", "заявок") ]
+      ].each do |kind, color, anchor, text| %>
+        <%= link_to anchor, class: "M_ModerationStat A_Link", data: { turbo: false } do %>
+          <%= render "components/molecules/tag", icon: "moderation/stat_#{kind}.svg", modifier: "M_TagIcon M_TagIconSmall M_Tag#{color}" %>
+          <span class="A_TextSmall"><%= text %></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

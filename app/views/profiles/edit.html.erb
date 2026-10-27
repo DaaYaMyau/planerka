@@ -1,0 +1,59 @@
+<% content_for :title, "Редактирование профиля" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Редактирование профиля", medium: true } do %>
+  <%= form_with model: @profile, url: profile_path, method: :patch, class: "O_Form" do |form| %>
+    <% if @profile.errors.any? %>
+      <div class="M_FormErrors">
+        <% @profile.errors.each do |error| %>
+          <p><%= error.message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="M_FormField">
+      <%= form.label :nickname, "Ник", class: "A_Label" %>
+      <%= form.text_field :nickname, maxlength: 30, class: "A_Input" %>
+      <p class="A_Hint">Его видят другие вместо вашего email. Сохраняется маленькими буквами. Анонимные истории всё равно подписаны «Анонимно».</p>
+    </div>
+
+    <div class="M_FormField">
+      <p class="A_Label">Аватар</p>
+      <div class="M_UserIdentity">
+        <% if @profile.avatar.present? %>
+          <%= image_tag @profile.avatar.url, alt: "", class: "A_UserAvatar" %>
+        <% else %>
+          <%= image_tag "moderation/user_avatar.svg", alt: "", class: "A_UserAvatar" %>
+        <% end %>
+        <%= form.file_field :avatar, accept: Profile::AVATAR_TYPES.join(","), class: "A_FileInput" %>
+      </div>
+      <p class="A_Hint">PNG, JPG или WEBP, не больше 5 МБ.</p>
+      <% if @profile.avatar.present? %>
+        <%= form.label :remove_avatar, class: "M_CheckboxField" do %>
+          <%= form.checkbox :remove_avatar, class: "A_Checkbox" %>
+          <span>Удалить аватар</span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :bio, "О себе", class: "A_Label" %>
+      <%= form.textarea :bio, rows: 4, class: "A_Textarea A_TextareaSmall" %>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :grade, "Грейд", class: "A_Label" %>
+      <%= form.select :grade, Story::GRADE_LABELS.invert, { include_blank: "Не указан" }, class: "A_Select" %>
+    </div>
+
+    <div class="M_FormField">
+      <%= form.label :profession_id, "Профессия", class: "A_Label" %>
+      <%= form.collection_select :profession_id, Tag.profession.order(:name), :id, :name, { include_blank: "Не указана" }, class: "A_Select" %>
+    </div>
+
+    <div class="M_FormActions">
+      <%= form.submit "Сохранить", class: "A_PillButton" %>
+    </div>
+  <% end %>
+
+  <%= link_to "← В профиль", profile_path, class: "A_TextLink A_Text" %>
+<% end %>

@@ -1,0 +1,29 @@
+<% color = { "story" => "Pink", "review" => "Yellow", "company" => "Green", "representative" => "SkyBlue" }[kind] %>
+<article class="M_ModerationCard M_ModerationCard<%= color %>">
+  <div class="M_ModerationInfo">
+    <%= render "components/molecules/tag", icon: "moderation/card_#{kind}.svg", modifier: "M_TagIcon" %>
+    <div class="M_ModerationText">
+      <h3 class="A_ModerationTitle"><%= title %></h3>
+      <% if local_assigns[:text] %>
+        <p class="A_TextSmall A_ModerationSubtitle"><%= text %></p>
+      <% end %>
+      <div class="M_DateLabel">
+        <%= image_tag "moderation/calendar_light.svg", alt: "", class: "A_CalendarIcon" %>
+        <time datetime="<%= date.to_date.iso8601 %>"><%= l(date.to_date, format: "%-d %b %Y") %></time>
+      </div>
+    </div>
+  </div>
+
+  <div class="M_ModerationActions">
+    <span class="A_StatusTag">на модерации</span>
+    <div class="C_Tags">
+      <%= button_to local_assigns.fetch(:publish_label, "опубликовать"), publish_url, method: :patch, params: publish_params,
+                    class: "M_Tag", form_class: "W_InlineForm" %>
+      <%= button_to "отклонить", reject_url, method: :patch, params: reject_params,
+                    class: "M_Tag M_TagOutline", form_class: "W_InlineForm", data: { turbo_confirm: "Отклонить?" } %>
+    </div>
+    <%= link_to href, class: "A_Button", "aria-label": "Проверить «#{title}»" do %>
+      <%= image_tag "moderation/arrow_outline.svg", alt: "" %>
+    <% end %>
+  </div>
+</article>

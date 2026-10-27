@@ -1,0 +1,30 @@
+<% open = !Rails.configuration.x.teaser || current_user&.is_admin? %>
+<% active = if controller_path == "admin/stories" || (controller_name == "home" && open) then "home"
+            elsif current_page?(about_path) then "about"
+            elsif controller_name == "articles" then "learn"
+            elsif controller_name.in?(%w[companies reviews review_replies company_representatives]) then "reviews"
+            elsif controller_name == "stories" && action_name.in?(%w[new create]) then "story"
+            elsif controller_name.in?(%w[profiles registrations]) && user_signed_in? then "profile"
+            end %>
+<nav class="O_HeaderNavigation">
+  <%= render "components/molecules/navigation_tab", image: "splash/tab_logo.svg", alt: "Планёрка",
+             href: root_path, light: active.present? && active != "home" %>
+  <div class="C_NavigationTabs">
+    <%= render "components/molecules/navigation_tab", image: "splash/tab_about.svg", text: "о проекте", href: about_path,
+               light: active.present? && active != "about" %>
+    <% if user_signed_in? %>
+      <% [
+        [ "learn", "splash/tab_learn.svg", "разобраться", articles_path ],
+        [ "reviews", "splash/tab_reviews.svg", "отзывы", companies_path ],
+        [ "story", "splash/tab_story.svg", "рассказать историю", new_story_path ]
+      ].each do |key, image, text, path| %>
+        <%= render "components/molecules/navigation_tab", image: image, text: text, href: (path if open),
+                   light: active.present? && active != key %>
+      <% end %>
+    <% end %>
+  </div>
+  <% if user_signed_in? %>
+    <%= render "components/molecules/navigation_tab", image: "splash/tab_profile.svg", alt: "Профиль", href: (profile_path if open),
+               light: active.present? && active != "profile" %>
+  <% end %>
+</nav>

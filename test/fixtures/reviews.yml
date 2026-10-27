@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+anna_published:
+  user: anna
+  company: cloud
+  wish_i_knew: Что наставника не будет.
+  suits: Тем, кто любит учиться сам.
+  not_suits: Тем, кто ждёт онбординга.
+  grade: junior
+  anonymous: false
+  status: published
+
+anna_pending:
+  user: anna
+  company: pixel
+  wish_i_knew: Что дедлайны всегда вчера.
+  anonymous: false
+  status: pending
+
+boris_anonymous:
+  user: boris
+  company: cloud
+  wish_i_knew: Что премия зависит от всего отдела.
+  anonymous: true
+  status: published

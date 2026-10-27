@@ -1,0 +1,5 @@
+<% content_for :title, "Редактирование ответа" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Редактирование ответа компании «#{@company.name}»", medium: true } do %>
+  <%= render "form", company: @company, review: @review, reply: @reply %>
+<% end %>

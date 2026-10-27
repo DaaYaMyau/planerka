@@ -1,0 +1,5 @@
+<div class="M_PrincipleCard M_PrincipleCard<%= color.camelize %>">
+  <h4 class="A_CardTitle"><%= title %></h4>
+  <p class="A_TextSmall"><%= safe_join(text.split("\n"), tag.br) %></p>
+  <%= image_tag "about/fold_#{color}.svg", alt: "", class: "Q_FoldedCorner" %>
+</div>

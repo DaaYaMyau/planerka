@@ -1,0 +1,34 @@
+<% teaser = Rails.configuration.x.teaser %>
+<% open = !teaser || current_user&.is_admin? %>
+<% links = { "о проекте" => about_path } %>
+<% if user_signed_in? %>
+  <% links.merge!("разобраться" => (articles_path if open), "отзывы" => (companies_path if open),
+                  "рассказать историю" => (new_story_path if open), "профиль" => (profile_path if open)) %>
+<% elsif !teaser %>
+  <% links.merge!("разобраться" => articles_path, "отзывы" => companies_path, "рассказать историю" => new_story_path,
+                  "войти" => new_user_session_path, "регистрация" => new_user_registration_path) %>
+<% end %>
+<div class="O_MobileNavigation" data-controller="menu" data-action="keydown.esc@window->menu#close">
+  <div class="M_MobileHeader">
+    <%= link_to root_path, class: "A_MobileTab", "aria-label": "Главная" do %>
+      <%= image_tag "splash/logo.svg", alt: "", class: "A_MobileLogo" %>
+    <% end %>
+    <button type="button" class="A_MobileTab" aria-label="Меню" aria-expanded="false" aria-controls="mobile_menu"
+            data-menu-target="button" data-action="menu#toggle">
+      <%= image_tag "mobile/menu_icon.svg", alt: "", class: "A_MenuIcon" %>
+    </button>
+  </div>
+
+  <nav class="O_MobileMenu" id="mobile_menu" aria-label="Меню" data-menu-target="menu" hidden>
+    <div class="M_MobileMenuLinks">
+      <% links.each do |text, path| %>
+        <% if path %>
+          <%= link_to text, path, class: "A_Link" %>
+        <% else %>
+          <span title="Скоро"><%= text %></span>
+        <% end %>
+      <% end %>
+    </div>
+    <%= render "components/molecules/social_icons" %>
+  </nav>
+</div>

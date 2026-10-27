@@ -1,0 +1,26 @@
+<section class="W_Card">
+  <h2 class="A_Heading">Отзыв</h2>
+  <%= render "reviews/answers", review: review %>
+</section>
+
+<%= form_with model: reply, url: company_review_reply_path(company, review), method: reply.persisted? ? :patch : :post, class: "O_Form" do |form| %>
+  <% if reply.errors.any? %>
+    <div class="M_FormErrors">
+      <% reply.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="M_FormField">
+    <%= form.label :body, "Ответ от имени компании", class: "A_Label" %>
+    <%= form.textarea :body, rows: 6, maxlength: 2000, class: "A_Textarea" %>
+    <p class="A_Hint">Ответ увидят все, с плашкой «Официальный ответ компании».</p>
+  </div>
+
+  <div class="M_FormActions">
+    <%= form.submit "Опубликовать ответ", class: "A_PillButton" %>
+  </div>
+<% end %>
+
+<%= link_to "← К компании", company, class: "A_TextLink A_Text" %>

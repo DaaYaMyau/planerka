@@ -1,0 +1,33 @@
+<% content_for :title, "Правила" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Правила Планёрки" } do %>
+  <p class="A_Hint">Черновик: текст будет дополнен перед запуском.</p>
+
+  <div class="C_CardGrid">
+    <section class="W_Card">
+      <h2 class="A_Heading">Публикация</h2>
+      <ul class="C_TextList">
+        <li class="A_Text">Пишите о том, что случилось с вами лично.</li>
+        <li class="A_Text">Не указывайте имена, фамилии и контакты коллег и руководителей.</li>
+        <li class="A_Text">Не публикуйте документы с персональными данными и коммерческой тайной.</li>
+      </ul>
+    </section>
+
+    <section class="W_Card">
+      <h2 class="A_Heading">Модерация</h2>
+      <ul class="C_TextList">
+        <li class="A_Text">Истории, отзывы и новые компании появляются на сайте после проверки модератором.</li>
+        <li class="A_Text">Модератор может отклонить материал, если он нарушает правила.</li>
+      </ul>
+    </section>
+
+    <section class="W_Card">
+      <h2 class="A_Heading">Сообщество</h2>
+      <ul class="C_TextList">
+        <li class="A_Text">Поддерживайте, а не обесценивайте.</li>
+        <li class="A_Text">Без оскорблений, травли и рекламы.</li>
+        <li class="A_Text">Спорьте с мнением, а не с человеком.</li>
+      </ul>
+    </section>
+  </div>
+<% end %>

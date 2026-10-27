@@ -1,0 +1,49 @@
+<% tabs = [
+  { key: "check", label: "проверка", color: "pink", title: "Перед публикацией",
+    text: "Все истории проходят модерацию. Мы проверяем содержание и при необходимости просим уточнить детали",
+    tags: [ "истории", "проверка" ] },
+  { key: "clarify", label: "уточнение", color: "yellow", title: "Только факты",
+    text: "Публикуем истории о реальных событиях, без слухов, выдумок и необоснованных обвинений",
+    tags: [ "факты", "достоверность" ] },
+  { key: "talk", label: "общение", color: "orange", title: "Без оскорблений",
+    text: "Следим за комментариями и удаляем угрозы, оскорбления, спам и попытки раскрыть личность автора",
+    tags: [ "уважение", "комментарии" ] },
+  { key: "violations", label: "нарушения", color: "green", title: "Меры модерации",
+    text: "Скрываем или удаляем материалы, нарушающие правила. За повторные нарушения блокируем аккаунты",
+    tags: [ "удаление", "блокировка" ] },
+  { key: "appeals", label: "обращения", color: "sky_blue", title: "Сообщить о проблеме",
+    text: "Заметили нарушение или узнали себя в публикации? Напишите нам — мы рассмотрим обращение",
+    tags: [ "жалоба", "поддержка" ] }
+] %>
+<div class="O_ModerationTab" data-controller="tabs" data-color="pink">
+  <div class="C_NavigationTabs" role="tablist">
+    <% tabs.each_with_index do |tab, index| %>
+      <button type="button" role="tab" class="M_ModerationTab M_ModerationTab<%= tab[:key].camelize %>"
+              aria-selected="<%= index.zero? %>" data-tabs-target="tab" data-color="<%= tab[:color] %>"
+              data-action="tabs#select">
+        <span class="A_TabText"><%= tab[:label] %></span>
+      </button>
+    <% end %>
+  </div>
+  <% tabs.each_with_index do |tab, index| %>
+    <div class="M_ModerationTabCard" role="tabpanel" data-tabs-target="panel" <%= "hidden" unless index.zero? %>>
+      <div class="M_ModerationContent">
+        <h4 class="A_Heading"><%= tab[:title] %></h4>
+        <p class="A_Text"><%= safe_join(tab[:text].split("\n"), tag.br) %></p>
+      </div>
+      <div class="C_Tags">
+        <% tab[:tags].each do |text| %>
+          <%= render "components/molecules/tag", text: text %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <div class="M_CarouselNavigation">
+    <button type="button" class="A_IconButton" aria-label="Предыдущее правило" data-action="tabs#previous">
+      <%= image_tag "mobile/carousel_arrow.svg", alt: "", class: "A_ArrowButton A_ArrowButtonBack" %>
+    </button>
+    <button type="button" class="A_IconButton" aria-label="Следующее правило" data-action="tabs#next">
+      <%= image_tag "mobile/carousel_arrow.svg", alt: "", class: "A_ArrowButton" %>
+    </button>
+  </div>
+</div>

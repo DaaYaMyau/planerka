@@ -1,0 +1,37 @@
+<article class="W_Card" id="<%= dom_id review %>">
+  <% meta = [ review.anonymous? ? "Анонимно" : review.user.display_name ] %>
+  <% meta << Story::GRADE_LABELS[review.grade] if review.grade %>
+  <% meta << review.created_at.strftime("%d.%m.%Y") %>
+  <% meta << "изменён после ответа компании" if review.edited_after_reply? %>
+  <%= render "components/molecules/story_author", user: (review.user unless review.anonymous?), text: meta.join(" · ") %>
+
+  <%= render "reviews/answers", review: review %>
+
+  <% if review.reply %>
+    <div class="M_CompanyReply">
+      <p class="A_TextSmall"><span class="A_TextStrong">Официальный ответ компании</span> · <%= review.reply.created_at.strftime("%d.%m.%Y") %></p>
+      <%= simple_format review.reply.body, class: "A_Text" %>
+      <% if can?(:update, review.reply) || can?(:destroy, review.reply) %>
+        <div class="M_FormActions">
+          <% if can? :update, review.reply %>
+            <%= link_to "Редактировать ответ", edit_company_review_reply_path(review.company, review), class: "A_TextLink A_TextSmall" %>
+          <% end %>
+          <% if can? :destroy, review.reply %>
+            <%= button_to "Удалить ответ", company_review_reply_path(review.company, review), method: :delete, class: "A_LinkButton",
+                          form_class: "W_InlineForm", form: { data: { turbo_confirm: "Удалить ответ компании?" } } %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% elsif can? :create, ReviewReply.new(review: review) %>
+    <%= link_to "Ответить от имени компании", new_company_review_reply_path(review.company, review), class: "A_TextLink A_TextSmall" %>
+  <% end %>
+
+  <% if can? :update, review %>
+    <div class="M_FormActions">
+      <%= link_to "Редактировать", edit_company_review_path(review.company, review), class: "A_TextLink A_TextSmall" %>
+      <%= button_to "Удалить", company_review_path(review.company, review), method: :delete, class: "A_LinkButton",
+                    form_class: "W_InlineForm", form: { data: { turbo_confirm: "Удалить отзыв?" } } %>
+    </div>
+  <% end %>
+</article>

@@ -1,0 +1,91 @@
+ru:
+  activerecord:
+    models:
+      user: Пользователь
+      profile: Профиль
+      story: История
+      article: Статья
+      tag: Тег
+      vote: Голос
+      comment: Комментарий
+      bookmark: Закладка
+      company: Компания
+      review: Отзыв
+      company_representative: Заявка представителя
+      review_reply: Ответ компании
+      subscription: Подписка
+    attributes:
+      user:
+        email: Эл. почта
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+      profile:
+        user: Пользователь
+        nickname: Ник
+        bio: О себе
+        grade: Грейд
+        profession: Профессия
+        avatar: Аватар
+      story:
+        user: Автор
+        title: Заголовок
+        body: Текст истории
+        grade: Грейд
+        status: Статус
+        anonymous: Анонимно
+        article: Статья
+        company: Компания
+        tags: Теги
+      article:
+        title: Заголовок
+        slug: Адрес страницы
+        summary: Кратко
+        body: Текст
+      tag:
+        name: Название
+        kind: Тип
+      vote:
+        user: Пользователь
+        story: История
+        verdict: Вариант ответа
+      comment:
+        user: Автор
+        story: История
+        body: Текст комментария
+      bookmark:
+        user: Пользователь
+        story: История
+      company:
+        created_by: Кто добавил
+        name: Название
+        slug: Адрес страницы
+        industry: Сфера
+        website: Сайт
+        description: Описание
+        inn: ИНН
+        status: Статус
+      review:
+        user: Автор
+        company: Компания
+        wish_i_knew: Что хотели бы знать заранее
+        suits: Кому подойдёт
+        not_suits: Кому может не подойти
+        grade: Грейд
+        anonymous: Анонимно
+        status: Статус
+      company_representative:
+        user: Пользователь
+        company: Компания
+        position: Должность
+        work_email: Рабочая почта
+        inn: ИНН
+        proof: Пояснение для модератора
+        status: Статус
+      review_reply:
+        user: Автор
+        review: Отзыв
+        body: Текст ответа
+      subscription:
+        email: Почта
+        consent: Согласие
+        consented_at: Дата согласия

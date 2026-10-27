@@ -1,0 +1,48 @@
+<% content_for :title, "Отзывы о компаниях" %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { title: "Отзывы о компаниях" } do %>
+  <p class="A_Text">
+    Не «насколько хороша компания», а что сотрудники поняли о работе здесь из собственного опыта.<br>
+    Хотите оставить отзыв? Найдите компанию по названию и откройте её страницу.
+  </p>
+
+  <%= form_with url: companies_path, method: :get, id: "companies_search", class: "M_FormActions" do |form| %>
+    <%= render "components/molecules/search_field", form: "companies_search", placeholder: "Название компании" %>
+    <div class="M_SortDropdown">
+      <%= render "components/molecules/filter", form: form, field: :industry, icon: "filter_profession", label: "Сфера",
+                 blank: "все сферы", options: Company.industries %>
+    </div>
+    <% if params[:q].present? || params[:industry].present? %>
+      <%= link_to "Сбросить", companies_path, class: "A_TextLink A_TextSmall" %>
+    <% end %>
+  <% end %>
+
+  <% if @companies.empty? %>
+    <div class="M_FeedEmpty">
+      <p class="A_Text">Ничего не нашлось.</p>
+      <% if params[:q].present? %>
+        <p class="A_Text">
+          Нет нужной компании?
+          <%= link_to "Добавить компанию «#{params[:q]}»", new_company_path(name: params[:q]), class: "A_TextLink" %>
+        </p>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="C_CardGrid">
+      <% @companies.each do |company| %>
+        <article class="W_Card">
+          <h2 class="A_StoryTitle"><%= link_to company.name, company, class: "A_Link" %></h2>
+          <p class="A_TextSmall">
+            <%= company.industry.presence || "Сфера не указана" %> ·
+            Отзывов: <%= @published_counts.fetch(company.id, 0) %>
+          </p>
+        </article>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="M_FormActions">
+    <p class="A_Text">Не нашли свою компанию?</p>
+    <%= link_to "Добавить компанию", new_company_path, class: "A_PillButton A_PillButtonLight" %>
+  </div>
+<% end %>

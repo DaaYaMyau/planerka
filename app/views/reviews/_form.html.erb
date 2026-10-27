@@ -1,0 +1,37 @@
+<%= form_with model: [ company, review ], class: "O_Form" do |form| %>
+  <% if review.errors.any? %>
+    <div class="M_FormErrors">
+      <% review.errors.each do |error| %>
+        <p><%= error.message %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% Review::QUESTIONS.each do |field, question| %>
+    <div class="M_FormField">
+      <%= form.label field, question, class: "A_Label" %>
+      <%= form.textarea field, rows: 4, maxlength: 2000, class: "A_Textarea A_TextareaSmall" %>
+    </div>
+  <% end %>
+
+  <div class="M_FormField">
+    <%= form.label :grade, "Ваш грейд в этой компании", class: "A_Label" %>
+    <%= form.select :grade, Story::GRADE_LABELS.invert, { include_blank: "Не указывать" }, class: "A_Select" %>
+  </div>
+
+  <%= form.label :anonymous, class: "M_CheckboxField" do %>
+    <%= form.checkbox :anonymous, class: "A_Checkbox" %>
+    <span>Опубликовать анонимно</span>
+  <% end %>
+
+  <% if current_user.is_admin? && review.persisted? %>
+    <div class="M_FormField">
+      <%= form.label :status, "Статус", class: "A_Label" %>
+      <%= form.select :status, Story::STATUS_LABELS.invert, {}, class: "A_Select" %>
+    </div>
+  <% end %>
+
+  <div class="M_FormActions">
+    <%= form.submit "Отправить", class: "A_PillButton" %>
+  </div>
+<% end %>

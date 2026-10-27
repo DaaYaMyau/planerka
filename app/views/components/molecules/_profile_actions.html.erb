@@ -1,0 +1,10 @@
+<div class="M_FormActions M_ProfileActions">
+  <%= link_to "редактировать профиль", edit_profile_path, class: "A_PillButton A_PillButtonLight" %>
+  <% if current_user.is_admin? %>
+    <%= link_to "подписчики: #{@subscriptions_count}", admin_subscriptions_path, class: "A_PillButton A_PillButtonLight" %>
+  <% end %>
+  <% unless Rails.configuration.x.teaser %>
+    <%= link_to "почта и пароль", edit_user_registration_path, class: "A_PillButton A_PillButtonLight" %>
+  <% end %>
+  <%= link_to "выйти", destroy_user_session_path, class: "A_PillButton A_PillButtonOutline", data: { turbo_method: :delete } %>
+</div>

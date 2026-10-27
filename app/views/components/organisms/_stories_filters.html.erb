@@ -1,0 +1,22 @@
+<%= form_with url: feed_path, method: :get, id: "stories_filters", class: "O_StoriesFilters" do |form| %>
+  <div class="M_FilterGroup">
+    <%= render "components/molecules/filter", form: form, field: :profession, icon: "filter_profession", label: "Профессия",
+               blank: "профессия", options: Tag.profession.order(:name).pluck(:name, :id) %>
+    <%= render "components/molecules/filter", form: form, field: :topic, icon: "filter_topic", label: "Тема",
+               blank: "тема", options: Tag.topic.order(:name).pluck(:name, :id) %>
+    <%= render "components/molecules/filter", form: form, field: :stage, icon: "filter_stage", label: "Этап",
+               blank: "этап", options: Tag.stage.order(:name).pluck(:name, :id) %>
+    <%= render "components/molecules/filter", form: form, field: :grade, icon: "filter_grade", label: "Грейд",
+               blank: "грейд", options: Story::GRADE_LABELS.invert %>
+    <%= button_tag type: "submit", name: nil, class: "A_Button", "aria-label": "Применить фильтры" do %>
+      <%= image_tag "feed/filter_button.svg", alt: "" %>
+    <% end %>
+  </div>
+  <% if filtered %>
+    <%= link_to "Сбросить", feed_path(sort: params[:sort].presence), class: "A_TextSmall A_Link" %>
+  <% end %>
+  <div class="M_SortDropdown">
+    <%= render "components/molecules/filter", form: form, field: :sort, icon: "sort_icon", label: "Сортировка",
+               options: Story::SORT_LABELS.map { |value, text| [ text.downcase, value ] } %>
+  </div>
+<% end %>

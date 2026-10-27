@@ -1,0 +1,26 @@
+<% content_for :title, @story.title %>
+
+<%= render layout: "components/superorganisms/content_page", locals: { medium: true } do %>
+  <%= render @story, heading: :h1 %>
+
+  <div class="M_FormActions">
+    <%= render "bookmarks/button", story: @story %>
+    <% if can? :update, @story %>
+      <%= link_to "Редактировать", edit_story_path(@story), class: "A_PillButton A_PillButtonLight" %>
+    <% end %>
+    <% if can? :destroy, @story %>
+      <%= button_to "Удалить", @story, method: :delete, class: "A_PillButton A_PillButtonOutline", form_class: "W_InlineForm",
+                    form: { data: { turbo_confirm: "Удалить историю?" } } %>
+    <% end %>
+  </div>
+
+  <%= render "votes/voting", story: @story %>
+
+  <section class="O_CommentsSection" id="comments">
+    <h2 class="A_Heading">Комментарии (<%= @comments.size %>)</h2>
+    <%= render "comments/list", comments: @comments %>
+    <%= render "comments/form", story: @story, comment: @comment %>
+  </section>
+
+  <%= link_to "← На главную", root_path, class: "A_TextLink A_Text" %>
+<% end %>
